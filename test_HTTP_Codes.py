@@ -14,6 +14,16 @@ class MainTestCase(unittest.TestCase):
         response = tester.get("/login",content_type="html/text")
         self.assertEqual(response.status_code, 200)
 
+    def test_democonstula (self):
+        tester = app.test_client(self)
+        response = tester.get("/democonstula",content_type="html/text")
+        self.assertEqual(response.status_code, 200)
+    
+    def test_repuestateleconsulta(self):
+        tester = app.test_client(self)
+        response = tester.get("/repuestateleconsulta",content_type="html/text")
+        self.assertEqual(response.status_code, 302)
+
 
 if __name__ == '__main__':
     unittest.main()

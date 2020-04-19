@@ -7,7 +7,7 @@ class MainTestCase(unittest.TestCase):
     def test_index(self):
         tester = app.test_client(self)
         response = tester.get("/",content_type="html/text")
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
     
     def test_login (self):
         tester = app.test_client(self)

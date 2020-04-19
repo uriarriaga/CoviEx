@@ -1,12 +1,33 @@
-import requests
+import requests, os
+from dotenv import load_dotenv
+load_dotenv()
+
 
 def sendWebexMsg(texto):
-    url = "https://api.ciscospark.com/v1/messages"
-    idRoomTodos = "Y2lzY29zcGFyazovL3VzL1JPT00vNjFiYTM4ZDAtNzQzZS0xMWVhLTg1YzMtODM5MjNiY2UxMjFm"
-    idRoomYo = "Y2lzY29zcGFyazovL3VzL1JPT00vMTRkMzU4OGQtNzBkNi0zZDRkLWFkMDMtNmEzZGE2NjNjMjUw"
-    payload = {"text": texto,"roomId": idRoomTodos}
+    payload = {"text": texto,"roomId": os.environ["idRoomYo"]}
     headers = {
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer ZTNjZjBiZTMtNjhmOC00ODJkLTg3MzAtMjg0MTAxNDBlNWY4MDljYTkwMmQtNGY0_PF84_1eb65fdf-9643-417f-9974-ad72cae0e10f'
+    'Authorization': 'Bearer '+ os.environ["botToken"]
     }
-    requests.post( url, headers=headers, json = payload)
+    requests.post( os.environ["urlWebextTeams"], headers=headers, json = payload)
+
+def getToken():
+    return "token"
+
+
+def sendSMS(directorio):
+    for contacto in directorio:
+        text = "Hola " + contacto[0] + ". por favor ingresa a la videoconsulta en este link:'"
+        params = {'from': os.environ["sender"], 'text': text, 
+                'to': contacto[1], 'api_key': os.environ["api_key"], 
+                'api_secret': os.environ["api_secret"]}
+        r = requests.post(os.environ["urlSMS"], params=params)
+        if r.status_code == 200:
+            print (r.json())
+        else:
+            print(r.status_code)
+
+if __name__ == "__main__":
+    directorio =[("Uriel","+5215580663521")]
+    sendSMS(directorio)
+    sendWebexMsg("prueba")

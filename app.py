@@ -1,16 +1,7 @@
-import flask, requests, json, funciones
+import flask, requests, json
 from flask import request
+from funciones import sendWebexMsg, sendSMS
 
-def sendWebexMsg(texto):
-    url = "https://api.ciscospark.com/v1/messages"
-    idRoomTodos = "Y2lzY29zcGFyazovL3VzL1JPT00vNjFiYTM4ZDAtNzQzZS0xMWVhLTg1YzMtODM5MjNiY2UxMjFm"
-    idRoomYo = "Y2lzY29zcGFyazovL3VzL1JPT00vMTRkMzU4OGQtNzBkNi0zZDRkLWFkMDMtNmEzZGE2NjNjMjUw"
-    payload = {"text": texto,"roomId": idRoomYo}
-    headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer ZTNjZjBiZTMtNjhmOC00ODJkLTg3MzAtMjg0MTAxNDBlNWY4MDljYTkwMmQtNGY0_PF84_1eb65fdf-9643-417f-9974-ad72cae0e10f'
-    }
-    requests.post( url, headers=headers, json = payload)
 
 
 app = flask.Flask(__name__)
@@ -19,35 +10,34 @@ app.config["DEBUG"] = True
 
 @app.route('/login')
 def buttonPressFront():
-    sendWebexMsg("login")
-    with open("templates/respuestaWebexTeams.html") as file: 
+    with open("templates/login.html") as file: 
         data = file.read()
     return data
 
 @app.route('/widget')
 def Widget():
-    #sendWebexMsg("widget")
     with open("templates/widget.html") as file: 
         data = file.read()
     return data
 
-@app.route('/demo')
+@app.route('/democonstula')
 def demo():
-    #sendWebexMsg("widget")
-    with open("templates/widget.html") as file: 
+    with open("templates/democonstula.html") as file: 
         data = file.read()
     return data
 
-@app.route('/respuestateleconsulta')
+@app.route('/repuestateleconsulta')
 def respuestateleconsulta():
-    #sendWebexMsg("widget")
-    with open("templates/widget.html") as file: 
+    numero = request.args.get('numero')
+    sendWebexMsg("por favor ingresa a la videoconsulta en este link:")
+    directorio =[("Uriel",numero)]
+    sendSMS(directorio)
+    with open("templates/repuestateleconsulta.html") as file: 
         data = file.read()
     return data
 
 @app.route('/respuestatelevisita')
 def respuestatelevisita():
-    #sendWebexMsg("widget")
     with open("templates/widget.html") as file: 
         data = file.read()
     return data
@@ -58,5 +48,5 @@ def home():
         data = file.read()
     return data
 
-
-app.run(host="0.0.0.0")   
+if __name__ == "__main__":
+    app.run(host="0.0.0.0")   

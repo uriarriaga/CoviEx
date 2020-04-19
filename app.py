@@ -1,5 +1,5 @@
 import flask, requests, json
-from flask import request
+from flask import request, redirect, url_for
 from funciones import sendWebexMsg, sendSMS
 
 
@@ -9,7 +9,7 @@ app.config["DEBUG"] = True
 
 
 @app.route('/login')
-def buttonPressFront():
+def login():
     with open("templates/login.html") as file: 
         data = file.read()
     return data
@@ -44,9 +44,7 @@ def respuestatelevisita():
 
 @app.route('/', methods=['GET'])
 def home():
-    with open("templates/Frontend.html") as file: 
-        data = file.read()
-    return data
+    return redirect(url_for("login"))
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")   

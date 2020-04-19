@@ -30,7 +30,7 @@ def demo():
 def respuestateleconsulta():
     numero = request.args.get('numero')
     sendWebexMsg("por favor ingresa a la videoconsulta en este link:")
-    directorio =[("Uriel",numero)]
+    directorio =[("Uriel","+5215580663521")]
     sendSMS(directorio)
     with open("templates/repuestateleconsulta.html") as file: 
         data = file.read()

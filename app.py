@@ -1,4 +1,4 @@
-import flask, requests, json, jwt
+import flask, requests, json
 from flask import request, redirect, url_for, render_template, flash
 from funciones import sendWebexMsg, sendSMS
 from forms import LoginForm

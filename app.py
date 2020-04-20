@@ -62,13 +62,10 @@ def televisita():
 
 @app.route('/repuestateleconsulta')
 def respuestateleconsulta():
-    #numero = request.args.get('numero')
-    #sendWebexMsg("por favor ingresa a la videoconsulta en este link:")
-    #directorio =[("Uriel","+5215580663521")]
+    numero = request.args.get('numero')
+    sendWebexMsg("por favor ingresa a la videoconsulta en este link:")
+    directorio =[("Uriel","+5215580663521")]
     #sendSMS(directorio)
-    #with open("templates/repuestateleconsulta.html") as file: 
-        #data = file.read()
-    #return data
     return render_template('repuestateleconsulta.html')
 
 # Codigo modificado Apr 20 para incluir la demp de televisita

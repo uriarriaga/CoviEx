@@ -1,3 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -9,7 +13,7 @@
   <body>
     
       
-    <div id="my-webexteams-widget" style="width: 1000px; height: 1000px;"/>
+    <div id="my-webexteams-widget" style="width: 500px; height: 500px;"/>
     <script>
       var widgetEl = document.getElementById('my-webexteams-widget');
       // Init a new widget
@@ -23,43 +27,8 @@
   });
     </script>
     	
-      <div class="container">
-      <div><img src="https://test.covid19.cdmx.gob.mx/resources/img/logo_covid19.svg"  style="float: left;" class="img-header" width="350">
-      </div>
   </body>
 
-
-  
-  <div id="footer" class="footer"  >
-  
-    <div class="container"  >
-      
-        <div class="w3-container w3-black" style=" width: 100% ; height: 36px;">
-        <img src="https://test.covid19.cdmx.gob.mx/resources/img/footer_ADIP.png" style="float:left;padding-left: 2%;vertical-align: middle;" width="222" height="40">
-          
-        </div>
-  
-      </div>
-  
-  </div>
-  
-  
-  
-      <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-      <script>
-        $('#form').on('submit', function(e){
-          var number = $('#num').val();
-          e.preventDefault();
-          $.ajax({
-            url: 'http://127.0.0.1:5000/square/',
-            data: {'number': number},
-            method: 'POST',
-            success: function(data) {
-              $('#num').val('');
-              $('#square').html('Square of ' + number + ' is ' + data['square'])
-            }
-          });
-        });
-      </script>
   
 </html>
+{% endblock %}

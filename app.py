@@ -10,7 +10,6 @@ app.config["SECRET_KEY"]= "87f4236d17bbabd54836d1f65e4e0c63"
 app.config["DEBUG"] = True
 
 
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -22,6 +21,7 @@ def login():
         else:
             flash('Login requested for user login Unsuccesful. Plese check username and password')
     return render_template('loginTut.html', title='Sign In', form=form)
+
 
 @app.route('/widget')
 def Widget():

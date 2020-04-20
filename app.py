@@ -32,9 +32,7 @@ def login():
 
 @app.route('/widget')
 def Widget():
-    token = jwt.encode(jwtPayload, jwtSecret, algorithm='HS256').decode('utf-8')
     token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJUZXN0VGVsZWNvbnN1bHRhIiwibmFtZSI6IlRlc3RUZWxlY29uc3VsdGEiLCJpc3MiOiJZMmx6WTI5emNHRnlhem92TDNWekwwOVNSMEZPU1ZwQlZFbFBUaTlrWWpKalptSTBOeTAyTURKaUxUUm1OR0V0T0ROaE1TMDRNREV4WkRNNE1qZGpNek0iLCJleHAiOiIxNTkyNjM3MDgwIn0.bbcFiX7bywA8ExWmuSHIys36TDVzlIOswE3llnPtqYM"
-    print(token)
     return render_template('widget.html', title='Widget', token=token)
 
 @app.route('/democonstula')

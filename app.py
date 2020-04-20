@@ -57,7 +57,7 @@ def respuestatelevisita():
     sendWebexMsg("por favor ingresa a la videoconsulta en este link:")
     directorio =[("Uriel","+5215580663521")]
     #sendSMS(directorio)
-    return render_template('respuestatelevisita.html', title='respuestatelevisita')
+    return render_template('repuestatelevisita.html', title='respuestatelevisita')
      
 
 

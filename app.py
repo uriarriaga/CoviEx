@@ -1,4 +1,4 @@
-import flask, requests, json
+import flask, requests, json, jwt
 from flask import request, redirect, url_for, render_template, flash
 from funciones import sendWebexMsg, sendSMS
 from forms import LoginForm
@@ -9,6 +9,13 @@ app = flask.Flask(__name__)
 app.config["SECRET_KEY"]= "87f4236d17bbabd54836d1f65e4e0c63"
 app.config["DEBUG"] = True
 
+jwtPayload = {
+  "sub": "TestTeleconsulta",
+  "name": "TestTeleconsulta",
+  "iss": "Y2lzY29zcGFyazovL3VzL09SR0FOSVpBVElPTi9kYjJjZmI0Ny02MDJiLTRmNGEtODNhMS04MDExZDM4MjdjMzM",
+  "exp": "1587366980"
+}
+jwtSecret = "jyxr2LIZwke2X3IQA9Ui+oqDrG6Fwy7pbAe92DJf51Q="
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -25,48 +32,42 @@ def login():
 
 @app.route('/widget')
 def Widget():
-    with open("templates/widget.html") as file: 
-        data = file.read()
-    return data
+    token = jwt.encode(jwtPayload, jwtSecret, algorithm='HS256').decode('utf-8')
+    token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJUZXN0VGVsZWNvbnN1bHRhIiwibmFtZSI6IlRlc3RUZWxlY29uc3VsdGEiLCJpc3MiOiJZMmx6WTI5emNHRnlhem92TDNWekwwOVNSMEZPU1ZwQlZFbFBUaTlrWWpKalptSTBOeTAyTURKaUxUUm1OR0V0T0ROaE1TMDRNREV4WkRNNE1qZGpNek0iLCJleHAiOiIxNTkyNjM3MDgwIn0.bbcFiX7bywA8ExWmuSHIys36TDVzlIOswE3llnPtqYM"
+    print(token)
+    return render_template('widget.html', title='Widget', token=token)
 
 @app.route('/democonstula')
-def demo():
-    with open("templates/democonstula.html") as file: 
-        data = file.read()
-    return data
+def democonstula():
+    return render_template('democonstula.html', title='democonstula')
+
+@app.route('/demovisita')
+def demovisita():
+    return render_template('demovisita.html', title='democonstula')
 
 @app.route('/repuestateleconsulta')
 def respuestateleconsulta():
     numero = request.args.get('numero')
     sendWebexMsg("por favor ingresa a la videoconsulta en este link:")
     directorio =[("Uriel","+5215580663521")]
-    sendSMS(directorio)
-    with open("templates/repuestateleconsulta.html") as file: 
-        data = file.read()
-    return data
+    #sendSMS(directorio)
+    return render_template('repuestateleconsulta.html', title='repuestateleconsulta')
 
 @app.route('/respuestatelevisita')
 def respuestatelevisita():
-    with open("templates/widget.html") as file: 
-        data = file.read()
-    return data
+    numero = request.args.get('numero')
+    sendWebexMsg("por favor ingresa a la videoconsulta en este link:")
+    directorio =[("Uriel","+5215580663521")]
+    #sendSMS(directorio)
+    return render_template('respuestatelevisita.html', title='respuestatelevisita')
+     
 
 
 @app.route('/')
-@app.route('/index')
-def index():
+@app.route('/demo')
+def demo():
     user = {'username': 'Miguel'}
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': {'username': 'Susan'},
-            'body': 'The Avengers movie was so cool!'
-        }
-    ]
-    return render_template('index.html', title='Home', user=user, posts=posts)
+    return render_template('demo.html', title='Home', user=user)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")   

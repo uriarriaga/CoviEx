@@ -10,11 +10,13 @@
     <script src="https://code.s4d.io/widget-space/production/bundle.js"></script>
     <link rel="stylesheet" href="https://code.s4d.io/widget-space/production/main.css">
   </head>
-  <body>
+  <body onload="getResolution();" >
     
       
-    <div id="my-webexteams-widget" style="width: 500px; height: 500px;"/>
+    <div id="my-webexteams-widget" style="width: 330px; height: 500px;"/>
     <script>
+
+
       var widgetEl = document.getElementById('my-webexteams-widget');
       // Init a new widget
       webex.widget(widgetEl).spaceWidget({
@@ -26,6 +28,34 @@
     secondaryActivitiesFullWidth: false
   });
     </script>
+    <script>
+
+    function getResolution() {
+
+        //alert("Your screen is: " + screen.width + "x" + screen.height);
+        var srcw = 12;
+        var srch = 4;
+        if (screen.width > 800 ){
+
+          srcw=4;
+        }
+
+       
+        if (screen.height > 800 ){
+
+          srch=3.2;
+        }
+
+        document.getElementById("my-webexteams-widget").style.width =  " " + (screen.width - (screen.width/srcw)) + "px";
+        document.getElementById("my-webexteams-widget").style.height =  " " + (screen.height - (screen.height/srch))+ "px";
+        //document.getElementById("my-webexteams-widget").style.height = "900px";
+
+    }
+
+    
+
+    </script>
+
     	
   </body>
 

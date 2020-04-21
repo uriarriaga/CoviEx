@@ -17,7 +17,7 @@ def getToken():
 
 def sendSMS(directorio):
     for contacto in directorio:
-        text = "Hola " + contacto[0] + ". por favor ingresa a la videoconsulta en este link:'"
+        text = "Hola, Bienvenido por favor ingresa al siguiente link para inicicar tu videollamada:'"
         params = {'from': os.environ["sender"], 'text': text, 
                 'to': contacto[1], 'api_key': os.environ["api_key"], 
                 'api_secret': os.environ["api_secret"]}

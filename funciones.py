@@ -17,7 +17,7 @@ def getToken():
 
 def sendSMS(directorio):
     for contacto in directorio:
-        text = "Hola, Bienvenido por favor ingresa al siguiente link para inicicar tu videollamada:'"
+        text = "Servicio de TeleConsulta. Para iniciar la videollamada favor de ingresar a la siguiente direccion: https://4c9366b9.ngrok.io/widget"
         params = {'from': os.environ["sender"], 'text': text, 
                 'to': contacto[1], 'api_key': os.environ["api_key"], 
                 'api_secret': os.environ["api_secret"]}

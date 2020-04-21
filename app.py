@@ -42,7 +42,13 @@ def teleconsulta():
 
 @app.route('/demovisita')
 def demovisita():
-    return render_template('demovisita.html')
+    form = smsForm()
+    if form.validate_on_submit():
+        directorio =[("Uriel","+521"+form.sms.data)]
+        print(directorio)
+        sendSMS(directorio)
+        return redirect(url_for('respuestateleconsulta'))
+    return render_template('demovisita.html', form = form)
 
 # //////////////////// Respuestas ///////////// 
 @app.route('/respuestateleconsulta')
@@ -52,10 +58,7 @@ def respuestateleconsulta():
 
 @app.route('/respuestatelevisita')
 def respuestatelevisita():
-    numero = request.args.get('numero')
     sendWebexMsg("por favor ingresa a la televisita en este link:")
-    directorio =[("Juan",numero)]
-    sendSMS(directorio)
     return render_template('respuestatelevisita.html', title='respuestatelevisita')
      
 

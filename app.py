@@ -38,8 +38,6 @@ def teleconsulta():
         print(directorio)
         sendSMS(directorio)
         return redirect(url_for('respuestateleconsulta'))
-    else:
-        flash('Login requested for user login Unsuccesful. Plese check username and password')
     return render_template('democonstula.html', form = form)
 
 @app.route('/demovisita')

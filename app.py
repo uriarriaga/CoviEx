@@ -42,13 +42,13 @@ def teleconsulta():
 
 @app.route('/demovisita', methods=['GET', 'POST'])
 def demovisita():
-    form = smsForm()
-    if form.validate_on_submit():
-        directorio =[("Uriel","+521"+form.sms.data)]
+    formv = smsForm()
+    if formv.validate_on_submit():
+        directorio =[("Uriel","+521"+formv.sms.data)]
         print(directorio)
         sendSMS(directorio)
         return redirect(url_for('respuestateleconsulta'))
-    return render_template('demovisita.html', form = form)
+    return render_template('demovisita.html', form = formv)
 
 # //////////////////// Respuestas ///////////// 
 @app.route('/respuestateleconsulta')

@@ -8,4 +8,9 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
 
+class smsForm(FlaskForm):
+    sms = StringField('Telefono', validators=[DataRequired()])
+    submit = SubmitField('Generar Consulta')
+
+
 

@@ -30,8 +30,13 @@
 			        <td>Juan</td>
 			        <td>Lopez Ramirez</td>
 			        <td>juanlo@gmail.com</td>
-			        <td> <div > <input type="text" class="form-control" id="usr"> </div></td>
-			        <td><a href="/repuestateleconsulta"<button class="btn btn-primary pull-right" type="submit">Generar consulta</button></a></td>
+			         <div > <form action="" method="post" novalidate>
+						{{ form.hidden_tag() }}
+						<td>
+							{{ form.sms(size=32) }}<br>
+						</td>
+						<td>{{ form.submit() }}</td>
+					</form></div>
 			      </tr>
 			      <tr>
 			        <td>Maria</td>

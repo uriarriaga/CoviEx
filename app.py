@@ -1,7 +1,7 @@
 import flask, requests, json
 from flask import request, redirect, url_for, render_template, flash
 from funciones import sendWebexMsg, sendSMS
-from forms import LoginForm
+from forms import LoginForm, smsForm
 
 
 
@@ -30,29 +30,34 @@ def demo():
     return render_template('demo.html')
 
 # ////////////////////  Demos ///////////////
-@app.route('/democonstula')
+@app.route('/democonstula', methods=['GET', 'POST'])
 def teleconsulta():
-    return render_template('democonstula.html')
+    form = smsForm()
+    if form.validate_on_submit():
+        directorio =[("Uriel","+521"+form.sms.data)]
+        print(directorio)
+        sendSMS(directorio)
+        return redirect(url_for('respuestateleconsulta'))
+    else:
+        flash('Login requested for user login Unsuccesful. Plese check username and password')
+    return render_template('democonstula.html', form = form)
 
 @app.route('/demovisita')
 def demovisita():
     return render_template('demovisita.html')
 
 # //////////////////// Respuestas ///////////// 
-@app.route('/repuestateleconsulta')
+@app.route('/respuestateleconsulta')
 def respuestateleconsulta():
-    numero = request.args.get('numero')
-    sendWebexMsg("por favor ingresa a la videoconsulta en este link:")
-    directorio =[("Uriel","+5215580663521")]
-    #sendSMS(directorio)
-    return render_template('repuestateleconsulta.html')
+    sendWebexMsg("mensaje de SMS enviado")
+    return render_template('respuestateleconsulta.html')
 
 @app.route('/respuestatelevisita')
 def respuestatelevisita():
     numero = request.args.get('numero')
     sendWebexMsg("por favor ingresa a la televisita en este link:")
-    directorio =[("Uriel","+5215580663521")]
-    #sendSMS(directorio)
+    directorio =[("Juan",numero)]
+    sendSMS(directorio)
     return render_template('respuestatelevisita.html', title='respuestatelevisita')
      
 

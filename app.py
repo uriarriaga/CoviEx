@@ -43,16 +43,16 @@ def demovisita():
 def respuestateleconsulta():
     numero = request.args.get('numero')
     sendWebexMsg("por favor ingresa a la videoconsulta en este link:")
-    directorio =[("Uriel","+5215580663521")]
-    #sendSMS(directorio)
+    directorio =[("Uriel",numero)]
+    sendSMS(directorio)
     return render_template('repuestateleconsulta.html')
 
 @app.route('/respuestatelevisita')
 def respuestatelevisita():
     numero = request.args.get('numero')
     sendWebexMsg("por favor ingresa a la televisita en este link:")
-    directorio =[("Uriel","+5215580663521")]
-    #sendSMS(directorio)
+    directorio =[("Juan",numero)]
+    sendSMS(directorio)
     return render_template('respuestatelevisita.html', title='respuestatelevisita')
      
 

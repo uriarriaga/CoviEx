@@ -40,7 +40,7 @@ def teleconsulta():
         return redirect(url_for('respuestateleconsulta'))
     return render_template('democonstula.html', form = form)
 
-@app.route('/demovisita')
+@app.route('/demovisita', methods=['GET', 'POST'])
 def demovisita():
     form = smsForm()
     if form.validate_on_submit():

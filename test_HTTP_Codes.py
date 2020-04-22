@@ -19,9 +19,9 @@ class MainTestCase(unittest.TestCase):
         response = tester.get("/democonstula",content_type="html/text")
         self.assertEqual(response.status_code, 200)
     
-    def test_repuestateleconsulta(self):
+    def test_respuestateleconsulta(self):
         tester = app.test_client(self)
-        response = tester.get("/repuestateleconsulta",content_type="html/text")
+        response = tester.get("/respuestatelevisita",content_type="html/text")
         self.assertEqual(response.status_code, 200)
 
 

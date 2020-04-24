@@ -11,8 +11,6 @@ def sendWebexMsg(texto,roomId=os.environ["idRoomYo"]):
     }
     requests.post( os.environ["urlWebextTeams"], headers=headers, json = payload)
 
-def getToken():
-    return "token"
 
 
 def sendSMS(contacto):

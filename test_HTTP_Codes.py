@@ -17,12 +17,12 @@ class MainTestCase(unittest.TestCase):
     def test_democonstula (self):
         tester = app.test_client(self)
         response = tester.get("/democonstula",content_type="html/text")
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
     
     def test_respuestateleconsulta(self):
         tester = app.test_client(self)
         response = tester.get("/respuestatelevisita",content_type="html/text")
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
 
 
 if __name__ == '__main__':

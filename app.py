@@ -1,11 +1,12 @@
 import flask, requests, json
 from flask import request, redirect, url_for, render_template, flash, session 
 from funciones import sendWebexMsg, sendSMS
-from forms import LoginForm, smsForm
-
+from forms import LoginForm, smsForm, userForm
+#from flask_bootstrap import Bootstrap
 
 
 app = flask.Flask(__name__)
+#Bootstrap(app)
 app.config["SECRET_KEY"]= "87f4236d17bbabd54836d1f65e4e0c63"
 app.config["DEBUG"] = True
 
@@ -71,6 +72,34 @@ def demovisita():
         return redirect(url_for('respuestateleconsulta'))
     return render_template('demovisita.html', form = formv)
 
+
+
+@app.route('/demoinformemedico', methods=['GET', 'POST'])
+def demoinformemedico():
+    user_id = session.get('user_id')
+    if user_id is None:
+        return redirect(url_for('login'))
+    formv = smsForm()
+    if formv.validate_on_submit():
+        numero = "+521"+formv.sms.data
+        if user_id != "debug":
+            sendSMS(numero)
+        return redirect(url_for('respuestainforme'))
+    return render_template('demoinformemedico.html', form = formv)
+
+
+
+@app.route('/admin', methods=['GET', 'POST'])
+def admin():
+    user_id = session.get('user_id')
+    if user_id is None:
+        return redirect(url_for('login'))
+    formv = userForm()
+
+    return render_template('admin.html', form = formv)
+
+
+
 # //////////////////// Respuestas ///////////// 
 @app.route('/respuestateleconsulta')
 def respuestateleconsulta():
@@ -85,6 +114,13 @@ def respuestatelevisita():
     if user_id is None:
         return redirect(url_for('login'))
     return render_template('respuestatelevisita.html', title='respuestatelevisita')
+
+@app.route('/respuestainforme')
+def respuestainforme():
+    user_id = session.get('user_id')
+    if user_id is None:
+        return redirect(url_for('login'))
+    return render_template('respuestainforme.html', title='respuestainforme')
      
 
 @app.route('/')

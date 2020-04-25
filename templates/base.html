@@ -39,6 +39,19 @@
       <link href="https://www.gob.mx/css/chunk-vendors.e37f87fc.css" rel="stylesheet">
       <link href="https://www.gob.mx/css/app.244384b5.css" rel="stylesheet">
       <link href="https://www.gob.mx/favicon.ico" rel="shortcut icon">
+
+
+      <style>
+              h2 {
+                color: #4d4d4d;
+              }
+
+              th {
+                color: #4d4d4d;
+              }
+      </style>
+
+
  </head>
     <body>
 
@@ -53,20 +66,27 @@
                                 <img data-v-4a3754a3="" src="https://framework-gb.cdn.gob.mx/landing/img/logoheader.svg" alt="logo gobierno de méxico" class="logos" style="width: 8rem; margin-top: -2%; margin-bottom: -2%; margin-left: -15%;">
                             </a>
                                 <div data-v-4a3754a3="" id="collapsibleNavbar" class="collapse navbar-collapse justify-content-end">
-                                    <form data-v-4a3754a3="" class="form-inline">
-                                            <ul data-v-4a3754a3="" class="navbar-nav">
-                                                    </li><p  style="color:white">PSsCloud:</p></li>
+                                    <form data-v-4a3754a3="" class="form-inline" >
+                                            <ul data-v-4a3754a3="" class="navbar-nav" id="menu" >
+                                                    </li><p  style="color:white">PSsCloud</p></li>
+
                                                     <li data-v-4a3754a3="" align="left" class="nav-item dropdown">
-                                                        <a href="{{ url_for('demo') }}">Demos </a>
+                                                        <a href="{{ url_for('demo') }}">Menu</a>
                                                     </li>
+
+                                                    <!--
                                                     <li data-v-4a3754a3="" align="left" class="nav-item dropdown">
                                                         <a href="{{ url_for('Widget') }}">Widget </a>
                                                     </li>
+
+
                                                     <li data-v-4a3754a3="" class="nav-item dropdown"> 
                                                         <a href="{{ url_for('login') }}">Login</a>
                                                     </li>
+                                                    -->
+
                                                     <li data-v-4a3754a3="" class="nav-item dropdown"> 
-                                                        <a href="{{ url_for('logout') }}">Logout</a>
+                                                        <a href="{{ url_for('logout') }}">Cerrar Sesion</a>
                                                     </li>
 
                                                 </ul>
@@ -126,10 +146,6 @@
 <br>
 <br>
 <br>
-
-
-
-
 
 
 <footer class="site-footer">

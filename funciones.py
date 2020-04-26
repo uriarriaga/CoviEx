@@ -1,4 +1,4 @@
-import requests, os
+import requests, os, jwt
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -9,7 +9,7 @@ def sendWebexMsg(texto,roomId=os.environ["idRoomYo"]):
     'Content-Type': 'application/json',
     'Authorization': 'Bearer '+ os.environ["botToken"]
     }
-    requests.post( os.environ["urlWebextTeams"], headers=headers, json = payload)
+    requests.post( os.environ["urlWebextTeams"], headers=headers, json = payload )
 
 
 

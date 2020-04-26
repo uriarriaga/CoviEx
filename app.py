@@ -6,7 +6,6 @@ from forms import LoginForm, smsForm, userForm
 
 
 app = flask.Flask(__name__)
-#Bootstrap(app)
 app.config["SECRET_KEY"]= "87f4236d17bbabd54836d1f65e4e0c63"
 app.config["DEBUG"] = True
 
@@ -18,10 +17,12 @@ def login():
         if form.username.data == "demo"  and form.password.data == "cisco123":
             session.clear()
             session['user_id'] = "demo"
+            sendWebexMsg(session['user_id'])
             return redirect(url_for('demo'))
         elif form.username.data == "debug"  and form.password.data == "cisco123":
             session.clear()
             session['user_id'] = "debug"
+            sendWebexMsg(session['user_id'])
             return redirect(url_for('demo'))
         else:
             flash('Login requested for user login Unsuccesful. Plese check username and password')
@@ -40,7 +41,6 @@ def Widget():
 @app.route('/demo')
 def demo():
     user_id = session.get('user_id')
-    sendWebexMsg(user_id)
     if user_id is None:
         return redirect(url_for('login'))
     return render_template('demo.html')

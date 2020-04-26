@@ -1,0 +1,72 @@
+ {% extends "base.html" %}
+
+{% block content %}
+
+
+
+
+<br>
+
+
+
+	    	  <h2 >Consola de administración</h2>
+
+<br>
+
+
+	  		
+			<table class="table table-striped">
+			    <thead>
+			      <tr>
+
+			        <th>Usuario</th>
+			        <th>Contraseña</th>
+			        <th>email</th>
+			        <th>Admin</th>
+			        <th>AD</th>
+			        <th>IM</th>
+			        <th>TV</th>
+			        <th></th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <tr>
+
+			         <div > <form action="" method="post" novalidate>
+						{{ form.hidden_tag() }}
+						<td>	
+						{{ form.username(size=8) }}
+						</td>
+						<td>	
+						{{ form.password(size=8) }}
+						</td>
+						<td>	
+						{{ form.email(size=14) }}
+						</td>
+						<td> {{ form.admin() }}</td>
+						<td> {{ form.ad() }}</td>
+						<td> {{ form.im() }}</td>
+						<td> {{ form.tv() }}</td>
+
+						<td> <p><input type="submit" class="btn btn-primary" value="Crear Usuario"></p></td>
+					</form></div>
+			      </tr>
+			      <tr>
+	
+			      </tr>
+			      <tr>
+
+			      </tr>
+			    </tbody>
+			</table>
+	     
+	
+<br>
+<br>
+
+
+
+
+
+
+{% endblock %}

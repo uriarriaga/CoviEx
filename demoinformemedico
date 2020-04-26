@@ -9,17 +9,17 @@
 
 
 
-	    	  <h2 > Servicio de Atención Domiciliaria </h2>
+	    	  <h2 > Servicio de Informe Médico </h2>
 
 <br>
 
 
-	  		<p><input type="submit" class="btn btn-primary" value="+"> Agregar Familiar </p></td>
+	  
 			<table class="table table-striped">
 			    <thead>
 			      <tr>
 
-			        <th>Numero celular del paciente</th>
+			        <th>Numero celular del familiar</th>
 			        <th>Videoconferencia</th>
 			      </tr>
 			    </thead>
@@ -31,7 +31,7 @@
 						<td>
 							{{ form.sms(size=32) }}<br>
 						</td>
-						<td> <p><input type="submit" class="btn btn-primary" value="Generar Consulta"></p></td>
+						<td> <p><input type="submit" class="btn btn-primary" value="Generar Videollamada"></p></td>
 					</form></div>
 			      </tr>
 			      <tr>

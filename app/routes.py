@@ -1,13 +1,8 @@
-import flask, requests, json
 from flask import request, redirect, url_for, render_template, flash, session 
-from funciones import sendWebexMsg, sendSMS
-from forms import LoginForm, smsForm, userForm
-#from flask_bootstrap import Bootstrap
-
-
-app = flask.Flask(__name__)
-app.config["SECRET_KEY"]= "87f4236d17bbabd54836d1f65e4e0c63"
-app.config["DEBUG"] = True
+from app import app
+from app.funciones import sendWebexMsg, sendSMS
+from app.forms import LoginForm, smsForm, userForm
+from app.models import User, GuestUser
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -126,6 +121,3 @@ def respuestainforme():
 @app.route('/')
 def index():
     return redirect(url_for("demo"))
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0")   

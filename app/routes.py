@@ -3,21 +3,16 @@ from app import app
 from app.funciones import sendWebexMsg, sendSMS
 from app.forms import LoginForm, smsForm, userForm
 from app.models import User, GuestUser
+from flask_login import login_user, logout_user, login_required
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        if form.username.data == "demo"  and form.password.data == "cisco123":
-            session.clear()
-            session['user_id'] = "demo"
-            sendWebexMsg(session['user_id'])
-            return redirect(url_for('demo'))
-        elif form.username.data == "debug"  and form.password.data == "cisco123":
-            session.clear()
-            session['user_id'] = "debug"
-            sendWebexMsg(session['user_id'])
+        user = User.query.filter_by(username=form.username.data).first()
+        if user and user.password == form.password.data:
+            login_user(user)
             return redirect(url_for('demo'))
         else:
             flash('Login requested for user login Unsuccesful. Plese check username and password')
@@ -25,8 +20,8 @@ def login():
 
 @app.route('/logout', methods=['GET'])
 def logout():
-    session.clear()
-    return redirect(url_for('index'))
+    logout_user()
+    return redirect(url_for('login'))
 
 @app.route('/widget')
 def Widget():
@@ -34,87 +29,67 @@ def Widget():
     return render_template('widget.html', title='widget', token=token)
 
 @app.route('/demo')
+@login_required
 def demo():
-    user_id = session.get('user_id')
-    if user_id is None:
-        return redirect(url_for('login'))
     return render_template('demo.html')
 
 # ////////////////////  Demos ///////////////
 @app.route('/democonstula', methods=['GET', 'POST'])
+@login_required
 def teleconsulta():
-    user_id = session.get('user_id')
-    if user_id is None:
-        return redirect(url_for('login'))
     form = smsForm()
     if form.validate_on_submit():
         numero = "+521"+form.sms.data
-        if user_id != "debug":
-            sendSMS(numero)
+        sendSMS(numero)
         return redirect(url_for('respuestateleconsulta'))
     return render_template('democonstula.html', form = form)
 
 @app.route('/demovisita', methods=['GET', 'POST'])
+@login_required
 def demovisita():
-    user_id = session.get('user_id')
-    if user_id is None:
-        return redirect(url_for('login'))
     formv = smsForm()
     if formv.validate_on_submit():
         numero = "+521"+formv.sms.data
-        if user_id != "debug":
-            sendSMS(numero)
+        sendSMS(numero)
         return redirect(url_for('respuestateleconsulta'))
     return render_template('demovisita.html', form = formv)
 
 
 
 @app.route('/demoinformemedico', methods=['GET', 'POST'])
+@login_required
 def demoinformemedico():
-    user_id = session.get('user_id')
-    if user_id is None:
-        return redirect(url_for('login'))
     formv = smsForm()
     if formv.validate_on_submit():
         numero = "+521"+formv.sms.data
-        if user_id != "debug":
-            sendSMS(numero)
+        sendSMS(numero)
         return redirect(url_for('respuestainforme'))
     return render_template('demoinformemedico.html', form = formv)
 
 
 
 @app.route('/admin', methods=['GET', 'POST'])
+@login_required
 def admin():
-    user_id = session.get('user_id')
-    if user_id is None:
-        return redirect(url_for('login'))
     formv = userForm()
-
     return render_template('admin.html', form = formv)
 
 
 
 # //////////////////// Respuestas ///////////// 
 @app.route('/respuestateleconsulta')
+@login_required
 def respuestateleconsulta():
-    user_id = session.get('user_id')
-    if user_id is None:
-        return redirect(url_for('login'))
     return render_template('respuestateleconsulta.html')
 
 @app.route('/respuestatelevisita')
+@login_required
 def respuestatelevisita():
-    user_id = session.get('user_id')
-    if user_id is None:
-        return redirect(url_for('login'))
     return render_template('respuestatelevisita.html', title='respuestatelevisita')
 
 @app.route('/respuestainforme')
+@login_required
 def respuestainforme():
-    user_id = session.get('user_id')
-    if user_id is None:
-        return redirect(url_for('login'))
     return render_template('respuestainforme.html', title='respuestainforme')
      
 

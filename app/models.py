@@ -1,8 +1,13 @@
 from datetime import datetime
-from app import db
+from app import db,loginManager
+from flask_login import UserMixin
+
+@loginManager.user_loader
+def loadUser(user_id):
+    return User.query.get(int(user_id))
 
 
-class User(db.Model):
+class User(db.Model,UserMixin):
     id                   = db.Column(db.Integer,primary_key=True)
     username             = db.Column(db.String(20),unique = True, nullable = False)
     email                = db.Column(db.String(120),unique = True, nullable = False)
@@ -20,8 +25,8 @@ class GuestUser(db.Model):
     username             = db.Column(db.String(20),unique = True, nullable = False)
     user_id             = db.Column(db.String(120),unique = True, nullable = False)
     secret               = db.Column(db.String(60), nullable = False)
-    expirationTime       = db.Column(db.DateTime  , nullable = False, default = datetime.utcnow)
+    expirationTime       = db.Column(db.DateTime  , default = datetime.utcnow)
     
 
     def __repr__(self):
-        return(f"User('{self.username}','{self.email}')")
+        return(f"GuestUser('{self.username}','{self.expirationTime}')")

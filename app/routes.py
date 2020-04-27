@@ -5,6 +5,12 @@ from app.forms import LoginForm, smsForm, userForm
 from app.models import User, GuestUser
 from flask_login import login_user, logout_user, login_required
 
+import jwt 
+import base64
+import time,calendar
+
+
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -25,6 +31,28 @@ def logout():
 
 @app.route('/widget')
 def Widget():
+    token = request.args.get('token')
+    invitado = GuestUser.query.first()
+    key64 = base64.b64decode(invitado.secret)
+    actualTimePlusHR = calendar.timegm(time.gmtime())+3600
+    print(calendar.timegm(time.gmtime()),actualTimePlusHR)
+    payload = {
+    "sub": "TestTeleconsulta",
+    "name": "TestTeleconsulta",
+    "iss": invitado.user_id,
+    "exp": str(calendar.timegm(time.gmtime())+3600)
+    }
+    headers= { 
+    "alg": "HS256",
+    "typ": "JWT" 
+    }
+    encoded = jwt.encode(payload, key64, algorithm ='HS256', headers=headers).decode("utf-8")
+    print(str(encoded))
+    decoded = jwt.decode(encoded, key64, algorithms ='HS256')
+    print( decoded["exp"],calendar.timegm(time.gmtime()))
+    if int(calendar.timegm(time.gmtime())) <= int(decoded["exp"]):
+        return render_template('widgetexpired.html', title='widget')
+    token = encoded
     token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJUZXN0VGVsZWNvbnN1bHRhIiwibmFtZSI6IlRlc3RUZWxlY29uc3VsdGEiLCJpc3MiOiJZMmx6WTI5emNHRnlhem92TDNWekwwOVNSMEZPU1ZwQlZFbFBUaTlrWWpKalptSTBOeTAyTURKaUxUUm1OR0V0T0ROaE1TMDRNREV4WkRNNE1qZGpNek0iLCJleHAiOiIxNTkyNjM3MDgwIn0.bbcFiX7bywA8ExWmuSHIys36TDVzlIOswE3llnPtqYM"
     return render_template('widget.html', title='widget', token=token)
 

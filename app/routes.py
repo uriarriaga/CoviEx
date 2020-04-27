@@ -79,7 +79,7 @@ def demovisita():
     if formv.validate_on_submit():
         numero = "+521"+formv.sms.data
         sendSMS(numero)
-        return redirect(url_for('respuestateleconsulta'))
+        return redirect(url_for('respuestatelevisita'))
     return render_template('demovisita.html', form = formv)
 
 

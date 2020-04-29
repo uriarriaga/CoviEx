@@ -7,6 +7,10 @@ from app.__init__ import db
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import login_user, logout_user, login_required
 
+import jwt 
+import base64
+import time,calendar
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -27,7 +31,14 @@ def logout():
 
 @app.route('/widget')
 def Widget():
-    token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJUZXN0VGVsZWNvbnN1bHRhIiwibmFtZSI6IlRlc3RUZWxlY29uc3VsdGEiLCJpc3MiOiJZMmx6WTI5emNHRnlhem92TDNWekwwOVNSMEZPU1ZwQlZFbFBUaTlrWWpKalptSTBOeTAyTURKaUxUUm1OR0V0T0ROaE1TMDRNREV4WkRNNE1qZGpNek0iLCJleHAiOiIxNTkyNjM3MDgwIn0.bbcFiX7bywA8ExWmuSHIys36TDVzlIOswE3llnPtqYM"
+    token = request.args.get('token')
+    invitado = GuestUser.query.first()
+    key64 = base64.b64decode(invitado.secret)
+    try:
+        decoded = jwt.decode(token, key64, algorithms ='HS256')
+    except:
+        return render_template('widgetexpired.html', title='widget')
+    print( time.gmtime(int(decoded["exp"])))
     return render_template('widget.html', title='widget', token=token)
 
 @app.route('/demo')

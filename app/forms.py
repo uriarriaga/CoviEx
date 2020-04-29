@@ -21,6 +21,7 @@ class userForm(FlaskForm):
 	ad = BooleanField(validators=[DataRequired()])
 	im = BooleanField(validators=[DataRequired()])
 	tv = BooleanField(validators=[DataRequired()])
+	submit = SubmitField('Agregar Usuario')
 
 
 

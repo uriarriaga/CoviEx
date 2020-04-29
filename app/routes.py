@@ -3,6 +3,8 @@ from app import app
 from app.funciones import sendWebexMsg, sendSMS
 from app.forms import LoginForm, smsForm, userForm
 from app.models import User, GuestUser
+from app.__init__ import db
+from flask_sqlalchemy import SQLAlchemy
 from flask_login import login_user, logout_user, login_required
 
 
@@ -62,7 +64,7 @@ def demoinformemedico():
     formv = smsForm()
     if formv.validate_on_submit():
         numero = "+521"+formv.sms.data
-        sendSMS(numero)
+        #sendSMS(numero)
         return redirect(url_for('respuestainforme'))
     return render_template('demoinformemedico.html', form = formv)
 
@@ -71,8 +73,26 @@ def demoinformemedico():
 @app.route('/admin', methods=['GET', 'POST'])
 @login_required
 def admin():
+    formusr = userForm()
+    print(formusr.username.data)
+    print("entro a adminx")
+    if formusr.validate_on_submit():
+        print("entro a submit")
+        print(formusr.username.data)
+        usr= User(formusr.username.data,formusr.email.data,formusr.password.data,formusr.admin.data,formusr.ad.data,formusr.im.data,formusr.tv.data)
+        db.session.add(usr)
+        db.session.commit()
+
+
+
+
+    return render_template('admin.html', form = formusr)
+
+@app.route('/capture', methods=['GET', 'POST'])
+@login_required
+def capture():
     formv = userForm()
-    return render_template('admin.html', form = formv)
+    return render_template('capture.html', form = formv)
 
 
 

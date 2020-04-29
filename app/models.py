@@ -31,4 +31,4 @@ class GuestUser(db.Model):
     
 
     def __repr__(self):
-        return(f"GuestUser('{self.username}','{self.expirationTime}')")
+        return(f"GuestUser('{self.username}','{datetime.fromtimestamp(self.expirationTime).strftime('%Y-%m-%d %H:%M:%S')}')")

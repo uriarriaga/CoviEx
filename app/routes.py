@@ -45,6 +45,7 @@ def Widget():
 def demo():
     return render_template('demo.html')
 
+
 # ////////////////////  Demos ///////////////
 @app.route('/democonstula', methods=['GET', 'POST'])
 @login_required
@@ -56,6 +57,7 @@ def teleconsulta():
             sendSMS(numero)
         return redirect(url_for('respuestateleconsulta'))
     return render_template('democonstula.html', form = form)
+
 
 @app.route('/demovisita', methods=['GET', 'POST'])
 @login_required

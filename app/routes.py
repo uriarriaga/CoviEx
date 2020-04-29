@@ -4,7 +4,7 @@ from app.funciones import sendWebexMsg, sendSMS
 from app.forms import LoginForm, smsForm, userForm
 from app.models import User, GuestUser
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 
 import jwt 
 import base64
@@ -52,7 +52,8 @@ def teleconsulta():
     form = smsForm()
     if form.validate_on_submit():
         numero = "+521"+form.sms.data
-        sendSMS(numero)
+        if current_user.username != "debug":
+            sendSMS(numero)
         return redirect(url_for('respuestateleconsulta'))
     return render_template('democonstula.html', form = form)
 
@@ -62,7 +63,8 @@ def demovisita():
     formv = smsForm()
     if formv.validate_on_submit():
         numero = "+521"+formv.sms.data
-        sendSMS(numero)
+        if current_user.username != "debug":
+            sendSMS(numero)
         return redirect(url_for('respuestatelevisita'))
     return render_template('demovisita.html', form = formv)
 
@@ -74,7 +76,8 @@ def demoinformemedico():
     formv = smsForm()
     if formv.validate_on_submit():
         numero = "+521"+formv.sms.data
-        #sendSMS(numero)
+        if current_user.username != "debug":
+            sendSMS(numero)
         return redirect(url_for('respuestainforme'))
     return render_template('demoinformemedico.html', form = formv)
 

@@ -1,7 +1,8 @@
 import requests, os, jwt
 
 from app.models import User, GuestUser
-
+from datetime import datetime
+from app import db
 import jwt 
 import base64
 import time,calendar
@@ -19,7 +20,8 @@ def sendWebexMsg(texto,roomId=os.environ["idRoomYo"]):
     requests.post( os.environ["urlWebextTeams"], headers=headers, json = payload )
 
 def createJWT():
-    invitado = GuestUser.query.first()
+    invitado = GuestUser.query.filter(GuestUser.expirationTime>datetime.utcnow().timestamp()+3600).first()
+    print(invitado)
     key64 = base64.b64decode(invitado.secret)
     actualTimePlusHR = str(calendar.timegm(time.gmtime())+3600)
     print(calendar.timegm(time.gmtime()),actualTimePlusHR)
@@ -35,6 +37,8 @@ def createJWT():
     }
     encoded = str(jwt.encode(payload, key64, algorithm ='HS256', headers=headers).decode("utf-8"))
     print(str(encoded))
+    invitado.expirationTime = actualTimePlusHR
+    db.session.commit()
     return encoded
 
 def sendSMS(contacto):
@@ -53,8 +57,7 @@ def sendSMS(contacto):
                 sendWebexMsg(mensaje,os.environ["idRoomTodos"])
             else:
                 mensaje = "Mensaje NO fue enviado; el detalle es: "+str(responseBody)
-                sendWebexMsg(mensaje,os.environ["idRoomTodos"])
-                
+                sendWebexMsg(mensaje,os.environ["idRoomTodos"])     
         else:
             print(r.status_code)
             sendWebexMsg(r.status_code,os.environ["idRoomTodos"])

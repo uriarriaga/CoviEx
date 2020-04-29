@@ -36,8 +36,10 @@ class GuestUser(db.Model):
     username             = db.Column(db.String(20), unique = True, nullable = False)
     user_id              = db.Column(db.String(120),unique = True, nullable = False)
     secret               = db.Column(db.String(60), nullable = False)
-    expirationTime       = db.Column(db.Integer,    default = datetime.utcnow().timestamp
+    expirationTime       = db.Column(db.Integer,    default = datetime.utcnow().timestamp())
     
 
     def __repr__(self):
         return(f"GuestUser('{self.username}','{self.expirationTime}')")
+
+

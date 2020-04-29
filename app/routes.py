@@ -1,11 +1,10 @@
 from flask import request, redirect, url_for, render_template, flash, session 
-from app import app
+from app import app, db
 from app.funciones import sendWebexMsg, sendSMS
 from app.forms import LoginForm, smsForm, userForm
 from app.models import User, GuestUser
-from app.__init__ import db
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 
 import jwt 
 import base64
@@ -46,6 +45,7 @@ def Widget():
 def demo():
     return render_template('demo.html')
 
+
 # ////////////////////  Demos ///////////////
 @app.route('/democonstula', methods=['GET', 'POST'])
 @login_required
@@ -53,9 +53,11 @@ def teleconsulta():
     form = smsForm()
     if form.validate_on_submit():
         numero = "+521"+form.sms.data
-        sendSMS(numero)
+        if current_user.username != "debug":
+            sendSMS(numero)
         return redirect(url_for('respuestateleconsulta'))
     return render_template('democonstula.html', form = form)
+
 
 @app.route('/demovisita', methods=['GET', 'POST'])
 @login_required
@@ -63,7 +65,8 @@ def demovisita():
     formv = smsForm()
     if formv.validate_on_submit():
         numero = "+521"+formv.sms.data
-        sendSMS(numero)
+        if current_user.username != "debug":
+            sendSMS(numero)
         return redirect(url_for('respuestatelevisita'))
     return render_template('demovisita.html', form = formv)
 
@@ -75,7 +78,8 @@ def demoinformemedico():
     formv = smsForm()
     if formv.validate_on_submit():
         numero = "+521"+formv.sms.data
-        #sendSMS(numero)
+        if current_user.username != "debug":
+            sendSMS(numero)
         return redirect(url_for('respuestainforme'))
     return render_template('demoinformemedico.html', form = formv)
 
@@ -90,13 +94,11 @@ def admin():
     if formusr.validate_on_submit():
         print("entro a submit")
         print(formusr.username.data)
-        usr= User(formusr.username.data,formusr.email.data,formusr.password.data,formusr.admin.data,formusr.ad.data,formusr.im.data,formusr.tv.data)
+        usr = User(username = formusr.username.data,email = formusr.email.data,password = formusr.password.data,
+                    admin = formusr.admin.data,    atencionDomiciliaria = formusr.ad.data,
+                    informeMedico = formusr.im.data, teleVisita = formusr.tv.data)
         db.session.add(usr)
         db.session.commit()
-
-
-
-
     return render_template('admin.html', form = formusr)
 
 @app.route('/capture', methods=['GET', 'POST'])

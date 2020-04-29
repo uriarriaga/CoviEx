@@ -20,23 +20,17 @@ def sendWebexMsg(texto,roomId=os.environ["idRoomYo"]):
     requests.post( os.environ["urlWebextTeams"], headers=headers, json = payload )
 
 def createJWT():
-    invitado = GuestUser.query.filter(GuestUser.expirationTime>datetime.utcnow().timestamp()+3600).first()
-    print(invitado)
+    invitado = GuestUser.query.filter(GuestUser.expirationTime<=datetime.utcnow().timestamp()).first()
     key64 = base64.b64decode(invitado.secret)
-    actualTimePlusHR = str(calendar.timegm(time.gmtime())+3600)
-    print(calendar.timegm(time.gmtime()),actualTimePlusHR)
+    actualTimePlusHR = str(datetime.utcnow().timestamp()+3600)
     payload = {
     "sub": "TestTeleconsulta",
     "name": "TestTeleconsulta",
     "iss": invitado.user_id,
     "exp": actualTimePlusHR
     }
-    headers= { 
-    "alg": "HS256",
-    "typ": "JWT" 
-    }
+    headers= { "alg": "HS256","typ": "JWT" }
     encoded = str(jwt.encode(payload, key64, algorithm ='HS256', headers=headers).decode("utf-8"))
-    print(str(encoded))
     invitado.expirationTime = actualTimePlusHR
     db.session.commit()
     return encoded

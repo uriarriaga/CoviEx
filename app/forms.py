@@ -3,8 +3,8 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired
 
 class LoginForm(FlaskForm):
-    username = StringField('Usuario', validators=[DataRequired()])
-    password = PasswordField('Contraseña', validators=[DataRequired()])
+    username    = StringField('Usuario', validators=[DataRequired()])
+    password    = PasswordField('Contraseña', validators=[DataRequired()])
     remember_me = BooleanField('Recordarme')
     #submit = SubmitField('Acceder')
 
@@ -16,12 +16,12 @@ class smsForm(FlaskForm):
 class userForm(FlaskForm):
 	username = StringField('Usuario', validators=[DataRequired()])
 	password = StringField('Contraseña', validators=[DataRequired()])
-	email = StringField('Email', validators=[DataRequired()])
-	admin = BooleanField(validators=[DataRequired()])
-	ad = BooleanField(validators=[DataRequired()])
-	im = BooleanField(validators=[DataRequired()])
-	tv = BooleanField(validators=[DataRequired()])
-	submit = SubmitField('Agregar Usuario')
+	email    = StringField('Email', validators=[DataRequired()])
+	admin    = BooleanField()
+	ad       = BooleanField()
+	im       = BooleanField()
+	tv       = BooleanField()
+	submit   = SubmitField('Agregar Usuario')
 
 
 

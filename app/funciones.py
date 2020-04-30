@@ -20,30 +20,24 @@ def sendWebexMsg(texto,roomId=os.environ["idRoomYo"]):
     requests.post( os.environ["urlWebextTeams"], headers=headers, json = payload )
 
 def createJWT():
-    invitado = GuestUser.query.filter(GuestUser.expirationTime>datetime.utcnow().timestamp()+3600).first()
-    print(invitado)
+    invitado = GuestUser.query.filter(GuestUser.expirationTime<=datetime.utcnow().timestamp()).first()
     key64 = base64.b64decode(invitado.secret)
-    actualTimePlusHR = str(calendar.timegm(time.gmtime())+3600)
-    print(calendar.timegm(time.gmtime()),actualTimePlusHR)
+    actualTimePlusHR = str(datetime.utcnow().timestamp()+3600)
     payload = {
     "sub": "TestTeleconsulta",
     "name": "TestTeleconsulta",
     "iss": invitado.user_id,
     "exp": actualTimePlusHR
     }
-    headers= { 
-    "alg": "HS256",
-    "typ": "JWT" 
-    }
+    headers= { "alg": "HS256","typ": "JWT" }
     encoded = str(jwt.encode(payload, key64, algorithm ='HS256', headers=headers).decode("utf-8"))
-    print(str(encoded))
     invitado.expirationTime = actualTimePlusHR
     db.session.commit()
-    return encoded
+    return encoded, str(invitado.id)
 
 def sendSMS(contacto):
-        token = createJWT()
-        text = "Servicio de TeleConsulta. Para iniciar la videollamada favor de ingresar a la siguiente direccion: https://teleconsulta.mx/widget?token=" + token
+        token , identificador = createJWT()
+        text = "Servicio de TeleConsulta. Para iniciar la videollamada favor de ingresar a la siguiente direccion: https://teleconsulta.mx/widget?token=" + token + "identificador=" +identificador
         params = {'from': os.environ["sender"], 'text': text, 
                 'to': contacto, 'api_key': os.environ["api_key"], 
                 'api_secret': os.environ["api_secret"]}

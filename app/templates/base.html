@@ -67,29 +67,14 @@
                             </a>
                                 <div data-v-4a3754a3="" id="collapsibleNavbar" class="collapse navbar-collapse justify-content-end">
                                     <form data-v-4a3754a3="" class="form-inline" >
-                                            <ul data-v-4a3754a3="" class="navbar-nav" id="menu" >
-                                                    </li><p  style="color:white">PSsCloud</p></li>
-
-                                                    <li data-v-4a3754a3="" align="left" class="nav-item dropdown">
-                                                        <a href="{{ url_for('demo') }}">Menu</a>
-                                                    </li>
-
-                                                    <!--
-                                                    <li data-v-4a3754a3="" align="left" class="nav-item dropdown">
-                                                        <a href="{{ url_for('Widget') }}">Widget </a>
-                                                    </li>
-
-
-                                                    <li data-v-4a3754a3="" class="nav-item dropdown"> 
-                                                        <a href="{{ url_for('login') }}">Login</a>
-                                                    </li>
-                                                    -->
-
-                                                    <li data-v-4a3754a3="" class="nav-item dropdown"> 
-                                                        <a href="{{ url_for('logout') }}">Cerrar Sesion</a>
-                                                    </li>
-
-                                                </ul>
+                                        <div class="navbar-nav">
+                                            {% if current_user.admin %}
+                                              <a class="nav-item nav-link" href="{{ url_for('widget') }}">Widget</a>
+                                              <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                                            {% else %}
+                                              <a class="nav-item nav-link" href="{{ url_for('demo') }}">Demo</a>
+                                              <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                                            {% endif %}
                                     </form>
                                 </div>
                     </div>

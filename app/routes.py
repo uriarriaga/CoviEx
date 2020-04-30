@@ -1,11 +1,12 @@
 from flask import request, redirect, url_for, render_template, flash, session 
-from app import app, db
+from app import app, db, Base, Familiar, GuestUser, Paciente
 from app.funciones import sendWebexMsg, sendSMS
 
-from app.forms import LoginForm, smsForm, userForm,capturesForm
-from app.models import User, GuestUser, Paciente, Familiar
+from app.forms import LoginForm, smsForm, userForm,capturesForm, PacienteForm, PacientesForm
+from app.models import User
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import login_user, logout_user, login_required, current_user
+
 
 import jwt 
 import base64
@@ -16,6 +17,7 @@ import time,calendar
 def login():
     form = LoginForm()
     if form.validate_on_submit():
+        
         user = User.query.filter_by(username=form.username.data).first()
         if user and user.password == form.password.data:
             login_user(user)
@@ -76,7 +78,13 @@ def capture():
     if not current_user.admin:
         return redirect(url_for('demo'))
     formv = userForm()
-    return render_template('capture.html', form = formv)
+    fam  = Familiar(nombre = "patoxxx",celular="55677655",email="edeed@gmail.com",id_paciente=1)
+    pac = Paciente(nombre = "eco",celular="55677655",email="edeed@gmail.com")
+    db.session.add(pac)
+    db.session.commit()
+    #app.after_request(sql_debug)
+    return"<h2>Done!</h>"
+    # render_template('capture.html', form = formv)
 
 
 
@@ -95,13 +103,28 @@ def demo():
 def teleconsulta():
     if current_user.admin:
         return redirect(url_for('admin'))
-    form = smsForm()
-    if form.validate_on_submit():
+  
+
+#  Here we will add the patients April 30 ----------------------------------------------------------------
+
+    pacientesform = PacientesForm()
+    pacientesform.title.data = "Pacientes" # change the field's data
+    pacients =  db.session.query(Paciente).all()
+    for member in pacients:
+        member_form = PacienteForm()
+        member_form.nombre = member.nombre
+        member_form.celular = member.celular
+        member_form.email = member.email
+
+        pacientesform.pacientes.append_entry(member_form)
+        print(member.nombre, member.celular, member.email)
+
+    if pacientesform.validate_on_submit():
         numero = "+521"+form.sms.data
-        if current_user.username != "debug":
-            sendSMS(numero)
-        return redirect(url_for('respuestateleconsulta'))
-    return render_template('democonstula.html', form = form)
+        #if current_user.username != "debug":
+            #sendSMS(numero)
+            #return redirect(url_for('respuestateleconsulta'))
+    return render_template('democonstula.html', pacientesform = pacientesform )
 
 
 @app.route('/demovisita', methods=['GET', 'POST'])

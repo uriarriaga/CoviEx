@@ -1,8 +1,9 @@
 import requests, os, jwt
 
-from app.models import User, GuestUser
+#from app.models import User
+from app import GuestUser
 from datetime import datetime
-from app import db
+from app import db  
 import jwt 
 import base64
 import time,calendar
@@ -20,7 +21,8 @@ def sendWebexMsg(texto,roomId=os.environ["idRoomYo"]):
     requests.post( os.environ["urlWebextTeams"], headers=headers, json = payload )
 
 def createJWT():
-    invitado = GuestUser.query.filter(GuestUser.expirationTime<=datetime.utcnow().timestamp()).first()
+    invitado = db.session.query(GuestUser).filter(GuestUser.expirationTime<=datetime.utcnow().timestamp()).first()
+    print(str(invitado))
     key64 = base64.b64decode(invitado.secret)
     actualTimePlusHR = str(datetime.utcnow().timestamp()+3600)
     payload = {
@@ -59,6 +61,11 @@ def sendSMS(contacto):
 
 def generarWebex(listaNumeros,correo):
     pass
+
+
+
+
+
 if __name__ == "__main__":
     sendSMS("+5215580663521")
     #sendWebexMsg("prueba")

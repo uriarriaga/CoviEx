@@ -11,37 +11,31 @@
 
 	    	  <h2 > Servicio de Atención Domiciliaria </h2>
 
-<br>
 
 
 	  		
-			<table class="table table-striped">
-			    <thead>
-			      <tr>
-
-			        <th>Numero celular del paciente</th>
-			        <th>Videoconferencia</th>
-			      </tr>
-			    </thead>
-			    <tbody>
-			      <tr>
-
-			         <div > <form action="" method="post" novalidate>
-						{{ form.hidden_tag() }}
-						<td>
-							{{ form.sms(size=32) }}<br>
-						</td>
-						<td> <p><input type="submit" class="btn btn-primary" value="Generar Consulta"></p></td>
-					</form></div>
-			      </tr>
-			      <tr>
-	
-			      </tr>
-			      <tr>
-
-			      </tr>
-			    </tbody>
-			</table>
+            <form action="" method="post" name="teamform">
+                {{ pacientesform.hidden_tag() }}
+                <h4>Pacientes</h4>
+              
+                <div>
+                    <table>
+                        <tr>
+                            <th> Nombre </th>
+                            <th> Celular </th>
+                            <th> email </th>
+                        </tr>
+                        {% for member in pacientesform.pacientes %}
+                        <tr>
+                            <td>{{ member.nombre(size=12) }}</td>
+                            <td>{{ member.celular(size=12)  }}</td>
+                            <td>{{ member.email(size=14)  }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                <p><input type="submit" name="edit" value="Send"></p>
+            </form>
 	     
 	
 <br>

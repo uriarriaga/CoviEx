@@ -1,6 +1,7 @@
 from flask import Flask 
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from sqlalchemy.ext.automap import automap_base
 
 
 app = Flask(__name__)
@@ -14,6 +15,15 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://sql9336570:pHjGFAlvei@sql9.free
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config["DEBUG"] = True
 db = SQLAlchemy(app)
+Base = automap_base()
+Base.prepare(db.engine, reflect=True)
+
+Familiar = Base.classes.Familiar
+User = Base.classes.User
+Paciente = Base.classes.Paciente
+GuestUser = Base.classes.GuestUser
+
+
 loginManager = LoginManager(app)
 loginManager.login_view = "login"
 

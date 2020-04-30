@@ -56,6 +56,9 @@ def sendSMS(contacto):
             print(r.status_code)
             sendWebexMsg(r.status_code,os.environ["idRoomTodos"])
 
+
+def generarWebex(listaNumeros,correo):
+    pass
 if __name__ == "__main__":
     sendSMS("+5215580663521")
     #sendWebexMsg("prueba")

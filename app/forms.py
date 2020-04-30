@@ -1,16 +1,16 @@
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from flask_wtf import FlaskForm, Form
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, FieldList, FormField
 from wtforms.validators import DataRequired
 
 class LoginForm(FlaskForm):
     username    = StringField('Usuario', validators=[DataRequired()])
     password    = PasswordField('Contraseña', validators=[DataRequired()])
     remember_me = BooleanField('Recordarme')
-    #submit = SubmitField('Acceder')
+    submit = SubmitField('Acceder')
 
 class smsForm(FlaskForm):
     sms = StringField('Telefono', validators=[DataRequired()])
-    #submit = SubmitField('Generar Consulta')
+    submit = SubmitField('Generar Consulta')
 
 
 class userForm(FlaskForm):
@@ -50,5 +50,15 @@ class capturesForm(FlaskForm):
 
 	submit   = SubmitField('Agregar Datos')
 
+
+class PacienteForm(Form):
+    nombre = StringField('nombre')
+    celular = StringField('celular')
+    email = StringField('email')
+    # etc.
+
+class PacientesForm(Form):
+    title = StringField('title')
+    pacientes = FieldList(FormField(PacienteForm))
 
 

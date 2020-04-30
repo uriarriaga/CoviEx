@@ -39,7 +39,7 @@ def createJWT():
 
 def sendSMS(contacto):
         token , identificador = createJWT()
-        text = "Servicio de TeleConsulta. Para iniciar la videollamada favor de ingresar a la siguiente direccion: https://teleconsulta.mx/widget?token=" + token + "identificador=" +identificador
+        text = "Servicio de TeleConsulta. Para iniciar la videollamada favor de ingresar a la siguiente direccion: https://teleconsulta.mx/widget?token=" + token + "&identificador=" +identificador
         params = {'from': os.environ["sender"], 'text': text, 
                 'to': contacto, 'api_key': os.environ["api_key"], 
                 'api_secret': os.environ["api_secret"]}

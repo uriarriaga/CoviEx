@@ -37,7 +37,8 @@ def logout():
 @app.route('/widget')
 def widget():
     token = request.args.get('token')
-    invitado = GuestUser.query.first()
+    identificador = request.args.get('identificador')
+    invitado = GuestUser.query.get(identificador) ## obtener el "id" de la tabla Guest 
     key64 = base64.b64decode(invitado.secret)
     try:
         decoded = jwt.decode(token, key64, algorithms ='HS256')

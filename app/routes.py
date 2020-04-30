@@ -18,7 +18,10 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user and user.password == form.password.data:
             login_user(user)
-            return redirect(url_for('demo'))
+            if not current_user.admin:
+                return redirect(url_for('demo'))
+            else:
+                return redirect(url_for('admin'))
         else:
             flash('Login requested for user login Unsuccesful. Plese check username and password')
     return render_template('login.html', title='Sign In', form=form)
@@ -29,7 +32,7 @@ def logout():
     return redirect(url_for('login'))
 
 @app.route('/widget')
-def Widget():
+def widget():
     token = request.args.get('token')
     invitado = GuestUser.query.first()
     key64 = base64.b64decode(invitado.secret)
@@ -45,9 +48,13 @@ def Widget():
 #///////// ////// ADMIN ////// ////// //////   
 
 
+
+
 @app.route('/admin', methods=['GET', 'POST'])
 @login_required
 def admin():
+    if not current_user.admin:
+        return redirect(url_for('demo'))
     formusr = userForm()
     print(formusr.username.data)
     print("entro a adminx")
@@ -58,21 +65,16 @@ def admin():
                     admin = formusr.admin.data,    atencionDomiciliaria = formusr.ad.data,
                     informeMedico = formusr.im.data, teleVisita = formusr.tv.data)
         db.session.add(usr)
-        db.session.commit()
+        db.session.commit() 
     return render_template('admin.html', form = formusr)
 
 @app.route('/capture', methods=['GET', 'POST'])
 @login_required
 def capture():
- 
-    #fam = Familiar(nombre="ulix", celular="werty",email="34567", id_paciente=1)
-    pac = Paciente(nombre="prueba lopez gatell", celular="5579597440", email="patito@gmail.com")
-    print(str(db.session))
-    dbx.session.add(pac)
-    dbx.session.commit
-    print(str(pac))
-
-    return "<html><body><h2>done!!</h2></body></html>"
+    if not current_user.admin:
+        return redirect(url_for('demo'))
+    formv = userForm()
+    return render_template('capture.html', form = formv)
 
 
 
@@ -81,12 +83,16 @@ def capture():
 @app.route('/demo')
 @login_required
 def demo():
+    if current_user.admin:
+        return redirect(url_for('admin'))
     return render_template('demo.html')
 
 
 @app.route('/democonstula', methods=['GET', 'POST'])
 @login_required
 def teleconsulta():
+    if current_user.admin:
+        return redirect(url_for('admin'))
     form = smsForm()
     if form.validate_on_submit():
         numero = "+521"+form.sms.data
@@ -99,6 +105,8 @@ def teleconsulta():
 @app.route('/demovisita', methods=['GET', 'POST'])
 @login_required
 def demovisita():
+    if current_user.admin:
+        return redirect(url_for('admin'))
     formv = smsForm()
     if formv.validate_on_submit():
         numero = "+521"+formv.sms.data
@@ -112,6 +120,8 @@ def demovisita():
 @app.route('/demoinformemedico', methods=['GET', 'POST'])
 @login_required
 def demoinformemedico():
+    if current_user.admin:
+        return redirect(url_for('admin'))
     formv = smsForm()
     if formv.validate_on_submit():
         numero = "+521"+formv.sms.data
@@ -124,23 +134,26 @@ def demoinformemedico():
 
 
 
-
-
-
 # //////////////////// Respuestas ///////////// 
 @app.route('/respuestateleconsulta')
 @login_required
 def respuestateleconsulta():
+    if current_user.admin:
+        return redirect(url_for('admin'))
     return render_template('respuestateleconsulta.html')
 
 @app.route('/respuestatelevisita')
 @login_required
 def respuestatelevisita():
+    if current_user.admin:
+        return redirect(url_for('admin'))
     return render_template('respuestatelevisita.html', title='respuestatelevisita')
 
 @app.route('/respuestainforme')
 @login_required
 def respuestainforme():
+    if current_user.admin:
+        return redirect(url_for('admin'))
     return render_template('respuestainforme.html', title='respuestainforme')
      
 

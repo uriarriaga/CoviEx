@@ -23,6 +23,12 @@ class userForm(FlaskForm):
 	tv       = BooleanField()
 	submit   = SubmitField('Agregar Usuario')
 
+class familiarForm(FlaskForm):
+	nombre = StringField('Usuario', validators=[DataRequired()])
+	celular= StringField('Contraseña', validators=[DataRequired()])
+	email    = StringField('Email', validators=[DataRequired()])
+	
+
 
 
 

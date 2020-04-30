@@ -2,7 +2,7 @@ from flask import request, redirect, url_for, render_template, flash, session
 from app import app, db
 from app.funciones import sendWebexMsg, sendSMS
 from app.forms import LoginForm, smsForm, userForm
-from app.models import User, GuestUser
+from app.models import User, GuestUser, Paciente, Familiar
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import login_user, logout_user, login_required, current_user
 
@@ -40,13 +40,50 @@ def Widget():
     print( time.gmtime(int(decoded["exp"])))
     return render_template('widget.html', title='widget', token=token)
 
+
+
+#///////// ////// ADMIN ////// ////// //////   
+
+
+@app.route('/admin', methods=['GET', 'POST'])
+@login_required
+def admin():
+    formusr = userForm()
+    print(formusr.username.data)
+    print("entro a adminx")
+    if formusr.validate_on_submit():
+        print("entro a submit")
+        print(formusr.username.data)
+        usr = User(username = formusr.username.data,email = formusr.email.data,password = formusr.password.data,
+                    admin = formusr.admin.data,    atencionDomiciliaria = formusr.ad.data,
+                    informeMedico = formusr.im.data, teleVisita = formusr.tv.data)
+        db.session.add(usr)
+        db.session.commit()
+    return render_template('admin.html', form = formusr)
+
+@app.route('/capture', methods=['GET', 'POST'])
+@login_required
+def capture():
+ 
+    #fam = Familiar(nombre="ulix", celular="werty",email="34567", id_paciente=1)
+    pac = Paciente(nombre="prueba lopez gatell", celular="5579597440", email="patito@gmail.com")
+    print(str(db.session))
+    dbx.session.add(pac)
+    dbx.session.commit
+    print(str(pac))
+
+    return "<html><body><h2>done!!</h2></body></html>"
+
+
+
+# ////////////////////  Demos ///////////////
+
 @app.route('/demo')
 @login_required
 def demo():
     return render_template('demo.html')
 
 
-# ////////////////////  Demos ///////////////
 @app.route('/democonstula', methods=['GET', 'POST'])
 @login_required
 def teleconsulta():
@@ -85,27 +122,8 @@ def demoinformemedico():
 
 
 
-@app.route('/admin', methods=['GET', 'POST'])
-@login_required
-def admin():
-    formusr = userForm()
-    print(formusr.username.data)
-    print("entro a adminx")
-    if formusr.validate_on_submit():
-        print("entro a submit")
-        print(formusr.username.data)
-        usr = User(username = formusr.username.data,email = formusr.email.data,password = formusr.password.data,
-                    admin = formusr.admin.data,    atencionDomiciliaria = formusr.ad.data,
-                    informeMedico = formusr.im.data, teleVisita = formusr.tv.data)
-        db.session.add(usr)
-        db.session.commit()
-    return render_template('admin.html', form = formusr)
 
-@app.route('/capture', methods=['GET', 'POST'])
-@login_required
-def capture():
-    formv = userForm()
-    return render_template('capture.html', form = formv)
+
 
 
 

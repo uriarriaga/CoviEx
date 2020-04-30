@@ -1,0 +1,64 @@
+ {% extends "base.html" %}
+
+{% block content %}
+
+
+
+
+<br>
+
+
+
+	    	  <h2 >Captura de familiares</h2>
+
+<br>
+
+
+	  		
+			<table class="table table-striped">
+			    <thead>
+			      <tr>
+
+			        <th>Nombre</th>
+			        <th>Celular</th>
+			        <th>Email</th>
+			        <th></th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <tr>
+
+			         <div > <form action="" method="post" novalidate>
+						{{ form.hidden_tag() }}
+						<td>	
+						{{ form.familiar_name(size=8) }}
+						</td>
+						<td>	
+						{{ form.celular(size=8) }}
+						</td>
+						<td>	
+						{{ form.email(size=14) }}
+						</td>
+						<td> {{ form.submit() }}</td>
+					</form></div>
+
+			      </tr>
+			      <tr>
+	
+			      </tr>
+			      <tr>
+
+			      </tr>
+			    </tbody>
+			</table>
+	     
+	
+<br>
+<br>
+
+
+
+
+
+
+{% endblock %}

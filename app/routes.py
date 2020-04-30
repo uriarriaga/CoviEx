@@ -1,7 +1,7 @@
 from flask import request, redirect, url_for, render_template, flash, session 
 from app import app, db
 from app.funciones import sendWebexMsg, sendSMS
-from app.forms import LoginForm, smsForm, userForm
+from app.forms import LoginForm,smsForm,userForm,capturesForm
 from app.models import User, GuestUser
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import login_user, logout_user, login_required
@@ -96,13 +96,17 @@ def admin():
         db.session.commit()
     return render_template('admin.html', form = formusr)
 
-@app.route('/capture', methods=['GET', 'POST'])
+#-------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------------------
+
+@app.route('/captures', methods=['GET', 'POST'])
 @login_required
-def capture():
-    formv = userForm()
-    return render_template('capture.html', form = formv)
+def captures():
+    formcaptures = capturesForm()
+    return render_template('captures.html', form = formcaptures)
 
-
+#-------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------------------
 
 # //////////////////// Respuestas ///////////// 
 @app.route('/respuestateleconsulta')

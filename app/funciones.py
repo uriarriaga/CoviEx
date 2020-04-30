@@ -33,11 +33,11 @@ def createJWT():
     encoded = str(jwt.encode(payload, key64, algorithm ='HS256', headers=headers).decode("utf-8"))
     invitado.expirationTime = actualTimePlusHR
     db.session.commit()
-    return encoded
+    return encoded, str(invitado.id)
 
 def sendSMS(contacto):
-        token = createJWT()
-        text = "Servicio de TeleConsulta. Para iniciar la videollamada favor de ingresar a la siguiente direccion: https://teleconsulta.mx/widget?token=" + token
+        token , identificador = createJWT()
+        text = "Servicio de TeleConsulta. Para iniciar la videollamada favor de ingresar a la siguiente direccion: https://teleconsulta.mx/widget?token=" + token + "identificador=" +identificador
         params = {'from': os.environ["sender"], 'text': text, 
                 'to': contacto, 'api_key': os.environ["api_key"], 
                 'api_secret': os.environ["api_secret"]}

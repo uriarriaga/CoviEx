@@ -1,4 +1,4 @@
-from flask import request, redirect, url_for, render_template, flash, session 
+from flask import request, redirect, url_for, render_template, flash, session ,  jsonify
 from app import app, db, Base, Familiar, GuestUser, Paciente
 from app.funciones import sendWebexMsg, sendSMS
 
@@ -6,11 +6,17 @@ from app.forms import LoginForm, smsForm, userForm,capturesForm, PacienteForm, P
 from app.models import User
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import login_user, logout_user, login_required, current_user
+from datetime import datetime
+
 
 
 import jwt 
 import base64
 import time,calendar
+import json
+from json import JSONEncoder
+
+
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -61,9 +67,9 @@ def admin():
         return redirect(url_for('demo'))
     formusr = userForm()
     print(formusr.username.data)
-    print("entro a adminx")
+  
     if formusr.validate_on_submit():
-        print("entro a submit")
+       
         print(formusr.username.data)
         usr = User(username = formusr.username.data,email = formusr.email.data,password = formusr.password.data,
                     admin = formusr.admin.data,    atencionDomiciliaria = formusr.ad.data,
@@ -138,28 +144,9 @@ def demo():
 def teleconsulta():
     if current_user.admin:
         return redirect(url_for('admin'))
-  
 
-#  Here we will add the patients April 30 ----------------------------------------------------------------
 
-    pacientesform = PacientesForm()
-    pacientesform.title.data = "Pacientes" # change the field's data
-    pacients =  db.session.query(Paciente).all()
-    for member in pacients:
-        member_form = PacienteForm()
-        member_form.nombre = member.nombre
-        member_form.celular = member.celular
-        member_form.email = member.email
-
-        pacientesform.pacientes.append_entry(member_form)
-        print(member.nombre, member.celular, member.email)
-
-    if pacientesform.validate_on_submit():
-        numero = "+521"+form.sms.data
-        #if current_user.username != "debug":
-            #sendSMS(numero)
-            #return redirect(url_for('respuestateleconsulta'))
-    return render_template('democonstula.html', pacientesform = pacientesform )
+    return render_template('democonstula.html')
 
 
 @app.route('/demovisita', methods=['GET', 'POST'])
@@ -167,13 +154,13 @@ def teleconsulta():
 def demovisita():
     if current_user.admin:
         return redirect(url_for('admin'))
-    formv = smsForm()
-    if formv.validate_on_submit():
-        numero = "+521"+formv.sms.data
-        if current_user.username != "debug":
-            sendSMS(numero)
-        return redirect(url_for('respuestatelevisita'))
-    return render_template('demovisita.html', form = formv)
+   
+
+    #if current_user.username != "debug":
+        #sendSMS(numero)
+        #return redirect(url_for('respuestatelevisita'))
+
+    return render_template('demovisita.html')
 
 
 
@@ -218,3 +205,134 @@ def respuestainforme():
 @app.route('/')
 def index():
     return redirect(url_for("demo"))
+
+# //////////////////// LLAMADAS APIs ///////////// /////// /////// /////// /////// 
+
+
+@app.route('/getpacientes', methods=['GET', 'POST'])
+@login_required
+def getpacientes():
+    pacients =  db.session.query(Paciente).all()
+
+    list =  "{"  +  '"' + 'pacientes' + '"' + ":" + "["
+    for patient in pacients:
+        print(str(patient.nombre))
+        list +="{"+ '"' + "nombre" + '"'+":"+ '"'+ patient.nombre + '"'+ "," + '"' + "celular" + '"'+":"+ '"'+ patient.celular + '"'+ "," + '"' +"email" + '"'+":"+ '"' + patient.email + '"'+ "," + '"' +"id" + '"'+":"+ '"' + str(patient.id) + '"'+ "},"
+    list = list[:-1]  
+    list += "]}"  
+
+    listx = list.strip()
+
+    y = json.loads(list)
+
+    #print("------------" + y["employees"][0]["nombre"])
+
+    print(list)     
+    return listx
+
+
+@app.route('/getfamiliares', methods=['GET', 'POST'])
+@login_required
+def getfamiliares():
+    familiares =  db.session.query(Familiar).all()
+
+    list =  "{"  +  '"' + 'familiares' + '"' + ":" + "["
+    for familiar in familiares:
+        print(str(familiar.nombre))
+        list +="{"+ '"' + "nombre" + '"'+":"+ '"'+ familiar.nombre + '"'+ "," + '"' + "celular" + '"'+":"+ '"'+ familiar.celular + '"'+ "," + '"' +"email" + '"'+":"+ '"' + familiar.email + '"'+ "," + '"' +"id" + '"'+":"+ '"' + str(familiar.id) + '"'+ "," + '"' +"id_paciente" + '"'+":"+ '"' + str(familiar.id_paciente) + '"'+ "},"
+    list = list[:-1]  
+    list += "]}"  
+
+    listx = list.strip()
+
+    y = json.loads(list)
+
+    #print("------------" + y["employees"][0]["nombre"])
+
+    print(list)     
+    return listx
+
+
+@app.route('/llamada', methods=['GET', 'POST'])
+@login_required
+def llamada():
+    
+    data = request.get_data()
+
+    datax= data.strip()
+    print('------------------------------------------------------------------')
+    print(datax)
+    print('------------------------------------------------------------------')
+    #llamar funcoin envio de sms de uri todo en epoc
+    # datetime
+    generarWebex(["listaNumeros"],"correo")
+    return datax
+
+
+@app.route('/agendarllamada', methods=['GET', 'POST'])
+@login_required
+def agendarllamada():
+
+    data = request.get_data()
+
+    call = json.loads(data)
+
+    celulares = []
+
+    datax= data.strip()
+    print('------------------------------------------------------------------')
+    print( "tipo: " +  call["tipo"] + "  Fecha:   " + call["Fecha"]  )
+    print('------------------------------------------------------------------')
+    lista = call["datos"]
+    for elemento in lista:
+        print (elemento)
+        
+        print("id: " + elemento["id"]+ "  celular: " + elemento["celular"] )
+        celulares.append(elemento["celular"]) 
+
+    print('------------------------------------------------------------------')
+    print ("correo:  " + current_user.email)
+    print ("celulares:  " + str(celulares))
+
+    inDate = call["Fecha"]
+    tipo = call["tipo"]
+
+    d = datetime.strptime(inDate, "%d/%m/%Y  %H:%M") 
+    #dt = datetime.strptime("21/11/06 16:30", "%d/%m/%y %H:%M")
+    #01/05/2020 9:44
+    
+    print('------------------------------------------------------------------')
+    print(d)
+    print(d.timestamp)
+    print(str(celulares))
+    print('------------------------------------------------------------------')
+
+    if tipo == "1":
+
+        #insertas el id del paciente en la tabla
+        print("tipo de meeting 1:1")
+
+    else:
+        
+        print("tipo de meeting 1:X")
+        # Insertas la cita y despues insertas el id de los pacientes con las citas
+
+    #insertar los datos de la video llamada
+    return data
+
+@app.route('/insertarcapturista', methods=['GET', 'POST'])
+@login_required
+def insertarcapturista():
+
+    data = request.get_data()
+
+    datax= data.strip()
+    print('------------------------------------------------------------------')
+    print(datax)
+    print('------------------------------------------------------------------')
+    #insertar los datos el paciente y lo familiares
+
+    return datax
+
+
+

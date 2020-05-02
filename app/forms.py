@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm, Form
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, FieldList, FormField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, FieldList, FormField, RadioField
 from wtforms.validators import DataRequired
 
 class LoginForm(FlaskForm):
@@ -57,6 +57,7 @@ class PacienteForm(Form):
     nombre = StringField('nombre')
     celular = StringField('celular')
     email = StringField('email')
+    selector = SubmitField(label='Generar Videollamada')
     # etc.
 
 class PacientesForm(Form):

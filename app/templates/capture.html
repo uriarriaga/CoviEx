@@ -131,7 +131,7 @@
                                 <div class="card-footer">
                                     <div class="row">
                                         <div class="col-12">
-                                          <button class="btn btn-success float-right" type="submit button" onclick="obtenerDatosFormulario()" ><i class="nav-icon fas fa-save"></i> Guardar</button>
+                 <button class="btn btn-success float-right" type="submit button" onclick="obtenerDatosFormulario()" ><i class="nav-icon fas fa-save"></i> Guardar</button>
                                         </div>   
                                     </div>
                                 </div>
@@ -148,6 +148,9 @@
 
 
     function obtenerDatosFormulario(){
+
+        
+        console.log("entrando a la function");
 
         nombre_paciente = document.getElementsByName("name")[0].value;
         celular_paciente = document.getElementsByName("cel")[0].value;
@@ -170,22 +173,23 @@
         console.log(json_data);  
 
 
-        $('#send').click(function(){
+      
             var data = json_data;
                 $.ajax({
-                    url : 'http://127.0.0.1:5000/insertdata',
+                    url : 'http://localhost:5000/insertdata',
                     data : data,
                     method : 'post', //en este caso
-                    dataType : 'json',
+                  
                     success : function(response){
                         alert("funciona bien");
+                        console.log(response)
                     },
                     error: function(error){
                         alert("No funciona");
                     }
         });
 
-    })
+ 
 }
 
 
@@ -196,6 +200,15 @@
 
 
 
+</script>
+
+<script>
+    window.onload = function(e){ 
+        console.log("se cargo la ventana ");
+        var x = document.getElementById("capturista");
+       
+        x.style.display = "none";
+    }
 </script>
 
 

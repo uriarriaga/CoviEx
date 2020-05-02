@@ -26,9 +26,19 @@ def login():
         if user and user.password == form.password.data:
             login_user(user)
             if not current_user.admin:
+               
+
+                if current_user.capturista:
+                    print(current_user.capturista)
+                    print('entro a capturista')
+                    return redirect(url_for('capture'))
+
                 return redirect(url_for('demo'))
+
             else:
                 return redirect(url_for('admin'))
+
+      
         else:
             flash('Login requested for user login Unsuccesful. Plese check username and password')
     return render_template('login.html', title='Sign In', form=form)
@@ -60,6 +70,9 @@ def widget():
 def admin():
     if not current_user.admin:
         return redirect(url_for('demo'))
+
+
+        
     formusr = userForm()
     print(formusr.username.data)
   
@@ -68,51 +81,51 @@ def admin():
         print(formusr.username.data)
         usr = User(username = formusr.username.data,email = formusr.email.data,password = formusr.password.data,
                     admin = formusr.admin.data,    atencionDomiciliaria = formusr.ad.data,
-                    informeMedico = formusr.im.data, teleVisita = formusr.tv.data)
+                    informeMedico = formusr.im.data, teleVisita = formusr.tv.data,  capturista= formusr.cp.data)
         db.session.add(usr)
         db.session.commit() 
     return render_template('admin.html', form = formusr)
 
 @app.route('/insertdata', methods=['GET', 'POST'])
 #@login_required
-
 def insertdata():
 
-    json_data = request.get_json()
+    json_data = request.get_data()
+    print(json_data)
     
-    paciente = Paciente()
-    paciente.nombre = str(json_data["nombre_paciente"])
-    paciente.celular = str(json_data["celular_paciente"])
-    paciente.email = str(json_data["email_paciente"])
+  #  paciente = Paciente()
+  #  paciente.nombre = str(json_data["nombre_paciente"])
+  #  paciente.celular = str(json_data["celular_paciente"])
+  #  paciente.email = str(json_data["email_paciente"])
 
-    db.session.add(paciente)
-    db.session.commit()
+   # db.session.add(paciente)
+   # db.session.commit()
 
-    paciente_db = db.session.query(Paciente).filter_by(email=paciente.email).first()
-    paciente_id_db = str(paciente_db.id)
+   # paciente_db = db.session.query(Paciente).filter_by(email=paciente.email).first()
+   # paciente_id_db = str(paciente_db.id)
 
 
-    familiares_paciente = json_data["familiares"]
+#    familiares_paciente = json_data["familiares"]
 
-    for item in familiares_paciente:
-        familiar = Familiar()
+#    for item in familiares_paciente:
+#        familiar = Familiar()
+#
+#        familiar.nombre = str(item["nombre_familiar"])
+#        familiar.celular = str(item["celular_familiar"])
+#        familiar.email = str(item["email_familiar"])
+#        familiar.id_paciente = paciente_id_db
 
-        familiar.nombre = str(item["nombre_familiar"])
-        familiar.celular = str(item["celular_familiar"])
-        familiar.email = str(item["email_familiar"])
-        familiar.id_paciente = paciente_id_db
+ #       db.session.add(familiar)
 
-        db.session.add(familiar)
-
-    db.session.commit()
+ #   db.session.commit()
         
     return str(json_data)
 
 @app.route('/capture', methods=['GET', 'POST'])
 @login_required
 def capture():
-    if not current_user.admin:
-        return redirect(url_for('demo'))
+    if not current_user.capturista:
+        return redirect(url_for('login'))
     formv = userForm()
     fam  = Familiar(nombre = "pruebamemo",celular="7222849367",email="mr.memo@gmail.com",id_paciente=1)
     pac = Paciente(nombre = "pruebamemo",celular="7222849367",email="mr.memo@gmail.com")
@@ -274,15 +287,8 @@ def agendarllamada():
 
     celulares = []
 
-    datax= data.strip()
-    print('------------------------------------------------------------------')
-    print( "tipo: " +  call["tipo"] + "  Fecha:   " + call["Fecha"]  )
-    print('------------------------------------------------------------------')
     lista = call["datos"]
     for elemento in lista:
-        print (elemento)
-        
-        print("id: " + elemento["id"]+ "  celular: " + elemento["celular"] )
         celulares.append(elemento["celular"]) 
 
     print('------------------------------------------------------------------')
@@ -307,6 +313,7 @@ def agendarllamada():
         #insertas el id del paciente en la tabla
         print("tipo de meeting 1:1")
 
+
     else:
         
         print("tipo de meeting 1:X")
@@ -314,20 +321,4 @@ def agendarllamada():
 
     #insertar los datos de la video llamada
     return data
-
-@app.route('/insertarcapturista', methods=['GET', 'POST'])
-@login_required
-def insertarcapturista():
-
-    data = request.get_data()
-
-    datax= data.strip()
-    print('------------------------------------------------------------------')
-    print(datax)
-    print('------------------------------------------------------------------')
-    #insertar los datos el paciente y lo familiares
-
-    return datax
-
-
 

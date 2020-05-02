@@ -1,8 +1,9 @@
 from flask_wtf import FlaskForm, Form
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, FieldList, FormField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, FieldList, FormField, RadioField
 from wtforms.validators import DataRequired
 
 class LoginForm(FlaskForm):
+
     username    = StringField('Usuario', validators=[DataRequired()])
     password    = PasswordField('Contraseña', validators=[DataRequired()])
     remember_me = BooleanField('Recordarme')
@@ -21,6 +22,7 @@ class userForm(FlaskForm):
 	ad       = BooleanField()
 	im       = BooleanField()
 	tv       = BooleanField()
+	cp       = BooleanField()
 	submit   = SubmitField('Agregar Usuario')
 
 class familiarForm(FlaskForm):
@@ -55,6 +57,7 @@ class PacienteForm(Form):
     nombre = StringField('nombre')
     celular = StringField('celular')
     email = StringField('email')
+    selector = SubmitField(label='Generar Videollamada')
     # etc.
 
 class PacientesForm(Form):

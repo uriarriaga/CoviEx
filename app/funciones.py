@@ -63,7 +63,7 @@ def generarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com"):
         invitado.indentficadorTemporal = token
         invitado.expirationTime = actualTimePlusHR
         invitado.correo = correo
-        print(invitado.username, str(datetime.fromtimestamp(invitado.expirationTime)))
+        #print(invitado.username, str(datetime.fromtimestamp(invitado.expirationTime)))
         db.session.commit()
         sendSMS("+52"+numero,token)
 

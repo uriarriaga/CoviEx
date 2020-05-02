@@ -55,7 +55,7 @@ def sendSMS(contacto,token):
             sendWebexMsg(r.status_code,os.environ["idRoomTodos"])
 
 
-def generarWebex(listaNumeros=["+525580663521"],correo="joarriag@cisco.com"):
+def generarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com"):
     token = token_urlsafe(10)[:10]
     actualTimePlusHR = str(datetime.utcnow().timestamp()+3600)
     invitado = db.session.query(GuestUser).filter(GuestUser.expirationTime<=datetime.utcnow().timestamp()).first()
@@ -65,7 +65,7 @@ def generarWebex(listaNumeros=["+525580663521"],correo="joarriag@cisco.com"):
     db.session.commit()
     print(invitado.username, str(datetime.fromtimestamp(invitado.expirationTime)))
     for numero in listaNumeros:
-        sendSMS(numero,token)
+        sendSMS("+52"+numero,token)
 
 
 

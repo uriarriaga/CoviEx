@@ -2,7 +2,8 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from sqlalchemy.ext.automap import automap_base
-
+import pymysql
+pymysql.install_as_MySQLdb()
 
 app = Flask(__name__)
 

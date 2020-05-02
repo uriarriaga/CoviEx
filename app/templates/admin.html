@@ -2,71 +2,99 @@
 
 {% block content %}
 
+     <section class="content">
 
+            <div class="container">
+    
+                <form method="post" action="" class="needs-validation">
+                    {{ form.hidden_tag() }}
+    
+                                 
+                            <div class="card shadow">    
+                                <div class="card-header">
+                                    <h2><strong>Consola de administración</strong></h2>
+                                </div>
 
+                                <div class="card-body py-3">                
+                                    <h5>Datos del usuario</h5>
+                                    <hr>
+                                    <div class="row px-2 my-4">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label><strong>Usuario</strong></label>
+                                                {{ form.username(size=32) }}
+                                            </div>
+                                        </div>
 
-<br>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label><strong>Correo</strong></label>
+                                                {{ form.email(size=32) }}
+                                            </div>
+                                        </div>    
+                                        
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label><strong>Contraseña</strong></label>
+                                                {{ form.password(size=32) }}
+                                            </div>
+                                        </div>                                        
 
+                                    </div>  
 
+                                    <h5 class="mt-3">Permisos del usuario</h5>
+                                    <hr>
+                                    <div class="row px-3 my-4">                                        
+                                        <div class="form-inline">
 
-	    	  <h2 >Consola de administración</h2>
+                                            <div class="form-check mr-5">
+                                                <label class="form-check-label">
+                                                     {{ form.admin() }} &nbsp; Admin
+                                                </label>                                              
+                                            </div>
 
-<br>
+                                            <div class="form-check mr-5">
+                                                <label class="form-check-label">
+                                                    {{ form.ad() }} &nbsp; AD
+                                                </label>                                              
+                                            </div>
 
+                                            <div class="form-check mr-5">
+                                                <label class="form-check-label">
+                                                     {{ form.im() }} &nbsp; IM
+                                                </label>                                              
+                                            </div>
 
-	  		
-			<table class="table table-striped">
-			    <thead>
-			      <tr>
+                                            <div class="form-check mr-5">
+                                                <label class="form-check-label">
+                                                    {{ form.tv() }} &nbsp; TV
+                                                </label>                                              
+                                            </div>
 
-			        <th>Usuario</th>
-			        <th>Contraseña</th>
-			        <th>email</th>
-			        <th>Admin</th>
-			        <th>AD</th>
-			        <th>IM</th>
-			        <th>TV</th>
-			        <th></th>
-			      </tr>
-			    </thead>
-			    <tbody>
-			      <tr>
+                                            <div class="form-check mr-5">
+                                                <label class="form-check-label">
+                                                    {{ form.cp() }} &nbsp; CP
+                                                </label>                                              
+                                            </div>
 
-			         <div > <form action="" method="post" novalidate>
-						{{ form.hidden_tag() }}
-						<td>	
-						{{ form.username(size=8) }}
-						</td>
-						<td>	
-						{{ form.password(size=8) }}
-						</td>
-						<td>	
-						{{ form.email(size=14) }}
-						</td>
-						<td> {{ form.admin() }}</td>
-						<td> {{ form.ad() }}</td>
-						<td> {{ form.im() }}</td>
-						<td> {{ form.tv() }}</td>
+                                        </div>
+                                    </div>
 
-						<td> {{ form.submit() }}</td>
-					</form></div>
-			      </tr>
-			      <tr>
-	
-			      </tr>
-			      <tr>
+                                </div>
 
-			      </tr>
-			    </tbody>
-			</table>
-	     
-	
-<br>
-<br>
-
-
-
-
-
+                                <div class="card-footer">
+                                    <div class="row">
+                                        <div class="col-12">
+                                          <button class="btn btn-success float-right" type="submit"><i class="nav-icon fas fa-save"></i> Guardar</button>
+                                        </div>   
+                                    </div>
+                                </div>
+                            </div>                
+    
+                </form>
+                
+            </div>
+    
+        </section>
 
 {% endblock %}

@@ -3,6 +3,7 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField, Field
 from wtforms.validators import DataRequired
 
 class LoginForm(FlaskForm):
+
     username    = StringField('Usuario', validators=[DataRequired()])
     password    = PasswordField('Contraseña', validators=[DataRequired()])
     remember_me = BooleanField('Recordarme')
@@ -21,6 +22,7 @@ class userForm(FlaskForm):
 	ad       = BooleanField()
 	im       = BooleanField()
 	tv       = BooleanField()
+	cp       = BooleanField()
 	submit   = SubmitField('Agregar Usuario')
 
 class familiarForm(FlaskForm):

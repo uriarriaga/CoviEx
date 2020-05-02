@@ -72,19 +72,54 @@ def admin():
         db.session.commit() 
     return render_template('admin.html', form = formusr)
 
+@app.route('/insertdata', methods=['GET', 'POST'])
+#@login_required
+
+def insertdata():
+
+    json_data = request.get_json()
+    
+    paciente = Paciente()
+    paciente.nombre = str(json_data["nombre_paciente"])
+    paciente.celular = str(json_data["celular_paciente"])
+    paciente.email = str(json_data["email_paciente"])
+
+    db.session.add(paciente)
+    db.session.commit()
+
+    paciente_db = db.session.query(Paciente).filter_by(email=paciente.email).first()
+    paciente_id_db = str(paciente_db.id)
+
+
+    familiares_paciente = json_data["familiares"]
+
+    for item in familiares_paciente:
+        familiar = Familiar()
+
+        familiar.nombre = str(item["nombre_familiar"])
+        familiar.celular = str(item["celular_familiar"])
+        familiar.email = str(item["email_familiar"])
+        familiar.id_paciente = paciente_id_db
+
+        db.session.add(familiar)
+
+    db.session.commit()
+        
+    return str(json_data)
+
 @app.route('/capture', methods=['GET', 'POST'])
 @login_required
 def capture():
     if not current_user.admin:
         return redirect(url_for('demo'))
     formv = userForm()
-    fam  = Familiar(nombre = "patoxxx",celular="55677655",email="edeed@gmail.com",id_paciente=1)
-    pac = Paciente(nombre = "eco",celular="55677655",email="edeed@gmail.com")
-    db.session.add(pac)
-    db.session.commit()
+    fam  = Familiar(nombre = "pruebamemo",celular="7222849367",email="mr.memo@gmail.com",id_paciente=1)
+    pac = Paciente(nombre = "pruebamemo",celular="7222849367",email="mr.memo@gmail.com")
+    #db.session.add(fam)
+    #db.session.commit()
     #app.after_request(sql_debug)
-    return"<h2>Done!</h>"
-    # render_template('capture.html', form = formv)
+    #return"<h2>Done!</h>"
+    return render_template('capture.html')
 
 
 

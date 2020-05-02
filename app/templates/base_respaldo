@@ -39,9 +39,6 @@
       <link href="https://www.gob.mx/css/chunk-vendors.e37f87fc.css" rel="stylesheet">
       <link href="https://www.gob.mx/css/app.244384b5.css" rel="stylesheet">
       <link href="https://www.gob.mx/favicon.ico" rel="shortcut icon">
-      <!--- Memo styles for login -->
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">  
 
 
 
@@ -94,8 +91,7 @@
                                               <a class="nav-item nav-link" href="{{ url_for('widget') }}">Widget</a>
                                               <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
                                             {% else %}
-
-                                              <a id ="capturista" class="nav-item nav-link" href="{{ url_for('demo') }}">Menu</a>
+                                              <a class="nav-item nav-link" href="{{ url_for('demo') }}">Menu</a>
                                               <a class="nav-item nav-link" href="{{ url_for('logout') }}">Salir</a>
                                             {% endif %}
                                     </form>
@@ -148,60 +144,20 @@
 <br>
 <br>
 <br>
-    <footer class="main-footer text-white py-5 px-5" style="background-color: #12322b;">
-        <div class="row">
-
-            <div class="col-3 py-5">
-                <img class="w-75" src="/static/logofooter.svg" alt="">                
-            </div>
-
-            <div class="col-3 text-wrap">
-                <h5><strong>Enlaces</strong></h5>
-                <ul style="list-style-type: none; margin: 0; padding: 0;">
-                    <li><a class="text-decoration-none text-light" href="#">Participa</a></li>
-                    <li><a class="text-decoration-none text-light" href="#">Publicaciones Oficiales</a></li>
-                    <li><a class="text-decoration-none text-light" href="#">Marco Jurídico</a></li>
-                    <li><a class="text-decoration-none text-light" href="#">Plataforma Nacional de Transparencia</a></li>
-                </ul>
-            </div>
-
-            <div class="col-3 text-wrap">
-                <h5><strong>¿Que es gob.mx?</strong></h5>
-                <p>Es el portal único de trámites, 
-                información y participación ciudadana. <a class="text-light" href="#">Leer mas</a>
-                </p>
-
-                <br>     
-
-                <ul style="list-style-type: none; margin: 0; padding: 0;">
-                    <li><a class="text-decoration-none text-light" href="#">Portal de datos abiertos</a></li>
-                    <li><a class="text-decoration-none text-light" href="#">Declaración de accesibilidad</a></li>
-                    <li><a class="text-decoration-none text-light" href="#">Aviso de privacidad integral</a></li>
-                    <li><a class="text-decoration-none text-light" href="#">Aviso de privacidad simplificado</a></li>
-                    <li><a class="text-decoration-none text-light" href="#">Términos y condiciones</a></li>
-                    <li><a class="text-decoration-none text-light" href="#">Política de seguridad</a></li>
-                    <li><a class="text-decoration-none text-light" href="#">Mapa del sitio</a></li>
-                </ul>
-            </div>
-
-            <div class="col-3">
-                <h5><a class="text-light" href="#">Denuncia contra servidores públicos</a></h5>
-
-                <h5 class="mt-5">Síguenos en:</h5>
-                <p> &nbsp;  <i class="fab fa-facebook-f" style="font-size: 30px;"></i> &nbsp; <i class="fab fa-twitter" style="font-size: 30px;"></i>  </p>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 
-            </div>
+<footer class="site-footer">
+  <div id="footer-content">
+   <img src="/static/foot.png"    width="100%" height ="28%">
+  </div>
+</footer>
 
-        </div>     
 
-    </footer>
-    
-    <div class="content">        
-        <img class="w-100" src="/static/pleca_plumaje_con_fondo.png" alt="">          
-    </div>
-    
-
-</body>
-
+    </body>
 </html>

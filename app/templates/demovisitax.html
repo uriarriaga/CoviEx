@@ -1,20 +1,142 @@
- {% extends "base.html" %}
+<html>
+    <head>
+        {% if title %}
+        <title>{{ title }} - PSsCloud</title>
+        {% else %}
+        <title>PSsCloud</title>
+        {% endif %}
 
-{% block content %}
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+        
+
+      <link rel="icon" href="https://www.gob.mx/cms/uploads/image/file/488329/favicon.png">
+      <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600" rel="stylesheet">
+      <meta name="description" content="gob.mx es la plataforma que conecta a la gente con el gobierno, impulsa la eficiencia, y transforma los procesos para proveer de información y  trámites">
+      <meta name="keywords" content="gobierno, digital, trámites, trámites en línea, gobierno digital">
+      <meta property="og:url" content="http://www.gob.mx/">
+      <meta property="og:site_name" content="gob.mx">
+      <meta property="og:title" content="gob.mx">
+      <meta property="og:image" content="https://www.gob.mx/cms/uploads/image/file/488330/Identidad.jpg">
+      <meta property="og:description" content="El portal único del gobierno.">
+      <meta property="og:type" content="website">
+      <meta name="image" content="https://www.gob.mx/cms/uploads/image/file/488330/Identidad.jpg">
+      <iframe src="javascript:void(0)" title="" style="width: 0px; height: 0px; border: 0px none; display: none;"></iframe>
+      <title>El portal único del gobierno. | gob.mx</title>
+      <link href="https://www.gob.mx/css/chunk-380affc3.86a64797.css" rel="prefetch">
+      <link href="https://www.gob.mx/css/chunk-4b321dc6.9fd84dfa.css" rel="prefetch">
+      <link href="https://www.gob.mx/css/chunk-5a3a1038.cfb8937c.css" rel="prefetch">
+      <link href="https://www.gob.mx/js/chunk-380affc3.b6e58f0a.js" rel="prefetch">
+      <link href="https://www.gob.mx/js/chunk-4b321dc6.519579ee.js" rel="prefetch">
+
+      <link href="https://www.gob.mx/js/chunk-5a3a1038.782bb8bb.js" rel="prefetch">
+      <link href="https://www.gob.mx/css/app.244384b5.css" rel="preload" as="style">
+      <link href="https://www.gob.mx/css/chunk-vendors.e37f87fc.css" rel="preload" as="style">
+      <link href="https://www.gob.mx/js/app.b50f0172.js" rel="preload" as="script">
+      <link href="https://www.gob.mx/js/chunk-vendors.43d24fff.js" rel="preload" as="script">
+      <link href="https://www.gob.mx/css/chunk-vendors.e37f87fc.css" rel="stylesheet">
+      <link href="https://www.gob.mx/css/app.244384b5.css" rel="stylesheet">
+      <link href="https://www.gob.mx/favicon.ico" rel="shortcut icon">
 
 
+
+
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.25.0/moment.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.25.0/locale/es.min.js"></script>
+		
+	
+
+		
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  
+
+
+
+      <style>
+              h2 {
+                color: #4d4d4d;
+              }
+
+              th {
+                color: #4d4d4d;
+              }
+      </style>
+
+
+ </head>
+    <body>
+
+<div>
+    <div id="app" style="position: relative; width: 100% !important;">   
+            <nav data-v-4a3754a3="" id="header" class="navbar bg-dark navbar-dark navbar-expand-sm navbar-gob">
+                    <div data-v-4a3754a3="" class="container">
+                        <button data-v-4a3754a3="" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" class="navbar-toggler">
+                            <span data-v-4a3754a3="" class="navbar-toggler-icon"></span>
+                        </button>
+                            <a data-v-4a3754a3="" href="https://www.gob.mx" target="_blank" class="navbar-brand">
+                                <img data-v-4a3754a3="" src="https://framework-gb.cdn.gob.mx/landing/img/logoheader.svg" alt="logo gobierno de méxico" class="logos" style="width: 8rem; margin-top: -2%; margin-bottom: -2%; margin-left: -15%;">
+                            </a>
+                                <div data-v-4a3754a3="" id="collapsibleNavbar" class="collapse navbar-collapse justify-content-end">
+                                    <form data-v-4a3754a3="" class="form-inline" >
+                                        <div class="navbar-nav">
+                                            {% if current_user.admin %}
+                                              <a class="nav-item nav-link" href="{{ url_for('widget') }}">Widget</a>
+                                              <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                                            {% else %}
+                                              <a class="nav-item nav-link" href="{{ url_for('demo') }}">Demo</a>
+                                              <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                                            {% endif %}
+                                    </form>
+                                </div>
+                    </div>
+            </nav> 
+        
+
+
+
+<br>
+
+
+
+            <div class="container" style="margin-top:30px">
+                <div class="row">
+                        <div class="col-sm-1">
+                         
+                        </div>
+
+                        <div class="col-sm-8">
+
+                            <div class="w3-panel w3-light-grey w3-border w3-round">
+
+
+  <!--   DE Aqui para abajo  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->      	
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<br>
 
 
 
 	    	  <h2 > Servicio de TeleVisita</h2>
 
 	    
-	    
+	    	  <br>
+
+	    	  <h4 > Pacientes</h4>
+
+	    	    <br>
 
 	    	    <table class="table table-striped">
 						    <thead>
 						      <tr>
-						        <th>Paciente</th>
+						        <th>Nombre</th>
 						        <th>Celular</th>
 						        <th>Email</th>
 						         <th>Seleccionar</th>
@@ -25,7 +147,8 @@
 						    </tbody>
 						  </table>
 
-						
+						   <br>
+						    <br>
 						    
 
 	    	 <div id="lista-familiares" style="visibility: hidden" >
@@ -96,10 +219,9 @@
 			// Construimos e inyectamos el date piecker
 
 
-			url_base= "http://192.168.100.13"
 			
-			url_pacientes = url_base + '/getpacientes';
-			url_familiares =url_base + '/getfamiliares';
+			url_pacientes ="http://localhost:5000/getpacientes";
+			url_familiares ="http://localhost:5000/getfamiliares";
 
 			lista_familiares = "";
 			lista_pacientes ="";
@@ -276,21 +398,17 @@
 		       		 		console.log(datos);
 
 		       		 		$.ajax({
-							    url: url_base + '/llamada',
+							    url:"http://9822c44a.ngrok.io/llamada",
 							    type: 'post',
 							    dataType: 'json',
 							    success: function(respuesta) {
-							      console.log(respuesta);
-							      location.replace("/respuestatelevisita");		
+							      console.log(respuesta);		
 							   
 							    },	data: datos,
 							    error: function() {
 							      console.log("No se ha podido obtener la información");
-							     alert("No pudimos contactar al servidor, favor de intentar nuevamente");
 							    }
 			  				});
-
-			  				
 		       		 	
 				}
 
@@ -332,62 +450,35 @@
        		 		console.log(datos);
 
        		 		$.ajax({
-					    url:url_base +'/agendarllamada',
+					    url:"http://9822c44a.ngrok.io/agendarllamada",
 					    type: 'post',
 					    dataType: 'json',
 					    success: function(respuesta) {
-					      console.log(respuesta);	
-					      location.replace("/respuestatelevisita");	
+					      console.log(respuesta);		
 					   
 					    },	data: datos,
 					    error: function() {
 					      console.log("No se ha podido obtener la información");
-					      alert("No pudimos contactar al servidor, favor de intentar nuevamente");
 					    }
 	  				});
        		 	}
-
-       		 	
        		 }
 
 
 				$('#lista-familiares').change(function() {
 
 							  var value = 0.00;	
-							  var i = 0;
 							  {
 							    $('#lista-familiares :checked').each(function() {
 							      //if(values.indexOf($(this).val()) === -1){
-							      //var value = 0.00;
-							      console.log ("valor original " + parseFloat(($(this).val())))
-							      if( contains(lista_familiarescheck,parseFloat(($(this).val())) ))
-							      {
-							      		 console.log("entro al if");
-
-
-							      }else{
-
-
-							        console.log("entro al else");	
-							      	value=parseFloat(($(this).val()));
-							      }	
-							      	
-							      console.log('valor antes del parse' + ($(this).val()));
+							      value=parseFloat(($(this).val()));
+							      console.log($(this).val())
 							      // }
 							    });
-							    console.log('valor en el parse' + parseFloat(value));
-
-
-							    if(lista_familiarescheck.length < 3 &&  value !=0){
-					
-
-							   		lista_familiarescheck.push(value);
-							    	console.log(lista_familiarescheck);
-							    
-							    	
-							   
-
-							    }else{lista_familiarescheck.pop();}
+							    console.log( parseFloat(value));
+							    if(lista_familiarescheck.length < 3){
+							    lista_familiarescheck.push(value);
+							    }
 	
 
 								 if(lista_familiarescheck.length > 2 ){
@@ -399,7 +490,7 @@
 
 
 
-       			 url = url_base + '/getpacientes'
+       			 url ="http://localhost:5000/getpacientes"
        			 callback =[]
        				   
        		 window.onload = codeAddress;
@@ -413,27 +504,39 @@
 
     			});	
 
-       		 function contains(a, obj) {
-				    for (var i = 0; i < a.length; i++) {
-				        if (a[i] === obj) {
-				            return true;
-				        }
-				    }
-				    return false;
-			}
-
 
 
 
 			</script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+   <!--   DE Aqui para abajo  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->   
+
+                            </div>                
+
+                        </div>
+                        <div class="col-sm-1">
+                         
+                        </div>
+
+                </div>   
+            </div>                     
+    </div> <!-- fin del Div del NAV -->
+</div> <!-- fin del Div principal -->
 
 <br>
 <br>
 <br>
 <br>
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 
 
-{% endblock %}
+
+    </body>
+</html>
+

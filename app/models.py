@@ -19,6 +19,7 @@ class User(db.Model,UserMixin):
     atencionDomiciliaria = db.Column(db.Boolean,     nullable = False)
     informeMedico        = db.Column(db.Boolean,     nullable = False)
     teleVisita           = db.Column(db.Boolean,     nullable = False)
+    capturista           = db.Column(db.Boolean,     nullable = False)
 
     def __repr__(self):
         return(f"User('{self.username}','{self.email}')")

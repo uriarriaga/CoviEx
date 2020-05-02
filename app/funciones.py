@@ -56,15 +56,15 @@ def sendSMS(contacto,token):
 
 
 def generarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com"):
-    token = token_urlsafe(10)[:10]
     actualTimePlusHR = str(datetime.utcnow().timestamp()+3600)
-    invitado = db.session.query(GuestUser).filter(GuestUser.expirationTime<=datetime.utcnow().timestamp()).first()
-    invitado.indentficadorTemporal = token
-    invitado.expirationTime = actualTimePlusHR
-    invitado.correo = correo
-    db.session.commit()
-    print(invitado.username, str(datetime.fromtimestamp(invitado.expirationTime)))
     for numero in listaNumeros:
+        token = token_urlsafe(10)[:10]
+        invitado = db.session.query(GuestUser).filter(GuestUser.expirationTime<=datetime.utcnow().timestamp()).first()
+        invitado.indentficadorTemporal = token
+        invitado.expirationTime = actualTimePlusHR
+        invitado.correo = correo
+        print(invitado.username, str(datetime.fromtimestamp(invitado.expirationTime)))
+        db.session.commit()
         sendSMS("+52"+numero,token)
 
 

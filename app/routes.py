@@ -46,7 +46,7 @@ def widget():
     if invitado.expirationTime <= datetime.utcnow().timestamp():
         return render_template('widgetexpired.html', title='widget')
     JWToken = createJWT(invitado.user_id,invitado.expirationTime,invitado.secret)
-    return render_template('widget.html', title='widget', token=JWToken, SIP="joarriag@cisco.com")
+    return render_template('widget.html', title='widget', token=JWToken, SIP=invitado.correo)
 
 
 

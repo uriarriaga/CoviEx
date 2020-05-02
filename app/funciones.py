@@ -4,6 +4,7 @@ from app.models import User
 from app import GuestUser
 from datetime import datetime
 from app import db  
+from secrets import token_urlsafe
 import jwt 
 import base64
 import time,calendar
@@ -20,26 +21,21 @@ def sendWebexMsg(texto,roomId=os.environ["idRoomYo"]):
     }
     requests.post( os.environ["urlWebextTeams"], headers=headers, json = payload )
 
-def createJWT():
-    invitado = db.session.query(GuestUser).filter(GuestUser.expirationTime<=datetime.utcnow().timestamp()).first()
-    print(str(invitado))
-    key64 = base64.b64decode(invitado.secret)
-    actualTimePlusHR = str(datetime.utcnow().timestamp()+3600)
+def createJWT(user_id,expirationTime,secret):
+    key64 = base64.b64decode(secret)
     payload = {
-    "sub": "TestTeleconsulta",
-    "name": "TestTeleconsulta",
-    "iss": invitado.user_id,
-    "exp": actualTimePlusHR
+    "sub": "Teleconsulta",
+    "name": "Teleconsulta",
+    "iss": user_id,
+    "exp": expirationTime
     }
     headers= { "alg": "HS256","typ": "JWT" }
     encoded = str(jwt.encode(payload, key64, algorithm ='HS256', headers=headers).decode("utf-8"))
-    invitado.expirationTime = actualTimePlusHR
-    db.session.commit()
-    return encoded, str(invitado.id)
+    #print(str(datetime.fromtimestamp(int(invitado.expirationTime.split(".")[0]))),str(datetime.fromtimestamp(int(datetime.utcnow().timestamp()))))
+    return encoded
 
-def sendSMS(contacto):
-        token , identificador = createJWT()
-        text = "Servicio de TeleConsulta. Para iniciar la videollamada favor de ingresar a la siguiente direccion: https://teleconsulta.mx/widget?token=" + token + "&identificador=" +identificador
+def sendSMS(contacto,token):
+        text = "Servicio de TeleConsulta. Para iniciar la videollamada favor de ingresar a la siguiente direccion: https://teleconsulta.mx/widget?token=" + token 
         params = {'from': os.environ["sender"], 'text': text, 
                 'to': contacto, 'api_key': os.environ["api_key"], 
                 'api_secret': os.environ["api_secret"]}
@@ -59,8 +55,18 @@ def sendSMS(contacto):
             sendWebexMsg(r.status_code,os.environ["idRoomTodos"])
 
 
-def generarWebex(listaNumeros,correo):
-    pass
+def generarWebex(listaNumeros=["+525580663521"],correo="joarriag@cisco.com"):
+    token = token_urlsafe(10)[:10]
+    actualTimePlusHR = str(datetime.utcnow().timestamp()+3600)
+    invitado = db.session.query(GuestUser).filter(GuestUser.expirationTime<=datetime.utcnow().timestamp()).first()
+    invitado.indentficadorTemporal = token
+    invitado.expirationTime = actualTimePlusHR
+    invitado.correo = correo
+    db.session.commit()
+    print(invitado.username, str(datetime.fromtimestamp(invitado.expirationTime)))
+    for numero in listaNumeros:
+        sendSMS(numero,token)
+
 
 
 

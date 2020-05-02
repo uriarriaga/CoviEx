@@ -1,16 +1,13 @@
 from flask import request, redirect, url_for, render_template, flash, session 
 from app import app, db, Base, Familiar, GuestUser, Paciente
-from app.funciones import sendWebexMsg, sendSMS
-
+from app.funciones import sendWebexMsg, sendSMS, createJWT
 from app.forms import LoginForm, smsForm, userForm,capturesForm, PacienteForm, PacientesForm
 from app.models import User
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import login_user, logout_user, login_required, current_user
-
-
+from datetime import datetime
 import jwt 
 import base64
-import time,calendar
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -36,15 +33,12 @@ def logout():
 @app.route('/widget')
 def widget():
     token = request.args.get('token')
-    identificador = request.args.get('identificador')
-    invitado = GuestUser.query.get(identificador) ## obtener el "id" de la tabla Guest 
-    key64 = base64.b64decode(invitado.secret)
-    try:
-        decoded = jwt.decode(token, key64, algorithms ='HS256')
-    except:
+    invitado = db.session.query(GuestUser).filter_by(indentficadorTemporal=token).first() 
+    print(invitado.username,invitado.expirationTime)
+    if invitado.expirationTime <= datetime.utcnow().timestamp():
         return render_template('widgetexpired.html', title='widget')
-    print( time.gmtime(int(decoded["exp"])))
-    return render_template('widget.html', title='widget', token=token)
+    JWToken = createJWT(invitado.user_id,invitado.expirationTime,invitado.secret)
+    return render_template('widget.html', title='widget', token=JWToken, SIP="joarriag@cisco.com")
 
 
 

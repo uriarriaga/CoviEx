@@ -11,41 +11,400 @@
 
 	    	  <h2 > Servicio de Informe Médico </h2>
 
-<br>
+	    
+
+	    	    <table class="table table-striped">
+						    <thead>
+						      <tr>
+						        <th>Paciente</th>
+						        <th>Celular</th>
+						        <th>Email</th>
+						         <th>Seleccionar</th>
+						      </tr>
+						    </thead>
+						    <tbody id="pacientes">
+
+						    </tbody>
+						  </table>
+
+						
+						    
+
+	    	 <div id="lista-familiares" style="visibility: hidden" >
+
+	    	 	<h4 > Familiares</h4>
+	    	 	 <br>
+
+					<table class="table table-striped">
+					    <thead>
+					      <tr>
+					      	<th>Seleccionar</th>
+					        <th>Nombre</th>
+					        <th>Celular</th>
+					        <th>Email</th>
+					    
+					      </tr>
+					    </thead>
+					    <tbody id="familiares">
+					      
+					    </tbody>
+  					</table>
 
 
-	  		<p><input type="submit" class="btn btn-primary" value="+"> <i>Agregar Familiar </i></p>
-			<table class="table table-striped">
-			    <thead>
-			      <tr>
 
-			        <th>Numero celular del familiar</th>
-			        <th>Videoconferencia</th>
-			      </tr>
-			    </thead>
-			    <tbody>
-			      <tr>
 
-			         <div > <form action="" method="post" novalidate>
-						{{ form.hidden_tag() }}
-						<td>
-							{{ form.sms(size=32) }}<br>
-						</td>
-						<td> <p><input type="submit" class="btn btn-primary" value="Generar Videollamada"></p></td>
-					</form></div>
-			      </tr>
-			      <tr>
+  					<div >
+  						<br>
+  						  <p>Selecciona una hora y fecha en saco de que sea una video llamada agenda y presiona el boton de agenda; En su defecto si se trata de una llamada inmediata, presiona el boton con el icono del telefono.</p>
+
+
+  						  			<table class="table table-striped">
+									    <thead>
+									      <tr>
+									      	<th>Generar Videollamada</th>
+									        <th>Hora y Fecha</th>
+									        <th>Agendar Videollamada</th>
+									      
+									    
+									      </tr>
+									    </thead>
+									    <tbody >
+
+									    <tr>
+									      	<th ><button onclick= "call()"  class="btn btn-success"><span align="center"  class="glyphicon glyphicon-earphone" aria-hidden="true"></span></button></th>
+									        <th><div class="input-group date" id="datetimepicker1"><input type="text" id="fec" class="form-control datepicker"></input><span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span></div></th>
+									        <th align="center" > <button onclick="Agendarllamada()" align="center" class="btn btn-success"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></button></th>
+									      
+									    
+									      </tr>
+									      
+									    </tbody>
+				  					</table>
+
+
+							
+
+					
+					</div>
+	    	 </div>
 	
-			      </tr>
-			      <tr>
+<br>
+<br>
 
-			      </tr>
-			    </tbody>
-			</table>
-	     
+
+			<script>
+
+
+			// Construimos e inyectamos el date piecker
+
+
+			
+			url_pacientes ="http://localhost:5000/getpacientes";
+			url_familiares ="http://localhost:5000/getfamiliares";
+
+			lista_familiares = "";
+			lista_pacientes ="";
+
+			var lista_familiarescheck = [];
+
+
+				function codeAddress() {
+
+					// crear y asignar el date picker
+
+
+
+
+					console.log("entrando a la funcion");
+
+
+					 $.ajax({
+
+					    url:url_pacientes,
+					   
+					    success: function(respuesta) {
+					     
+					      //console.log(respuesta);		
+					   
+					      var listaUsuarios = $("#pacientes");
+
+
+
+					 
+					      var response = (""+respuesta).trim();
+					      console.log(response);
+					      obj = JSON.parse(response);
+					      console.log(obj["pacientes"][0]);
+
+					      $.each(obj["pacientes"], function(index, elemento) {
+					      	//console.log("entrando al ajax");
+					      	//console.log(elemento.nombre);
+
+
+					        listaUsuarios.append(
+
+					           '<tr>'
+					    
+					          +     '<td>' + elemento.nombre + '</td>'
+					            +     '<td>' + elemento.celular + '</td>'
+					              +     '<td>' + elemento.email + '</td>'
+					              +     '<td>' + '<button '+ 'id=' +  elemento.id +  ' onclick="pacientes_button(' + elemento.id + ')"'   + ' type="button" class="btn btn-primary">Seleccionar</button>' + '</td>'
+
+					          + '</tr>' 
+
+					           
+
+
+
+					        );    
+					      });
+
+					   
+
+					    },
+					    error: function() {
+					      console.log("No se ha podido obtener la información");
+					    }
+	  				});
+
+
+					 $.ajax({
+
+					    url:url_familiares,
+					   
+					    success: function(respuesta) {
+					     
+					
+					   
+					      var listaUsuarios = $("#lista-usuarios");
+					      var response = (""+respuesta).trim();
+					      //console.log(response);
+					      lista_familiares= JSON.parse(response);
+					      console.log(lista_familiares["familiares"][0]);
+
 	
+					    },
+					    error: function() {
+					      console.log("No se ha podido obtener la información");
+					    }
+	  				});
+				}
+
+
+				function pacientes_button( id) {
+
+					      //Limpiamos los checks de los familiares ca vez que cambian la lista	
+					      lista_familiarescheck = [];	
+
+					document.getElementById("familiares").innerHTML = "";
+
+					//alert("se pesiono el boton con el id: " + id );
+
+					var i;
+					 var listaFamiliares = $("#familiares");
+					
+						for (i = 0; i < lista_familiares["familiares"].length; i++) {
+
+							 if (lista_familiares["familiares"][i].id_paciente == id ){	
+							 //console.log(lista_familiares["familiares"][i])
+
+							 listaFamiliares.append(
+
+					           '<tr>'
+					                 +     '<td>'  + '<input type="checkbox" name="type" '
+                  + "value=" +  lista_familiares["familiares"][i].id   + '/>'+ ' </td>'
+
+
+					          +     '<td>' + lista_familiares["familiares"][i].nombre + '</td>'
+					            +     '<td id="cel'+ lista_familiares["familiares"][i].id + '">' + lista_familiares["familiares"][i].celular + '</td>'
+					              +     '<td>' + lista_familiares["familiares"][i].email + '</td>' +
+					             '</tr>');
+
+
+
+							 }
+
+						  
+						} 
+
+
+					
+					
+						 var x = document.getElementById("lista-familiares");   // Get the element with id="demo"
+						 x.style.visibility = "visible";    
+
+						 
+					
+
+
+				}
+
+				function call( ) {
+
+
+				console.log("se preciono el boton de call")
+				console.log(lista_familiarescheck);
+
+
+		       		 		// Aqui construyo mis datos
+		       		 		var datos='{"tipo":"3",';
+
+		       		 		// "datos":[{"id":"'+identificador+'","celular":"'+celular+'"}]}';
+
+		       		 		console.log(lista_familiarescheck);
+
+		       		 			data = '"datos":['
+
+		       		 			for (var i=0;  i < lista_familiarescheck.length; i++){
+
+		       		 				var ce = $('#cel'+ lista_familiarescheck[i]).text();
+		       		 				console.log(ce);
+		       		 				console.log('#cel'+ lista_familiarescheck[i]);
+		       		 				data += '{"id":"'+lista_familiarescheck[i]+'","celular":"'+ce+'"}'
+		       		 				if(i < (lista_familiarescheck.length-1))
+		       		 				{
+		       		 					data += ','
+		       		 				}
+
+
+		       		 			}
+		       		 			data += "]";
+
+		       		 			datos += data + '}';
+
+		       		 		
+
+		       		 		console.log(datos);
+
+		       		 		$.ajax({
+							    url:"http://localhost:5000/llamada",
+							    type: 'post',
+							    dataType: 'json',
+							    success: function(respuesta) {
+							      console.log(respuesta);	
+							      location.replace("/respuestainforme");	
+							   
+							    },	data: datos,
+							    error: function() {
+							      console.log("No se ha podido obtener la información");
+
+							      alert("No pudimos contactar al servidor, vador de intentar nuevamente");
+							    }
+			  				});
+
+			  			
+		       		 	
+				}
+
+				var fe;
+				function Agendarllamada(){
+       		 	fe = $('#fec').val();
+       		 	if(fe.length==0){
+       		 		alert("el campo fecha se encuentra vacio");
+       		 	}else{
+
+       		 		// Aqui construyo mis datos
+       		 		var datos='{"tipo":"3","Fecha":"'+fe+'",';
+
+       		 		// "datos":[{"id":"'+identificador+'","celular":"'+celular+'"}]}';
+
+       		 		console.log(lista_familiarescheck);
+
+       		 			data = '"datos":['
+
+       		 			for (var i=0;  i < lista_familiarescheck.length; i++){
+
+       		 				var ce = $('#cel'+ lista_familiarescheck[i]).text();
+       		 				console.log(ce);
+       		 				console.log('#cel'+ lista_familiarescheck[i]);
+       		 				data += '{"id":"'+lista_familiarescheck[i]+'","celular":"'+ce+'"}'
+       		 				if(i < (lista_familiarescheck.length-1))
+       		 				{
+       		 					data += ','
+       		 				}
+
+
+       		 			}
+       		 			data += "]";
+
+       		 			datos += data + '}';
+
+       		 		
+
+       		 		console.log(datos);
+
+       		 		$.ajax({
+					    url:"http://localhost:5000/agendarllamada",
+					    type: 'post',
+					    dataType: 'json',
+					    success: function(respuesta) {
+					      console.log(respuesta);
+					      location.replace("/respuestainforme");		
+					   
+					    },	data: datos,
+					    error: function() {
+					      console.log("No se ha podido obtener la información");
+					      alert("No pudimos contactar al servidor, vador de intentar nuevamente");
+					    }
+	  				});
+       		 	}
+
+       		 	
+       		 }
+
+
+				$('#lista-familiares').change(function() {
+
+							  var value = 0.00;	
+							  {
+							    $('#lista-familiares :checked').each(function() {
+							      //if(values.indexOf($(this).val()) === -1){
+							      value=parseFloat(($(this).val()));
+							      console.log($(this).val())
+							      // }
+							    });
+							    console.log( parseFloat(value));
+							    if(lista_familiarescheck.length < 3){
+							    lista_familiarescheck.push(value);
+							    }
+	
+
+								 if(lista_familiarescheck.length > 2 ){
+
+								    	alert("Solo se permite un maximo de hasta 3 familiares"); }
+
+								}
+				});
+
+
+
+       			 url ="http://localhost:5000/getpacientes"
+       			 callback =[]
+       				   
+       		 window.onload = codeAddress;
+
+       		 $( document ).ready(function() {
+
+
+       		 	$('#datetimepicker1').datetimepicker();
+
+
+
+    			});	
+
+
+
+
+			</script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
 <br>
 <br>
+<br>
+<br>
+<br>
+
+
 
 
 

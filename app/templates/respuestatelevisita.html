@@ -1,74 +1,7 @@
-   
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-	
 
-  <link rel="icon" href="https://www.gob.mx/cms/uploads/image/file/488329/favicon.png">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600" rel="stylesheet">
-  <meta name="description" content="gob.mx es la plataforma que conecta a la gente con el gobierno, impulsa la eficiencia, y transforma los procesos para proveer de información y  trámites">
-  <meta name="keywords" content="gobierno, digital, trámites, trámites en línea, gobierno digital">
-  <meta property="og:url" content="http://www.gob.mx/">
-  <meta property="og:site_name" content="gob.mx">
-  <meta property="og:title" content="gob.mx">
-  <meta property="og:image" content="https://www.gob.mx/cms/uploads/image/file/488330/Identidad.jpg">
-  <meta property="og:description" content="El portal único del gobierno.">
-  <meta property="og:type" content="website">
-  <meta name="image" content="https://www.gob.mx/cms/uploads/image/file/488330/Identidad.jpg">
-  <iframe src="javascript:void(0)" title="" style="width: 0px; height: 0px; border: 0px none; display: none;"></iframe>
-  <title>El portal único del gobierno. | gob.mx</title>
-  <link href="https://www.gob.mx/css/chunk-380affc3.86a64797.css" rel="prefetch">
-  <link href="https://www.gob.mx/css/chunk-4b321dc6.9fd84dfa.css" rel="prefetch">
-  <link href="https://www.gob.mx/css/chunk-5a3a1038.cfb8937c.css" rel="prefetch">
-  <link href="https://www.gob.mx/js/chunk-380affc3.b6e58f0a.js" rel="prefetch">
-  <link href="https://www.gob.mx/js/chunk-4b321dc6.519579ee.js" rel="prefetch">
+ {% extends "base.html" %}
 
-  <link href="https://www.gob.mx/js/chunk-5a3a1038.782bb8bb.js" rel="prefetch">
-  <link href="https://www.gob.mx/css/app.244384b5.css" rel="preload" as="style">
-  <link href="https://www.gob.mx/css/chunk-vendors.e37f87fc.css" rel="preload" as="style">
-  <link href="https://www.gob.mx/js/app.b50f0172.js" rel="preload" as="script">
-  <link href="https://www.gob.mx/js/chunk-vendors.43d24fff.js" rel="preload" as="script">
-  <link href="https://www.gob.mx/css/chunk-vendors.e37f87fc.css" rel="stylesheet">
-  <link href="https://www.gob.mx/css/app.244384b5.css" rel="stylesheet">
-  <link href="https://www.gob.mx/favicon.ico" rel="shortcut icon">
- 
-</head>
-
-<body>
-
-
-<div>
-	<div id="app" style="position: relative; width: 100% !important;">
-		<nav data-v-4a3754a3="" id="header" class="navbar bg-dark navbar-dark navbar-expand-sm navbar-gob">
-                    <div data-v-4a3754a3="" class="container">
-                        <button data-v-4a3754a3="" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" class="navbar-toggler">
-                            <span data-v-4a3754a3="" class="navbar-toggler-icon"></span>
-                        </button>
-                            <a data-v-4a3754a3="" href="https://www.gob.mx" target="_blank" class="navbar-brand">
-                                <img data-v-4a3754a3="" src="https://framework-gb.cdn.gob.mx/landing/img/logoheader.svg" alt="logo gobierno de méxico" class="logos" style="width: 8rem; margin-top: -2%; margin-bottom: -2%; margin-left: -15%;">
-                            </a>
-                                <div data-v-4a3754a3="" id="collapsibleNavbar" class="collapse navbar-collapse justify-content-end">
-                                    <form data-v-4a3754a3="" class="form-inline">
-                                            <ul data-v-4a3754a3="" class="navbar-nav">
-                                                    </li><p  style="color:white">PSsCloud:</p></li>
-                                                    <li data-v-4a3754a3="" align="left" class="nav-item dropdown">
-                                                        <a href="{{ url_for('index') }}">Home </a>
-                                                    </li>
-                                                    <li data-v-4a3754a3="" class="nav-item dropdown"> 
-                                                        <a href="{{ url_for('login') }}">Login</a>
-                                                    </li>
-
-                                                </ul>
-                                    </form>
-                                </div>
-                    </div>
-            </nav> 
-
-
-
-
+{% block content %}
 
 
 <br>
@@ -127,15 +60,4 @@
 <br>
 
 
-
-
-<footer class="site-footer">
-  <div id="footer-content">
-   <img src="/static/foot.png"    width="100%" height ="28%">
-  </div>
-</footer>
-
-
-
-	
-</body>
+{% endblock %}

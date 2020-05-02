@@ -1,6 +1,6 @@
 import requests, os, jwt
 
-#from app.models import User
+from app.models import User
 from app import GuestUser
 from datetime import datetime
 from app import db  

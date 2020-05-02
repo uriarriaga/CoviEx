@@ -96,9 +96,10 @@
 			// Construimos e inyectamos el date piecker
 
 
+			url_base= "http://192.168.100.13"
 			
-			url_pacientes ="http://localhost:5000/getpacientes";
-			url_familiares ="http://localhost:5000/getfamiliares";
+			url_pacientes = url_base + '/getpacientes';
+			url_familiares =url_base + '/getfamiliares';
 
 			lista_familiares = "";
 			lista_pacientes ="";
@@ -275,7 +276,7 @@
 		       		 		console.log(datos);
 
 		       		 		$.ajax({
-							    url:"http://localhost:5000/llamada",
+							    url: url_base + '/llamada',
 							    type: 'post',
 							    dataType: 'json',
 							    success: function(respuesta) {
@@ -331,7 +332,7 @@
        		 		console.log(datos);
 
        		 		$.ajax({
-					    url:"http://localhost:5000/agendarllamada",
+					    url:url_base +'/agendarllamada',
 					    type: 'post',
 					    dataType: 'json',
 					    success: function(respuesta) {
@@ -353,17 +354,40 @@
 				$('#lista-familiares').change(function() {
 
 							  var value = 0.00;	
+							  var i = 0;
 							  {
 							    $('#lista-familiares :checked').each(function() {
 							      //if(values.indexOf($(this).val()) === -1){
-							      value=parseFloat(($(this).val()));
-							      console.log($(this).val())
+							      //var value = 0.00;
+							      console.log ("valor original " + parseFloat(($(this).val())))
+							      if( contains(lista_familiarescheck,parseFloat(($(this).val())) ))
+							      {
+							      		 console.log("entro al if");
+
+
+							      }else{
+
+
+							        console.log("entro al else");	
+							      	value=parseFloat(($(this).val()));
+							      }	
+							      	
+							      console.log('valor antes del parse' + ($(this).val()));
 							      // }
 							    });
-							    console.log( parseFloat(value));
-							    if(lista_familiarescheck.length < 3){
-							    lista_familiarescheck.push(value);
-							    }
+							    console.log('valor en el parse' + parseFloat(value));
+
+
+							    if(lista_familiarescheck.length < 3 &&  value !=0){
+					
+
+							   		lista_familiarescheck.push(value);
+							    	console.log(lista_familiarescheck);
+							    
+							    	
+							   
+
+							    }else{lista_familiarescheck.pop();}
 	
 
 								 if(lista_familiarescheck.length > 2 ){
@@ -375,7 +399,7 @@
 
 
 
-       			 url ="http://localhost:5000/getpacientes"
+       			 url = url_base + '/getpacientes'
        			 callback =[]
        				   
        		 window.onload = codeAddress;
@@ -388,6 +412,15 @@
 
 
     			});	
+
+       		 function contains(a, obj) {
+				    for (var i = 0; i < a.length; i++) {
+				        if (a[i] === obj) {
+				            return true;
+				        }
+				    }
+				    return false;
+			}
 
 
 

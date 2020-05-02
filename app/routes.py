@@ -1,6 +1,6 @@
 from flask import request, redirect, url_for, render_template, flash, session ,  jsonify
-from app import app, db, Base, Familiar, GuestUser, Paciente
-from app.funciones import sendWebexMsg, sendSMS, createJWT
+from app import app, db, Base, Familiar, GuestUser, Paciente, Agenda
+from app.funciones import sendWebexMsg, sendSMS, createJWT, generarWebex
 from app.forms import LoginForm, smsForm, userForm,capturesForm, PacienteForm, PacientesForm
 from app.models import User
 from flask_sqlalchemy import SQLAlchemy
@@ -267,14 +267,22 @@ def llamada():
     
     data = request.get_data()
 
-    datax= data.strip()
-    print('------------------------------------------------------------------')
-    print(datax)
-    print('------------------------------------------------------------------')
+    call = json.loads(data)
+    celulares = []
+
+    lista = call["datos"]
+    for elemento in lista:
+        celulares.append(elemento["celular"])
+
+    email = current_user.email
+
+
+    generarWebex(celulares,email)
+
     #llamar funcoin envio de sms de uri todo en epoc
     # datetime
-    generarWebex(["listaNumeros"],"correo")
-    return datax
+    #generarWebex(["listaNumeros"],"correo")
+    return data
 
 
 @app.route('/agendarllamada', methods=['GET', 'POST'])
@@ -285,11 +293,17 @@ def agendarllamada():
 
     call = json.loads(data)
 
+
+
+
     celulares = []
+
+    ids_ = []
 
     lista = call["datos"]
     for elemento in lista:
         celulares.append(elemento["celular"]) 
+        ids_.append((elemento["id"]))
 
     print('------------------------------------------------------------------')
     print ("correo:  " + current_user.email)
@@ -304,7 +318,8 @@ def agendarllamada():
     
     print('------------------------------------------------------------------')
     print(d)
-    print(d.timestamp)
+  
+    print(d.timestamp())
     print(str(celulares))
     print('------------------------------------------------------------------')
 
@@ -312,12 +327,21 @@ def agendarllamada():
 
         #insertas el id del paciente en la tabla
         print("tipo de meeting 1:1")
+        meeting = Agenda(fecha_hora = d.timestamp(), email = current_user.email, id_user = current_user.id,
+                    id_paciente = ids_[0],    id_servicio = tipo,
+                    celulares =  str(celulares) )
+        db.session.add(meeting)
+        db.session.commit() 
 
 
     else:
         
         print("tipo de meeting 1:X")
         # Insertas la cita y despues insertas el id de los pacientes con las citas
+        meeting = Agenda(fecha_hora = d.timestamp(), email = current_user.email,
+        id_user = current_user.id,id_servicio = tipo, celulares = str(celulares),id_paciente = "" )
+        db.session.add(meeting)
+        db.session.commit() 
 
     #insertar los datos de la video llamada
     return data

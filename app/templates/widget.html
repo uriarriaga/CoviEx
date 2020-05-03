@@ -27,6 +27,8 @@
       <div align="center">
         <h4>TeleConsulta COVID-19</h4>
         <p class="sansserif"> Para iniciar la videollamada, favor de presionar el botón verde "Call"</p>
+          
+        <p class="sansserif"> Sesion valida por una hora </p>
       </div>
 
     <div id="my-webexteams-widget" style="width: 350px; height: 600px;"/>
@@ -37,8 +39,8 @@
       var widgetEl = document.getElementById('my-webexteams-widget');
       // Init a new widget
       webex.widget(widgetEl).spaceWidget({
-    guestToken: '{{ token }}',
-    destinationId: 'teleconsulta@iner-gobmex.rooms.webex.com',
+    guestToken:  '{{ token}}',
+    destinationId: '{{ SIP }}',
     destinationType: 'sip',
     spaceActivities: {"files":false,"meet":true,"message":false,"people":false},
     initialActivity: 'meet',
@@ -67,11 +69,24 @@
         document.getElementById("my-webexteams-widget").style.height =  " " + (screen.height - (screen.height/srch))+ "px";
         //document.getElementById("my-webexteams-widget").style.height = "900px";
 
+
+        // Este codigo oculta la parte del Menu
+        /*
+        console.log("se cargo la ventana ");
+        var x = document.getElementById("menu");
+       
+        x.style.display = "none";
+        */
+
     }
+
+
+
 
     
 
     </script>
+
 
     	
   </body>

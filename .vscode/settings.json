@@ -1,0 +1,7 @@
+{
+    "files.exclude": {
+        "__pycache__": true,
+        ".*": true
+    },
+    "python.pythonPath": "/Users/joarriag/anaconda3/envs/teleconsulta/bin/python"
+}

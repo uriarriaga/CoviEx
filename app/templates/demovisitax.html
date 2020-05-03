@@ -1,0 +1,542 @@
+<html>
+    <head>
+        {% if title %}
+        <title>{{ title }} - PSsCloud</title>
+        {% else %}
+        <title>PSsCloud</title>
+        {% endif %}
+
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+        
+
+      <link rel="icon" href="https://www.gob.mx/cms/uploads/image/file/488329/favicon.png">
+      <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600" rel="stylesheet">
+      <meta name="description" content="gob.mx es la plataforma que conecta a la gente con el gobierno, impulsa la eficiencia, y transforma los procesos para proveer de información y  trámites">
+      <meta name="keywords" content="gobierno, digital, trámites, trámites en línea, gobierno digital">
+      <meta property="og:url" content="http://www.gob.mx/">
+      <meta property="og:site_name" content="gob.mx">
+      <meta property="og:title" content="gob.mx">
+      <meta property="og:image" content="https://www.gob.mx/cms/uploads/image/file/488330/Identidad.jpg">
+      <meta property="og:description" content="El portal único del gobierno.">
+      <meta property="og:type" content="website">
+      <meta name="image" content="https://www.gob.mx/cms/uploads/image/file/488330/Identidad.jpg">
+      <iframe src="javascript:void(0)" title="" style="width: 0px; height: 0px; border: 0px none; display: none;"></iframe>
+      <title>El portal único del gobierno. | gob.mx</title>
+      <link href="https://www.gob.mx/css/chunk-380affc3.86a64797.css" rel="prefetch">
+      <link href="https://www.gob.mx/css/chunk-4b321dc6.9fd84dfa.css" rel="prefetch">
+      <link href="https://www.gob.mx/css/chunk-5a3a1038.cfb8937c.css" rel="prefetch">
+      <link href="https://www.gob.mx/js/chunk-380affc3.b6e58f0a.js" rel="prefetch">
+      <link href="https://www.gob.mx/js/chunk-4b321dc6.519579ee.js" rel="prefetch">
+
+      <link href="https://www.gob.mx/js/chunk-5a3a1038.782bb8bb.js" rel="prefetch">
+      <link href="https://www.gob.mx/css/app.244384b5.css" rel="preload" as="style">
+      <link href="https://www.gob.mx/css/chunk-vendors.e37f87fc.css" rel="preload" as="style">
+      <link href="https://www.gob.mx/js/app.b50f0172.js" rel="preload" as="script">
+      <link href="https://www.gob.mx/js/chunk-vendors.43d24fff.js" rel="preload" as="script">
+      <link href="https://www.gob.mx/css/chunk-vendors.e37f87fc.css" rel="stylesheet">
+      <link href="https://www.gob.mx/css/app.244384b5.css" rel="stylesheet">
+      <link href="https://www.gob.mx/favicon.ico" rel="shortcut icon">
+
+
+
+
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.25.0/moment.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.25.0/locale/es.min.js"></script>
+		
+	
+
+		
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  
+
+
+
+      <style>
+              h2 {
+                color: #4d4d4d;
+              }
+
+              th {
+                color: #4d4d4d;
+              }
+      </style>
+
+
+ </head>
+    <body>
+
+<div>
+    <div id="app" style="position: relative; width: 100% !important;">   
+            <nav data-v-4a3754a3="" id="header" class="navbar bg-dark navbar-dark navbar-expand-sm navbar-gob">
+                    <div data-v-4a3754a3="" class="container">
+                        <button data-v-4a3754a3="" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" class="navbar-toggler">
+                            <span data-v-4a3754a3="" class="navbar-toggler-icon"></span>
+                        </button>
+                            <a data-v-4a3754a3="" href="https://www.gob.mx" target="_blank" class="navbar-brand">
+                                <img data-v-4a3754a3="" src="https://framework-gb.cdn.gob.mx/landing/img/logoheader.svg" alt="logo gobierno de méxico" class="logos" style="width: 8rem; margin-top: -2%; margin-bottom: -2%; margin-left: -15%;">
+                            </a>
+                                <div data-v-4a3754a3="" id="collapsibleNavbar" class="collapse navbar-collapse justify-content-end">
+                                    <form data-v-4a3754a3="" class="form-inline" >
+                                        <div class="navbar-nav">
+                                            {% if current_user.admin %}
+                                              <a class="nav-item nav-link" href="{{ url_for('widget') }}">Widget</a>
+                                              <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                                            {% else %}
+                                              <a class="nav-item nav-link" href="{{ url_for('demo') }}">Demo</a>
+                                              <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                                            {% endif %}
+                                    </form>
+                                </div>
+                    </div>
+            </nav> 
+        
+
+
+
+<br>
+
+
+
+            <div class="container" style="margin-top:30px">
+                <div class="row">
+                        <div class="col-sm-1">
+                         
+                        </div>
+
+                        <div class="col-sm-8">
+
+                            <div class="w3-panel w3-light-grey w3-border w3-round">
+
+
+  <!--   DE Aqui para abajo  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->      	
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<br>
+
+
+
+	    	  <h2 > Servicio de TeleVisita</h2>
+
+	    
+	    	  <br>
+
+	    	  <h4 > Pacientes</h4>
+
+	    	    <br>
+
+	    	    <table class="table table-striped">
+						    <thead>
+						      <tr>
+						        <th>Nombre</th>
+						        <th>Celular</th>
+						        <th>Email</th>
+						         <th>Seleccionar</th>
+						      </tr>
+						    </thead>
+						    <tbody id="pacientes">
+
+						    </tbody>
+						  </table>
+
+						   <br>
+						    <br>
+						    
+
+	    	 <div id="lista-familiares" style="visibility: hidden" >
+
+	    	 	<h4 > Familiares</h4>
+	    	 	 <br>
+
+					<table class="table table-striped">
+					    <thead>
+					      <tr>
+					      	<th>Seleccionar</th>
+					        <th>Nombre</th>
+					        <th>Celular</th>
+					        <th>Email</th>
+					    
+					      </tr>
+					    </thead>
+					    <tbody id="familiares">
+					      
+					    </tbody>
+  					</table>
+
+
+
+
+  					<div >
+  						<br>
+  						  <p>Selecciona una hora y fecha en saco de que sea una video llamada agenda y presiona el boton de agenda; En su defecto si se trata de una llamada inmediata, presiona el boton con el icono del telefono.</p>
+
+
+  						  			<table class="table table-striped">
+									    <thead>
+									      <tr>
+									      	<th>Generar Videollamada</th>
+									        <th>Hora y Fecha</th>
+									        <th>Agendar Videollamada</th>
+									      
+									    
+									      </tr>
+									    </thead>
+									    <tbody >
+
+									    <tr>
+									      	<th ><button onclick= "call()"  class="btn btn-success"><span align="center"  class="glyphicon glyphicon-earphone" aria-hidden="true"></span></button></th>
+									        <th><div class="input-group date" id="datetimepicker1"><input type="text" id="fec" class="form-control datepicker"></input><span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span></div></th>
+									        <th align="center" > <button onclick="Agendarllamada()" align="center" class="btn btn-success"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></button></th>
+									      
+									    
+									      </tr>
+									      
+									    </tbody>
+				  					</table>
+
+
+							
+
+					
+					</div>
+	    	 </div>
+	
+<br>
+<br>
+
+
+			<script>
+
+
+			// Construimos e inyectamos el date piecker
+
+
+			
+			url_pacientes ="http://localhost:5000/getpacientes";
+			url_familiares ="http://localhost:5000/getfamiliares";
+
+			lista_familiares = "";
+			lista_pacientes ="";
+
+			var lista_familiarescheck = [];
+
+
+				function codeAddress() {
+
+					// crear y asignar el date picker
+
+
+
+
+					console.log("entrando a la funcion");
+
+
+					 $.ajax({
+
+					    url:url_pacientes,
+					   
+					    success: function(respuesta) {
+					     
+					      //console.log(respuesta);		
+					   
+					      var listaUsuarios = $("#pacientes");
+
+
+
+					 
+					      var response = (""+respuesta).trim();
+					      console.log(response);
+					      obj = JSON.parse(response);
+					      console.log(obj["pacientes"][0]);
+
+					      $.each(obj["pacientes"], function(index, elemento) {
+					      	//console.log("entrando al ajax");
+					      	//console.log(elemento.nombre);
+
+
+					        listaUsuarios.append(
+
+					           '<tr>'
+					    
+					          +     '<td>' + elemento.nombre + '</td>'
+					            +     '<td>' + elemento.celular + '</td>'
+					              +     '<td>' + elemento.email + '</td>'
+					              +     '<td>' + '<button '+ 'id=' +  elemento.id +  ' onclick="pacientes_button(' + elemento.id + ')"'   + ' type="button" class="btn btn-primary">Seleccionar</button>' + '</td>'
+
+					          + '</tr>' 
+
+					           
+
+
+
+					        );    
+					      });
+
+					   
+
+					    },
+					    error: function() {
+					      console.log("No se ha podido obtener la información");
+					    }
+	  				});
+
+
+					 $.ajax({
+
+					    url:url_familiares,
+					   
+					    success: function(respuesta) {
+					     
+					
+					   
+					      var listaUsuarios = $("#lista-usuarios");
+					      var response = (""+respuesta).trim();
+					      //console.log(response);
+					      lista_familiares= JSON.parse(response);
+					      console.log(lista_familiares["familiares"][0]);
+
+	
+					    },
+					    error: function() {
+					      console.log("No se ha podido obtener la información");
+					    }
+	  				});
+				}
+
+
+				function pacientes_button( id) {
+
+					      //Limpiamos los checks de los familiares ca vez que cambian la lista	
+					      lista_familiarescheck = [];	
+
+					document.getElementById("familiares").innerHTML = "";
+
+					//alert("se pesiono el boton con el id: " + id );
+
+					var i;
+					 var listaFamiliares = $("#familiares");
+					
+						for (i = 0; i < lista_familiares["familiares"].length; i++) {
+
+							 if (lista_familiares["familiares"][i].id_paciente == id ){	
+							 //console.log(lista_familiares["familiares"][i])
+
+							 listaFamiliares.append(
+
+					           '<tr>'
+					                 +     '<td>'  + '<input type="checkbox" name="type" '
+                  + "value=" +  lista_familiares["familiares"][i].id   + '/>'+ ' </td>'
+
+
+					          +     '<td>' + lista_familiares["familiares"][i].nombre + '</td>'
+					            +     '<td id="cel'+ lista_familiares["familiares"][i].id + '">' + lista_familiares["familiares"][i].celular + '</td>'
+					              +     '<td>' + lista_familiares["familiares"][i].email + '</td>' +
+					             '</tr>');
+
+
+
+							 }
+
+						  
+						} 
+
+
+					
+					
+						 var x = document.getElementById("lista-familiares");   // Get the element with id="demo"
+						 x.style.visibility = "visible";    
+
+						 
+					
+
+
+				}
+
+				function call( ) {
+
+
+				console.log("se preciono el boton de call")
+				console.log(lista_familiarescheck);
+
+
+		       		 		// Aqui construyo mis datos
+		       		 		var datos='{"tipo":"3",';
+
+		       		 		// "datos":[{"id":"'+identificador+'","celular":"'+celular+'"}]}';
+
+		       		 		console.log(lista_familiarescheck);
+
+		       		 			data = '"datos":['
+
+		       		 			for (var i=0;  i < lista_familiarescheck.length; i++){
+
+		       		 				var ce = $('#cel'+ lista_familiarescheck[i]).text();
+		       		 				console.log(ce);
+		       		 				console.log('#cel'+ lista_familiarescheck[i]);
+		       		 				data += '{"id":"'+lista_familiarescheck[i]+'","celular":"'+ce+'"}'
+		       		 				if(i < (lista_familiarescheck.length-1))
+		       		 				{
+		       		 					data += ','
+		       		 				}
+
+
+		       		 			}
+		       		 			data += "]";
+
+		       		 			datos += data + '}';
+
+		       		 		
+
+		       		 		console.log(datos);
+
+		       		 		$.ajax({
+							    url:"http://9822c44a.ngrok.io/llamada",
+							    type: 'post',
+							    dataType: 'json',
+							    success: function(respuesta) {
+							      console.log(respuesta);		
+							   
+							    },	data: datos,
+							    error: function() {
+							      console.log("No se ha podido obtener la información");
+							    }
+			  				});
+		       		 	
+				}
+
+				var fe;
+				function Agendarllamada(){
+       		 	fe = $('#fec').val();
+       		 	if(fe.length==0){
+       		 		alert("el campo fecha se encuentra vacio");
+       		 	}else{
+
+       		 		// Aqui construyo mis datos
+       		 		var datos='{"tipo":"3","Fecha":"'+fe+'",';
+
+       		 		// "datos":[{"id":"'+identificador+'","celular":"'+celular+'"}]}';
+
+       		 		console.log(lista_familiarescheck);
+
+       		 			data = '"datos":['
+
+       		 			for (var i=0;  i < lista_familiarescheck.length; i++){
+
+       		 				var ce = $('#cel'+ lista_familiarescheck[i]).text();
+       		 				console.log(ce);
+       		 				console.log('#cel'+ lista_familiarescheck[i]);
+       		 				data += '{"id":"'+lista_familiarescheck[i]+'","celular":"'+ce+'"}'
+       		 				if(i < (lista_familiarescheck.length-1))
+       		 				{
+       		 					data += ','
+       		 				}
+
+
+       		 			}
+       		 			data += "]";
+
+       		 			datos += data + '}';
+
+       		 		
+
+       		 		console.log(datos);
+
+       		 		$.ajax({
+					    url:"http://9822c44a.ngrok.io/agendarllamada",
+					    type: 'post',
+					    dataType: 'json',
+					    success: function(respuesta) {
+					      console.log(respuesta);		
+					   
+					    },	data: datos,
+					    error: function() {
+					      console.log("No se ha podido obtener la información");
+					    }
+	  				});
+       		 	}
+       		 }
+
+
+				$('#lista-familiares').change(function() {
+
+							  var value = 0.00;	
+							  {
+							    $('#lista-familiares :checked').each(function() {
+							      //if(values.indexOf($(this).val()) === -1){
+							      value=parseFloat(($(this).val()));
+							      console.log($(this).val())
+							      // }
+							    });
+							    console.log( parseFloat(value));
+							    if(lista_familiarescheck.length < 3){
+							    lista_familiarescheck.push(value);
+							    }
+	
+
+								 if(lista_familiarescheck.length > 2 ){
+
+								    	alert("Solo se permite un maximo de hasta 3 familiares"); }
+
+								}
+				});
+
+
+
+       			 url ="http://localhost:5000/getpacientes"
+       			 callback =[]
+       				   
+       		 window.onload = codeAddress;
+
+       		 $( document ).ready(function() {
+
+
+       		 	$('#datetimepicker1').datetimepicker();
+
+
+
+    			});	
+
+
+
+
+			</script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+   <!--   DE Aqui para abajo  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->   
+
+                            </div>                
+
+                        </div>
+                        <div class="col-sm-1">
+                         
+                        </div>
+
+                </div>   
+            </div>                     
+    </div> <!-- fin del Div del NAV -->
+</div> <!-- fin del Div principal -->
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+    </body>
+</html>
+

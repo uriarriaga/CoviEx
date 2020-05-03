@@ -1,0 +1,8 @@
+SCRIPT de pase a producción
+
+
+Cambiar las URLs de las llamadas de API en los html
+	- democonsulta
+	- demovisita
+	- demoinformemedico
+	- capture

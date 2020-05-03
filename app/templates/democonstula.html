@@ -1,0 +1,136 @@
+ {% extends "base.html" %}
+
+{% block content %}
+
+<br>
+
+	    	  <h2 > Servicio de Atención Domiciliaria </h2>
+
+	    	  <p id="demo"></p>
+
+	    	  			<table class="table">
+	    	 		<thead class="thead-dark">
+	    	 			<tr>
+	    	 				<th>Paciente</th>
+	    	 				<th>Celular</th>
+	    	 				<th>Correo</th>
+	    	 				<th>Llamar</th>
+	    	 				<th>Fecha</th>
+	    	 				<th>Agendar</th>
+	    	 			</tr>
+	    	 		</thead>
+	    	 		<tbody id="pacientes">
+	    	 			
+	    	 		</tbody>
+	    	 	</table>
+
+	    	 <div id="lista-usuarios">
+	    	 	
+	    	 </div>
+	
+<br>
+<br>
+
+
+			<script>
+
+			//url_base="http://localhost:5000"
+			url_base="http://coviexlbtrans-470802257.us-east-1.elb.amazonaws.com"
+			
+			url = url_base + '/getpacientes'
+			//url="http://9822c44a.ngrok.io/getpacientes"
+
+
+
+
+				function codeAddress() {
+					console.log("entrando a la funcion");
+					 $.ajax({
+
+					    url: url_base + '/getpacientes',
+					   
+					    success: function(respuesta) {
+					      var listaUsuarios = $("#pacientes");
+					      var response = (""+respuesta).trim();
+					      obj = JSON.parse(response);
+					      $.each(obj["pacientes"], function(index, elemento) {
+					      	var selectFecha= $('<input type="text" id="fec'+elemento.id+'" class="form-control datepicker"></input>').datetimepicker({locale: 'es'});
+					      	
+
+					      	var row ='<tr><td>'+elemento.nombre+'</td><td>'+elemento.celular+'</td><td>'+elemento.email+'</td><td><button onclick="llamada('+elemento.id+','+elemento.celular+',\''+elemento.nombre+'\')" class="btn btn-success"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span></button></td>'+
+					      		'<td><div class="input-group date" id="datetimepicker1"><span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span></div> </td><td><button onclick="Agendarllamada('+elemento.id+','+elemento.celular+',\''+elemento.nombre+'\')" class="btn btn-success"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></button></td></tr>';
+					      		var jRow=$(row);
+					      		$('div:last',jRow).append(selectFecha);
+					      		listaUsuarios.append(jRow);
+
+					      });
+					    },
+					    error: function() {
+					      console.log("No se ha podido obtener la información");
+					    }
+	  				});
+				}
+
+
+       			 url = url_base + '/getpacientes'
+       			 callback =[]
+       				   
+       		 window.onload = codeAddress;	
+       		 function Agendarllamada(identificador,celular,nom){
+       		 	var fe = $('#fec'+identificador).val();
+       		 	if(fe.length==0){
+       		 		alert("el campo fecha se encuentra vacio");
+       		 	}else{
+       		 		var datos='{"name":'+'"'+nom+'","tipo":"1","Fecha":"'+fe+'","datos":[{"id":"'+identificador+'","celular":"'+celular+'"}]}';
+       		 		console.log(datos);
+       		 		$.ajax({
+					    url:"http://localhost:5000/agendarllamada",
+					    type: 'post',
+					    dataType: 'json',
+					    success: function(respuesta) {
+					      console.log(respuesta);	
+					      location.replace("/respuestateleconsulta");	
+					   
+					    },data:datos,
+					    error: function() {
+					      console.log("No se ha podido obtener la información");
+					      alert("No pudimos contactar al servidor, favor de intentar nuevamente");
+					    }
+	  				});
+       		 	}
+
+       		 	
+
+       		 }
+       		 function llamada(identificador,celular,nom){
+       		 	var datos='{"name":'+'"'+nom+'","tipo":"1","datos":[{"id":"'+identificador+'","celular":"'+celular+'"}]}';
+       		 	console.log(datos);
+       		 	$.ajax({
+					    url: url_base + '/llamada',
+					    type: 'post',
+					    dataType: 'json',
+					    success: function(respuesta) {
+					      console.log(respuesta);
+					      location.replace("/respuestateleconsulta");		
+					   
+					    },data:datos,
+					    error: function() {
+					      console.log("No se ha podido obtener la información");
+					      alert("No pudimos contactar al servidor, favor de intentar nuevamente");
+					    }
+	  				});
+
+       		 	
+       		 }
+
+
+
+
+
+			</script>
+
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+
+
+{% endblock %}

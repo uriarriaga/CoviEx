@@ -1,0 +1,269 @@
+ {% extends "base.html" %}
+
+{% block content %}
+
+    
+
+            <div >
+    
+                <form method="post" action="" class="needs-validation">
+                    {{ form.hidden_tag() }}
+    
+                                 
+                            <div class="card shadow">    
+                                <div class="card-header">
+                                    <h2><strong>Consola de administración</strong></h2>
+                                </div>
+
+                                <div class="card-body py-3">                
+                                    <h5>Datos del usuario</h5>
+                                    <hr>
+                                    <div class="row px-2 my-4">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label><strong>Usuario</strong></label>
+                                                {{ form.username(size=32) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label><strong>Correo</strong></label>
+                                                {{ form.email(size=32) }}
+                                            </div>
+                                        </div>    
+                                        
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label><strong>Contraseña</strong></label>
+                                                {{ form.password(size=32) }}
+                                            </div>
+                                        </div>                                        
+
+                                    </div>  
+
+                                    <h5 class="mt-3">Permisos del usuario</h5>
+                                    <hr>
+                                    <div id="permisos" class="row px-3 my-4">                                        
+                                        <div class="form-inline">
+
+                                            <div class="form-check mr-5">
+                                                <label class="form-check-label">
+                                                     {{ form.admin() }} &nbsp; Admin
+                                                </label>                                              
+                                            </div>
+
+                                            <div class="form-check mr-5">
+                                                <label class="form-check-label" >
+                                                    {{ form.ad() }} &nbsp; Medico
+                                                </label>                                              
+                                            </div>
+
+  
+
+                                            <div class="form-check mr-5">
+                                                <label class="form-check-label">
+                                                    {{ form.cp() }} &nbsp; Capturista
+                                                </label>                                              
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="card-footer">
+                                    <div class="row">
+                                        <div class="col-12">
+                                          <button class="btn btn-success float-right" type="submit"><i class="nav-icon fas fa-save"></i> Guardar</button>
+                                        </div>   
+                                    </div>
+                                </div>
+                            </div>                
+    
+                </form>
+                
+            </div>
+    
+    <br>
+    <br>
+    <br>
+    <br>
+
+        <div id="lista-Usuarios"  >
+
+                <h4 > Usuarios</h4>
+                 <br>
+
+                    <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th>username</th>
+                            <th>Email</th>
+                            <th>password</th>
+                            <th>Email</th>
+                            <th>Admin</th>
+                            <th>Medico</th>
+                            <th>Capturista</th>
+                        
+                          </tr>
+                        </thead>
+                        <tbody id="usuarios">
+                          
+                        </tbody>
+                   </table>
+        </div> 
+
+        <script>
+
+                var contador=0;
+                    
+                    //url_base="http://localhost:5000"
+                     url_base="http://coviexlbtrans-470802257.us-east-1.elb.amazonaws.com"
+            
+                    url_usuarios = url_base + '/getusuarios';
+                    window.onload = codeAddress;
+
+
+                    function codeAddress() {
+
+                    // crear y asignar el date picker
+
+
+
+
+                    console.log("entrando a la funcion");
+
+
+                     $.ajax({
+
+                        url:url_usuarios,
+                       
+                        success: function(respuesta) {
+                         
+                          //console.log(respuesta);     
+                       
+                          var listaUsuarios = $("#usuarios");
+
+
+
+                     
+                          var response = (""+respuesta).trim();
+                          console.log(response);
+                          obj = JSON.parse(response);
+                          console.log(obj["usuarios"][0]);
+
+                          $.each(obj["usuarios"], function(index, elemento) {
+                            //console.log("entrando al ajax");
+                            //console.log(elemento.nombre);
+
+
+                            listaUsuarios.append(
+
+                               '<tr>'
+                        
+                              +     '<td>' + elemento.username + '</td>'
+                                +     '<td>' + elemento.email + '</td>'
+                                  +     '<td>' + elemento.password + '</td>'
+                                    +     '<td>' + elemento.admin + '</td>'
+                                      +     '<td>' + elemento.Medico + '</td>'
+                                        +     '<td>' + elemento.Capturista + '</td>'
+                                  +     '<td>' + '<button '+ 'id=' +  elemento.id +  ' onclick="usuarios_button(' + elemento.id + ')"'   + ' type="button" class="btn btn-primary">Eliminar</button>' + '</td>'
+
+                              + '</tr>' 
+
+                               
+
+
+
+                            );    
+                          });
+
+                       
+
+                        },
+                        error: function() {
+                          console.log("No se ha podido obtener la información");
+                        }
+                    });
+
+
+                }
+
+
+                function usuarios_button(id) {
+
+                            console.log(id)
+                            datos = '{"id":' + id  +'}'
+
+                            $.ajax({
+                                url: url_base + '/delusuario',
+                                type: 'post',
+                                dataType: 'json',
+                                success: function(respuesta) {
+                                  console.log(respuesta);
+                                  alert("el usuario se elimino de forma exitosa!")
+                                  document.getElementById("usuarios").innerHTML = "";
+                                  codeAddress();
+                                     
+                               
+                                },  data: datos,
+                                error: function() {
+                                  console.log("No se ha podido obtener la información");
+                                 alert("No pudimos contactar al servidor, favor de intentar nuevamente");
+                                }
+                            });
+
+
+
+                }
+
+
+
+                    $('#permisos').change(function() {
+
+                        console.log("capturo el evento" + contador);
+                        contador = 0;
+
+                     
+                              {
+                                $('#permisos :checked').each(function() {
+
+                                  //if(values.indexOf($(this).val()) === -1){
+                                  //var value = 0.00;
+                                  console.log(($(this).val()))
+
+                                  if( String(($(this).val())) == 'y'){
+                                    contador ++;
+                                    console.log("entro al incremento");
+                                  }
+                                  
+                                  
+                                  if (contador > 1 ) {
+                                        alert("Seleccionar solo un tipo de usuario (un check) ");
+                                        this.checked = false; 
+                                        console.log("entro al contador" + contador);
+                                        contador = 0;
+
+                                        //$('#permisos:checkbox').removeAttr('checked');
+                                    
+                                  }
+        
+                                  // }
+                                });
+                  
+
+                                }
+                });
+        </script>
+
+        <br>
+         <br>
+          <br>
+           <br>
+            <br>
+             <br>
+              <br>
+               <br>
+
+{% endblock %}

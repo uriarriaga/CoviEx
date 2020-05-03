@@ -1,0 +1,11 @@
+SCRIPT de pase a producción
+
+
+Cambiar las URLs de las llamadas de API en los html (cada archivo tiene una variabe 'url_base' la unica que se debe cambiar)
+	- democonsulta
+	- demovisita
+	- demoinformemedico
+	- capture
+
+Cambiar el archivo initi para apuntar a la base de datos nueva
+

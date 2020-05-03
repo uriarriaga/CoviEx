@@ -39,6 +39,37 @@
       <link href="https://www.gob.mx/css/chunk-vendors.e37f87fc.css" rel="stylesheet">
       <link href="https://www.gob.mx/css/app.244384b5.css" rel="stylesheet">
       <link href="https://www.gob.mx/favicon.ico" rel="shortcut icon">
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.25.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.25.0/locale/es.min.js"></script>
+    
+  
+
+    
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+
+
+      <style>
+              h2 {
+                color: #4d4d4d;
+              }
+
+              th {
+                color: #4d4d4d;
+              }
+      </style>
+
+
  </head>
     <body>
 
@@ -53,23 +84,16 @@
                                 <img data-v-4a3754a3="" src="https://framework-gb.cdn.gob.mx/landing/img/logoheader.svg" alt="logo gobierno de méxico" class="logos" style="width: 8rem; margin-top: -2%; margin-bottom: -2%; margin-left: -15%;">
                             </a>
                                 <div data-v-4a3754a3="" id="collapsibleNavbar" class="collapse navbar-collapse justify-content-end">
-                                    <form data-v-4a3754a3="" class="form-inline">
-                                            <ul data-v-4a3754a3="" class="navbar-nav">
-                                                    </li><p  style="color:white">PSsCloud:</p></li>
-                                                    <li data-v-4a3754a3="" align="left" class="nav-item dropdown">
-                                                        <a href="{{ url_for('demo') }}">Demos </a>
-                                                    </li>
-                                                    <li data-v-4a3754a3="" align="left" class="nav-item dropdown">
-                                                        <a href="{{ url_for('Widget') }}">Widget </a>
-                                                    </li>
-                                                    <li data-v-4a3754a3="" class="nav-item dropdown"> 
-                                                        <a href="{{ url_for('login') }}">Login</a>
-                                                    </li>
-                                                    <li data-v-4a3754a3="" class="nav-item dropdown"> 
-                                                        <a href="{{ url_for('logout') }}">Logout</a>
-                                                    </li>
-
-                                                </ul>
+                                  <div id = "menu" class="navbar-nav">
+                                    <form data-v-4a3754a3="" class="form-inline" >
+                                        
+                                            {% if current_user.admin %}
+                                              <a class="nav-item nav-link" href="{{ url_for('widget') }}">Widget</a>
+                                              <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                                            {% else %}
+                                              <a class="nav-item nav-link" href="{{ url_for('demo') }}">Menu</a>
+                                              <a class="nav-item nav-link" href="{{ url_for('logout') }}">Salir</a>
+                                            {% endif %}
                                     </form>
                                 </div>
                     </div>
@@ -88,7 +112,7 @@
                          
                         </div>
 
-                        <div class="col-sm-8">
+                        <div class="col-sm-10">
 
                             <div class="w3-panel w3-light-grey w3-border w3-round">
                              
@@ -126,10 +150,6 @@
 <br>
 <br>
 <br>
-
-
-
-
 
 
 <footer class="site-footer">

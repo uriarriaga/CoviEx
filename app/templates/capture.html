@@ -1,0 +1,244 @@
+ {% extends "base.html" %}
+
+{% block content %}
+           <section class="content">
+
+            <div class="container">
+    
+                <form method="post" action="" class="needs-validation" id="FormularioPaciente">
+    
+                                 
+                            <div class="card shadow">    
+                                <div class="card-body">
+                                    <h2><strong>Consola de captura</strong></h2>
+                                    <hr>
+                                    <h4 class="my-4">Captura de datos de pacientes</h4>
+                                    
+                                    <div class="row px-2">
+                                           <div class="col-sm-4">
+                                               <div class="form-group">
+                                                   <label>Nombre</label>
+                                                   <input type="text" class="form-control" name="name" id="name" placeholder="obligatorio" required>
+                                               </div>
+                                           </div>
+    
+                                           <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Celular (10 digitos) </label>
+                                                    <input type="number" class="form-control" name="cel" id="cel" placeholder="obligatorio" required>
+                                                </div>
+                                            </div>
+    
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Correo</label>
+                                                    <input type="email" class="form-control" name="mail" id="mail" placeholder="obligatorio" required>
+                                                </div>
+                                            </div>  
+                                    </div>  
+    
+                                    <!-- **************** Familiar 1 *****************-->  
+                                    <h5 class="mt-5">Datos del familiar 1</h5>
+                                    <hr>
+                                    
+                                    <div class="row mt-3 px-2">                                                                                  
+                                            
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Nombre</label>
+                                                    <input type="text" class="form-control" name="name1" id="name1" placeholder="obligatorio" required>
+                                                </div>
+                                            </div>
+     
+                                            <div class="col-sm-4">
+                                                 <div class="form-group">
+                                                     <label>Celular (10 digitos) </label>
+                                                     <input type="number" class="form-control" name="cel1" id="cel1" placeholder="obligatorio" required>
+                                                 </div>
+                                             </div>
+     
+                                             <div class="col-sm-4">
+                                                 <div class="form-group">
+                                                     <label>Correo</label>
+                                                     <input type="email" class="form-control" name="mail1" id="mail1" placeholder="obligatorio" required>
+                                                 </div>
+                                             </div>
+                                    </div>
+                                    <!-- **************** fin Familiar 1 *****************--> 
+    
+                                    <!-- **************** Familiar 2 *****************-->
+                                    <h5>Datos del familiar 2</h5>
+                                    <hr>
+    
+                                    <div class="row mt-3 px-2">       
+    
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Nombre</label>
+                                                    <input type="text" class="form-control" name="name2" id="name2" placeholder="opcional">
+                                                </div>
+                                            </div>
+     
+                                            <div class="col-sm-4">
+                                                 <div class="form-group">
+                                                     <label>Celular (10 digitos) </label>
+                                                     <input type="number" class="form-control" name="cel2" id="cel2" placeholder="opcional">
+                                                 </div>
+                                             </div>
+     
+                                             <div class="col-sm-4">
+                                                 <div class="form-group">
+                                                     <label>Correo</label>
+                                                     <input type="email" class="form-control" name="mail2" id="mail2" placeholder="opcional">
+                                                 </div>
+                                             </div>
+    
+                                    </div>
+                                    <!-- **************** fin Familiar 2 *****************-->
+    
+                                    <!-- **************** Familiar 3 *****************-->
+                                    <h5>Datos del familiar 3</h5>
+                                    <hr>
+    
+                                    <div class="row mt-3 px-2">      
+    
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Nombre</label>
+                                                    <input type="text" class="form-control" name="name3" id="name3" placeholder="opcional">
+                                                </div>
+                                            </div>
+     
+                                            <div class="col-sm-4">
+                                                 <div class="form-group">
+                                                     <label>Celular (10 digitos) </label>
+                                                     <input type="number" class="form-control" name="cel3" id="cel3" placeholder="opcional">
+                                                 </div>
+                                             </div>
+     
+                                             <div class="col-sm-4">
+                                                 <div class="form-group">
+                                                     <label>Correo</label>
+                                                     <input type="email" class="form-control" name="mail3" id="mail3" placeholder="opcional">
+                                                 </div>
+                                             </div>
+                                    </div>
+                                    <!-- **************** fin Familiar 3 *****************-->
+                                       
+                                    
+                                        
+                                </div>
+                                <div class="card-footer">
+                                    <div class="row">
+                                        <div class="col-12">
+                 <button class="btn btn-success float-right" type="button" onclick="obtenerDatosFormulario()" ><i class="nav-icon fas fa-save"></i> Guardar</button>
+                                        </div>   
+                                    </div>
+                                </div>
+                            </div>                
+    
+                </form>
+                
+            </div>
+    
+        </section>
+
+
+<script type="text/javascript" >
+	//url_base = "http://localhost:5000"
+    url_base="http://coviexlbtrans-470802257.us-east-1.elb.amazonaws.com"
+
+	url_insertar = url_base+'/insertdata'
+
+
+    function obtenerDatosFormulario(){
+
+        
+        console.log("entrando a la function");
+
+        //document.getElementById("familiares").innerHTML = "";
+
+        nombre_paciente = document.getElementsByName("name")[0].value;
+        celular_paciente = document.getElementsByName("cel")[0].value;
+        email_paciente = document.getElementsByName("mail")[0].value;
+
+        nombre_fam1 = document.getElementsByName("name1")[0].value;
+        celular_fam1 = document.getElementsByName("cel1")[0].value;
+        mail_fam1 = document.getElementsByName("mail1")[0].value;
+ 
+        nombre_fam2 = document.getElementsByName("name2")[0].value;
+        celular_fam2 = document.getElementsByName("cel2")[0].value;
+        mail_fam2 = document.getElementsByName("mail2")[0].value;
+
+        nombre_fam3 = document.getElementsByName("name3")[0].value;
+        celular_fam3 = document.getElementsByName("cel3")[0].value;
+        mail_fam3 = document.getElementsByName("mail3")[0].value;
+
+        //Genera 3 tipos de json distintos en base a los campos que se han llenado 
+
+        if (nombre_paciente == "" || celular_paciente == "" || email_paciente == "" || nombre_fam1  == ""|| celular_fam1  == ""|| mail_fam1 == "") {
+        	console.log("Faltan Datos"); 
+		} else {
+			if(nombre_fam2 !="" && celular_fam2 !="" && mail_fam2 !="" && nombre_fam3 == "" && celular_fam3 == "" && mail_fam3 == ""){
+
+                if(nombre_fam2 =="" && celular_fam2 =="" && mail_fam2 =="" && nombre_fam3 != "" && celular_fam3 != "" && mail_fam3 != ""){
+                    //Valida si familiar 2 esta vacio y familiar 3 tiene datos
+
+                    var json_data='{"nombre_paciente":'+'"'+nombre_paciente+'","celular_paciente":'+'"'+celular_paciente+'","email_paciente":'
+                    +'"'+email_paciente+'","familiares_paciente":[{"nombre_familiar":"'+nombre_fam1+'","celular_familiar":"'+celular_fam1+'","email_familiar":"'+mail_fam1+'"},{"nombre_familiar":"'+nombre_fam3+'","celular_familiar":"'+celular_fam3+'","email_familiar":"'+mail_fam3+'"}]}';
+
+                }else{
+                    var json_data='{"nombre_paciente":'+'"'+nombre_paciente+'","celular_paciente":'+'"'+celular_paciente+'","email_paciente":'
+                    +'"'+email_paciente+'","familiares_paciente":[{"nombre_familiar":"'+nombre_fam1+'","celular_familiar":"'+celular_fam1+'","email_familiar":"'+mail_fam1+'"},{"nombre_familiar":"'+nombre_fam2+'","celular_familiar":"'+celular_fam2+'","email_familiar":"'+mail_fam2+'"}]}';
+                }
+				//mete json con 2 campos en familia
+				
+			}else{
+				if(nombre_fam2 !="" && celular_fam2 !="" && mail_fam2 !="" && nombre_fam3 != "" && celular_fam3 != "" && mail_fam3 != ""){
+					//mete json con 3 campos de familia
+					var json_data='{"nombre_paciente":'+'"'+nombre_paciente+'","celular_paciente":'+'"'+celular_paciente+'","email_paciente":'
+   					+'"'+email_paciente+'","familiares_paciente":[{"nombre_familiar":"'+nombre_fam1+'","celular_familiar":"'+celular_fam1+'","email_familiar":"'+mail_fam1+'"},{"nombre_familiar":"'+nombre_fam2+'","celular_familiar":"'+celular_fam2+'","email_familiar":"'+mail_fam2+'"},{"nombre_familiar":"'+nombre_fam3+'","celular_familiar":"'+celular_fam3+'","email_familiar":"'+mail_fam3+'"}]}';
+				}else{
+					var json_data='{"nombre_paciente":'+'"'+nombre_paciente+'","celular_paciente":'+'"'+celular_paciente+'","email_paciente":'
+   					+'"'+email_paciente+'","familiares_paciente":[{"nombre_familiar":"'+nombre_fam1+'","celular_familiar":"'+celular_fam1+'","email_familiar":"'+mail_fam1+'"}]}';
+				}
+			}
+
+   			console.log(json_data);  
+
+            var data = json_data;
+                $.ajax({
+                    url : url_insertar,
+                    header: 'Access-Control-Allow-Origin: *',
+                    data : data,
+                    method : 'post', //en este caso
+                  
+                    success : function(response){
+                        console.log(response);
+                        alert("Datos insertados de manera exitosa");
+                        document.getElementById("FormularioPaciente").reset(); 
+                    },
+                    error: function(error){
+                        alert("No se pudo contactar al servidor, intente de nuevo");
+                    }
+        });
+
+    }
+    
+}
+
+
+
+
+</script>
+
+<script>
+    window.onload = function(e){ 
+        console.log("se cargo la ventana ");
+        var x = document.getElementById("capturista");
+        x.style.display = "none";
+    }
+</script>
+
+
+{% endblock %}

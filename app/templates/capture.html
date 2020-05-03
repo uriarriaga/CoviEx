@@ -145,6 +145,8 @@
 
 
 <script type="text/javascript" >
+	url_base = "http://localhost:5000"
+	url_insertar = url_base+'/insertdata'
 
 
     function obtenerDatosFormulario(){
@@ -204,7 +206,7 @@
 
             var data = json_data;
                 $.ajax({
-                    url : 'http://localhost:5000/insertdata',
+                    url : url_insertar,
                     header: 'Access-Control-Allow-Origin: *',
                     data : data,
                     method : 'post', //en este caso

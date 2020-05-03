@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serv:message xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <header>
+        <securityContext>
+            <webExID>joarriag.iner@gmail.com</webExID>
+            <password>C15c0123!</password>
+            <siteName>iner-gobmex</siteName>
+        </securityContext>
+    </header>
+    <body>
+        <bodyContent xsi:type="java:com.webex.service.binding.meeting.CreateMeeting">
+            <accessControl>
+                <meetingPassword>Cisco1234</meetingPassword>
+            </accessControl>
+            <metaData>
+                <confName>{}</confName>
+            </metaData>
+            <participants>
+                <maxUserNumber>5</maxUserNumber>
+            </participants>
+            <schedule>
+                <startDate/>
+                <duration>70</duration>
+                <timeZoneID>-6</timeZoneID>
+            </schedule>
+        </bodyContent>
+    </body>
+</serv:message>

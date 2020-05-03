@@ -26,6 +26,7 @@ Familiar = Base.classes.Familiar
 User = Base.classes.User
 Paciente = Base.classes.Paciente
 GuestUser = Base.classes.GuestUser
+Agenda = Base.classes.Agenda
 
 
 loginManager = LoginManager(app)

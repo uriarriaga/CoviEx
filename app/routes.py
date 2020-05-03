@@ -52,6 +52,8 @@ def logout():
 def widget():
     token = request.args.get('token')
     invitado = db.session.query(GuestUser).filter_by(indentficadorTemporal=token).first() 
+    if invitado is None:
+        return render_template('widgetexpired.html', title='widget')
     print(invitado.username,invitado.expirationTime)
     if invitado.expirationTime <= datetime.utcnow().timestamp():
         return render_template('widgetexpired.html', title='widget')

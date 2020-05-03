@@ -214,7 +214,7 @@ def respuestainforme():
 
 @app.route('/')
 def index():
-    return redirect(url_for("demo"))
+    return "Hello World!"
 
 # //////////////////// LLAMADAS APIs ///////////// /////// /////// /////// /////// 
 

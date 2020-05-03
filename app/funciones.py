@@ -104,4 +104,4 @@ def existeWebex(correo):
 
 if __name__ == "__main__":
     #sendSMS("+5215580663521")
-    #sendWebexMsg("prueba")
+    sendWebexMsg("prueba")

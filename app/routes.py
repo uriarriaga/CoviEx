@@ -1,6 +1,6 @@
 from flask import request, redirect, url_for, render_template, flash, session ,  jsonify
 from app import app, db, Base, Familiar, GuestUser, Paciente, Agenda
-from app.funciones import sendWebexMsg, sendSMS, createJWT, generarWebex
+from app.funciones import sendWebexMsg, sendSMS, createJWT, generarWebex, existeWebex
 from app.forms import LoginForm, smsForm, userForm,capturesForm, PacienteForm, PacientesForm
 from app.models import User
 from flask_sqlalchemy import SQLAlchemy
@@ -68,22 +68,52 @@ def widget():
 @app.route('/admin', methods=['GET', 'POST'])
 @login_required
 def admin():
+
     if not current_user.admin:
         return redirect(url_for('demo'))
-
-
         
     formusr = userForm()
     print(formusr.username.data)
-  
+
     if formusr.validate_on_submit():
-       
-        print(formusr.username.data)
-        usr = User(username = formusr.username.data,email = formusr.email.data,password = formusr.password.data,
-                    admin = formusr.admin.data,    atencionDomiciliaria = formusr.ad.data,
-                    informeMedico = formusr.im.data, teleVisita = formusr.tv.data,  capturista= formusr.cp.data)
-        db.session.add(usr)
-        db.session.commit() 
+
+        if  formusr.admin.data != 0 or formusr.ad.data != 0 or formusr.cp.data != 0  :
+
+            if  existeWebex(formusr.email.data) :
+
+                user_ = User.query.filter_by(username=formusr.username.data).first()
+
+
+                try:
+                    if user_.username == formusr.username.data:
+                        flash('El nombre de usuario ya existe')
+
+                except:
+                
+
+                    userx = User.query.filter_by(email=formusr.email.data).first()
+
+                    try:
+
+                        if userx.email == formusr.email.data:
+                            flash('El email de usuario ya existe')
+
+                    except:
+
+                        print(formusr.username.data)
+                        usr = User(username = formusr.username.data,email = formusr.email.data,password = formusr.password.data,
+                                    admin = formusr.admin.data,    atencionDomiciliaria = formusr.ad.data,
+                                    informeMedico = formusr.im.data, teleVisita = formusr.tv.data,  capturista= formusr.cp.data)
+                        db.session.add(usr)
+                        db.session.commit()
+                        flash('Usuario insertado de forma correcta!')
+
+            else:
+                flash('Correo no valido o no regitrado en Webex')
+
+        else:
+            flash('Para poder insertar un usuario por favor seleccione el tipo de usuario en la sección de permisos')
+
     return render_template('admin.html', form = formusr)
 
 @app.route('/insertdata', methods=['GET', 'POST'])
@@ -91,35 +121,37 @@ def admin():
 def insertdata():
 
     json_data = request.get_data()
+    json_data = json.loads(json_data)
+
+    print("---------------------------------------------------------------------")
     print(json_data)
-    
-  #  paciente = Paciente()
-  #  paciente.nombre = str(json_data["nombre_paciente"])
-  #  paciente.celular = str(json_data["celular_paciente"])
-  #  paciente.email = str(json_data["email_paciente"])
+    print("---------------------------------------------------------------------")
 
-   # db.session.add(paciente)
-   # db.session.commit()
+    paciente = Paciente()
+    paciente.nombre = str(json_data["nombre_paciente"])
+    paciente.celular = str(json_data["celular_paciente"])
+    paciente.email = str(json_data["email_paciente"])
 
-   # paciente_db = db.session.query(Paciente).filter_by(email=paciente.email).first()
-   # paciente_id_db = str(paciente_db.id)
+    db.session.add(paciente)
+    db.session.commit()
 
+    paciente_db = db.session.query(Paciente).filter_by(email=paciente.email).first()
+    paciente_id_db = str(paciente_db.id)
 
-#    familiares_paciente = json_data["familiares"]
+    familiares_paciente = json_data["familiares_paciente"]
 
-#    for item in familiares_paciente:
-#        familiar = Familiar()
-#
-#        familiar.nombre = str(item["nombre_familiar"])
-#        familiar.celular = str(item["celular_familiar"])
-#        familiar.email = str(item["email_familiar"])
-#        familiar.id_paciente = paciente_id_db
+    for item in familiares_paciente:
 
- #       db.session.add(familiar)
+        familiar = Familiar()
+        familiar.nombre = str(item["nombre_familiar"])
+        familiar.celular = str(item["celular_familiar"])
+        familiar.email = str(item["email_familiar"])
+        familiar.id_paciente = paciente_id_db
+        db.session.add(familiar)
 
- #   db.session.commit()
-        
-    return str(json_data)
+    db.session.commit()
+
+    return "json_data OK"
 
 @app.route('/capture', methods=['GET', 'POST'])
 @login_required
@@ -259,6 +291,45 @@ def getfamiliares():
 
     print(list)     
     return listx
+
+
+@app.route('/getusuarios', methods=['GET', 'POST'])
+@login_required
+def getusuarios():
+
+    usuarios =  db.session.query(User).all()
+
+    list =  "{"  +  '"' + 'usuarios' + '"' + ":" + "["
+    for usuario in usuarios:
+        #print(str(familiar.nombre))
+        list +="{"+ '"' + "username" + '"'+":"+ '"'+ usuario.username + '"'+ "," + '"' + "email" + '"'+":"+ '"'+ usuario.email + '"'+ "," + '"' +"admin" + '"'+":"+ '"' + str(usuario.admin) + '"'+ "," + '"' +"id" + '"'+":"+ '"' + str(usuario.id) + '"'+ "," + '"' +"Medico" + '"'+":"+ '"' + str(usuario.atenciondomiciliaria) + '"'+  "," + '"' +"Capturista" + '"'+":"+ '"' + str(usuario.capturista) + '"'  "," + '"' + "password" + '"'+":"+ '"'+ usuario.password + '"'+"},"
+    list = list[:-1]  
+    list += "]}"  
+
+    listx = list.strip()
+
+    y = json.loads(list)
+
+    #print("------------" + y["employees"][0]["nombre"])
+
+    print(list)     
+    return listx
+
+
+
+@app.route('/delusuario', methods=['GET', 'POST'])
+@login_required
+def delusuarios():
+
+    data = request.get_data()
+    usuario = json.loads(data)
+    usuario_id=usuario['id']
+    print('XXXXXXXXXXXXXXXXXXXXXXX' + str(usuario_id))
+
+    db.session.query(User).filter(User.id==usuario_id).delete() 
+    db.session.commit()
+  
+    return data
 
 
 @app.route('/llamada', methods=['GET', 'POST'])

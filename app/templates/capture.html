@@ -5,7 +5,7 @@
 
             <div class="container">
     
-                <form method="post" action="" class="needs-validation">
+                <form method="post" action="" class="needs-validation" id="FormularioPaciente">
     
                                  
                             <div class="card shadow">    
@@ -24,7 +24,7 @@
     
                                            <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label>Celular</label>
+                                                    <label>Celular (10 digitos) </label>
                                                     <input type="number" class="form-control" name="cel" id="cel" placeholder="obligatorio" required>
                                                 </div>
                                             </div>
@@ -52,7 +52,7 @@
      
                                             <div class="col-sm-4">
                                                  <div class="form-group">
-                                                     <label>Celular</label>
+                                                     <label>Celular (10 digitos) </label>
                                                      <input type="number" class="form-control" name="cel1" id="cel1" placeholder="obligatorio" required>
                                                  </div>
                                              </div>
@@ -81,7 +81,7 @@
      
                                             <div class="col-sm-4">
                                                  <div class="form-group">
-                                                     <label>Celular</label>
+                                                     <label>Celular (10 digitos) </label>
                                                      <input type="number" class="form-control" name="cel2" id="cel2" placeholder="opcional">
                                                  </div>
                                              </div>
@@ -111,7 +111,7 @@
      
                                             <div class="col-sm-4">
                                                  <div class="form-group">
-                                                     <label>Celular</label>
+                                                     <label>Celular (10 digitos) </label>
                                                      <input type="number" class="form-control" name="cel3" id="cel3" placeholder="opcional">
                                                  </div>
                                              </div>
@@ -131,7 +131,7 @@
                                 <div class="card-footer">
                                     <div class="row">
                                         <div class="col-12">
-                 <button class="btn btn-success float-right" type="submit button" onclick="obtenerDatosFormulario()" ><i class="nav-icon fas fa-save"></i> Guardar</button>
+                 <button class="btn btn-success float-right" type="button" onclick="obtenerDatosFormulario()" ><i class="nav-icon fas fa-save"></i> Guardar</button>
                                         </div>   
                                     </div>
                                 </div>
@@ -145,6 +145,8 @@
 
 
 <script type="text/javascript" >
+	url_base = "http://localhost:5000"
+	url_insertar = url_base+'/insertdata'
 
 
     function obtenerDatosFormulario(){
@@ -152,9 +154,11 @@
         
         console.log("entrando a la function");
 
+        //document.getElementById("familiares").innerHTML = "";
+
         nombre_paciente = document.getElementsByName("name")[0].value;
         celular_paciente = document.getElementsByName("cel")[0].value;
-        mail_paciente = document.getElementsByName("mail")[0].value;
+        email_paciente = document.getElementsByName("mail")[0].value;
 
         nombre_fam1 = document.getElementsByName("name1")[0].value;
         celular_fam1 = document.getElementsByName("cel1")[0].value;
@@ -168,35 +172,59 @@
         celular_fam3 = document.getElementsByName("cel3")[0].value;
         mail_fam3 = document.getElementsByName("mail3")[0].value;
 
-        json_data = {"nombre_paciente":nombre_paciente ,"celular_paciente": celular_paciente, "email_paciente": mail_paciente,"familiares":[{"nombre_familiar":nombre_fam1 ,"celular_familiar":celular_fam1, "email_familiar": mail_fam1},{"nombre_familiar": nombre_fam2,"celular_familiar": celular_fam2, "email_familiar": mail_fam2},{"nombre_familiar": nombre_fam3,"celular_familiar":celular_fam3, "email_familiar": mail_fam3}]}
+        //Genera 3 tipos de json distintos en base a los campos que se han llenado 
 
-        console.log(json_data);  
+        if (nombre_paciente == "" || celular_paciente == "" || email_paciente == "" || nombre_fam1  == ""|| celular_fam1  == ""|| mail_fam1 == "") {
+        	console.log("Faltan Datos"); 
+		} else {
+			if(nombre_fam2 !="" && celular_fam2 !="" && mail_fam2 !="" && nombre_fam3 == "" && celular_fam3 == "" && mail_fam3 == ""){
 
+                if(nombre_fam2 =="" && celular_fam2 =="" && mail_fam2 =="" && nombre_fam3 != "" && celular_fam3 != "" && mail_fam3 != ""){
+                    //Valida si familiar 2 esta vacio y familiar 3 tiene datos
 
-      
+                    var json_data='{"nombre_paciente":'+'"'+nombre_paciente+'","celular_paciente":'+'"'+celular_paciente+'","email_paciente":'
+                    +'"'+email_paciente+'","familiares_paciente":[{"nombre_familiar":"'+nombre_fam1+'","celular_familiar":"'+celular_fam1+'","email_familiar":"'+mail_fam1+'"},{"nombre_familiar":"'+nombre_fam3+'","celular_familiar":"'+celular_fam3+'","email_familiar":"'+mail_fam3+'"}]}';
+
+                }else{
+                    var json_data='{"nombre_paciente":'+'"'+nombre_paciente+'","celular_paciente":'+'"'+celular_paciente+'","email_paciente":'
+                    +'"'+email_paciente+'","familiares_paciente":[{"nombre_familiar":"'+nombre_fam1+'","celular_familiar":"'+celular_fam1+'","email_familiar":"'+mail_fam1+'"},{"nombre_familiar":"'+nombre_fam2+'","celular_familiar":"'+celular_fam2+'","email_familiar":"'+mail_fam2+'"}]}';
+                }
+				//mete json con 2 campos en familia
+				
+			}else{
+				if(nombre_fam2 !="" && celular_fam2 !="" && mail_fam2 !="" && nombre_fam3 != "" && celular_fam3 != "" && mail_fam3 != ""){
+					//mete json con 3 campos de familia
+					var json_data='{"nombre_paciente":'+'"'+nombre_paciente+'","celular_paciente":'+'"'+celular_paciente+'","email_paciente":'
+   					+'"'+email_paciente+'","familiares_paciente":[{"nombre_familiar":"'+nombre_fam1+'","celular_familiar":"'+celular_fam1+'","email_familiar":"'+mail_fam1+'"},{"nombre_familiar":"'+nombre_fam2+'","celular_familiar":"'+celular_fam2+'","email_familiar":"'+mail_fam2+'"},{"nombre_familiar":"'+nombre_fam3+'","celular_familiar":"'+celular_fam3+'","email_familiar":"'+mail_fam3+'"}]}';
+				}else{
+					var json_data='{"nombre_paciente":'+'"'+nombre_paciente+'","celular_paciente":'+'"'+celular_paciente+'","email_paciente":'
+   					+'"'+email_paciente+'","familiares_paciente":[{"nombre_familiar":"'+nombre_fam1+'","celular_familiar":"'+celular_fam1+'","email_familiar":"'+mail_fam1+'"}]}';
+				}
+			}
+
+   			console.log(json_data);  
+
             var data = json_data;
                 $.ajax({
-                    url : 'http://localhost:5000/insertdata',
+                    url : url_insertar,
+                    header: 'Access-Control-Allow-Origin: *',
                     data : data,
                     method : 'post', //en este caso
                   
                     success : function(response){
-                        alert("funciona bien");
-                        console.log(response)
+                        console.log(response);
+                        alert("Datos insertados de manera exitosa");
+                        document.getElementById("FormularioPaciente").reset(); 
                     },
                     error: function(error){
-                        alert("No funciona");
+                        alert("No se pudo contactar al servidor, intente de nuevo");
                     }
         });
 
- 
+    }
+    
 }
 
-
-
-
-
-      
 
 
 
@@ -206,7 +234,6 @@
     window.onload = function(e){ 
         console.log("se cargo la ventana ");
         var x = document.getElementById("capturista");
-       
         x.style.display = "none";
     }
 </script>

@@ -16,7 +16,7 @@ class User(db.Model,UserMixin):
     email                = db.Column(db.String(120), nullable = False, unique = True)
     password             = db.Column(db.String(60),  nullable = False)
     admin                = db.Column(db.Boolean,     nullable = False)
-    atencionDomiciliaria = db.Column(db.Boolean,     nullable = False)
+    atenciondomiciliaria = db.Column(db.Boolean,     nullable = False)
     informeMedico        = db.Column(db.Boolean,     nullable = False)
     teleVisita           = db.Column(db.Boolean,     nullable = False)
     capturista           = db.Column(db.Boolean,     nullable = False)

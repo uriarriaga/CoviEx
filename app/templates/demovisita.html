@@ -2,14 +2,37 @@
 
 {% block content %}
 
+<style>
 
+.page    { display: none;  }
+
+#loading {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  width: 50vw;
+  height: 50vh;
+  background-color: rgba(192, 192, 192, 0.5);
+  background-image: url("/static/cargando01.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+</style>
+
+
+<!-- se agrego el div de loading y el de page adicional alos estilos de arriba-->
 
 
 
 	    	  <h2 > Servicio de TeleVisita</h2>
 
+	<div id="loading">
+
+    </div>
 	    
-	    
+<div id="page">
 
 	    	    <table class="table table-striped">
 						    <thead>
@@ -85,6 +108,8 @@
 					
 					</div>
 	    	 </div>
+
+</div>
 	
 <br>
 <br>
@@ -187,6 +212,12 @@
 					      console.log("No se ha podido obtener la información");
 					    }
 	  				});
+
+					 // las 3 lineas de abajo son para el load gif
+
+					  sleep(1000);	
+					  document.getElementById("page").style.display = "block";
+            		  document.getElementById("loading").style.display = "none";
 				}
 
 
@@ -420,6 +451,17 @@
 				        }
 				    }
 				    return false;
+			}
+
+			// lineas esxtra al ultimi commit
+
+			function sleep(milliseconds) {
+
+				  const date = Date.now();
+				  let currentDate = null;
+				  do {
+				    currentDate = Date.now();
+				  } while (currentDate - date < milliseconds);
 			}
 
 

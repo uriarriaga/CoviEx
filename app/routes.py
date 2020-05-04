@@ -71,7 +71,6 @@ def admin():
     if not current_user.admin:
         return redirect(url_for('demo'))
 
-
         
     formusr = userForm()
     print(formusr.username.data)
@@ -93,33 +92,92 @@ def insertdata():
     json_data = request.get_data()
     json_data = json.loads(json_data)
 
-    print("---------------------------------------------------------------------")
-    print(json_data)
-    print("---------------------------------------------------------------------")
+    action = str(json_data["action"])
+    paciente_id = str(json_data["paciente_id"])
 
-    paciente = Paciente()
-    paciente.nombre = str(json_data["nombre_paciente"])
-    paciente.celular = str(json_data["celular_paciente"])
-    paciente.email = str(json_data["email_paciente"])
+    print("-----------------------------------------------------------")
+    print("Action : " + str(action))
+    print("-----------------------------------------------------------")
 
-    db.session.add(paciente)
-    db.session.commit()
+    if action == "update":
+        print("-----------------------------------------------------------")
+        print("Entro a Update")
+        print("-----------------------------------------------------------")
 
-    paciente_db = db.session.query(Paciente).filter_by(email=paciente.email).first()
-    paciente_id_db = str(paciente_db.id)
 
-    familiares_paciente = json_data["familiares_paciente"]
+        #consulta el id en base al json (celular) 
 
-    for item in familiares_paciente:
+        #paciente_id_db = db.session.query(Paciente).filter_by(celular=str(json_data["celular_paciente"])).first()
+        #paciente_id = paciente_id_db.id
 
-        familiar = Familiar()
-        familiar.nombre = str(item["nombre_familiar"])
-        familiar.celular = str(item["celular_familiar"])
-        familiar.email = str(item["email_familiar"])
-        familiar.id_paciente = paciente_id_db
-        db.session.add(familiar)
 
-    db.session.commit()
+        print("Entro a Update Paciente")
+
+        paciente_db = db.session.query(Paciente).filter_by(id=paciente_id).first()
+
+        print(str(json_data["nombre_paciente"]))
+
+        #paciente_db.id 
+        paciente_db.nombre = str(json_data["nombre_paciente"])
+        paciente_db.celular = str(json_data["celular_paciente"])
+        paciente_db.email = str(json_data["email_paciente"])
+
+        db.session.commit()
+
+        #Eliminar usuarios de base de datos:
+
+        familiares_db = db.session.query(Familiar).filter_by(id_paciente=paciente_id)
+
+        for familiar in familiares_db:
+
+            db.session.query(Familiar).filter(Familiar.id_paciente==paciente_id).delete()
+
+        db.session.commit()
+
+        familiares_paciente = json_data["familiares_paciente"]
+
+        for item in familiares_paciente:
+
+            familiar = Familiar()
+            familiar.nombre = str(item["nombre_familiar"])
+            familiar.celular = str(item["celular_familiar"])
+            familiar.email = str(item["email_familiar"])
+            familiar.id_paciente = paciente_db.id
+            db.session.add(familiar)
+
+        db.session.commit()
+
+    else:
+
+        print("-----------------------------------------------------------")
+        print("Entro a Insert")
+        print("-----------------------------------------------------------")
+
+        paciente = Paciente()
+
+        paciente.nombre = str(json_data["nombre_paciente"])
+        paciente.celular = str(json_data["celular_paciente"])
+        paciente.email = str(json_data["email_paciente"])
+
+        db.session.add(paciente)
+        db.session.commit()
+
+        paciente_db = db.session.query(Paciente).filter_by(email=paciente.email).first()
+        paciente_id_db = str(paciente_db.id)
+
+        familiares_paciente = json_data["familiares_paciente"]
+
+        for item in familiares_paciente:
+
+            familiar = Familiar()
+            familiar.nombre = str(item["nombre_familiar"])
+            familiar.celular = str(item["celular_familiar"])
+            familiar.email = str(item["email_familiar"])
+            familiar.id_paciente = paciente_id_db
+            db.session.add(familiar)
+
+
+        db.session.commit()
 
     return "json_data OK"
 

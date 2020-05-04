@@ -102,6 +102,6 @@ def generarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com",nombre=
 def existeWebex(correo):
     return True
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
     #sendSMS("+5215580663521")
     #sendWebexMsg("prueba")

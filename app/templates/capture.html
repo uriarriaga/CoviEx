@@ -4,16 +4,38 @@
            <section class="content">
 
             <div class="container">
-    
+
                 <form method="post" action="" class="needs-validation" id="FormularioPaciente">
-    
-                                 
-                            <div class="card shadow">    
+
+                            <div class="card shadow">
                                 <div class="card-body">
+
                                     <h2><strong>Consola de captura</strong></h2>
+
+
+												<div  class="col-sm-12" align="rigth">
+												  <form class="form-inline">
+												    <div class="form-group">
+												     <label>Celular (10 digitos)</label>
+												     <p>Esta seccion permite la busqueda y modificacion datos de pacientes previamente registrados</p>
+												      <input type="text" class="form-control" name="campo_buscar" id="campo_buscar" placeholder="numero celular del paciente (opcional). Solo para editar" required>
+												    </div>
+
+												           <button class="btn btn-success float-right" type="button" onclick="modificarDatosFormulario()" ><i class="nav-icon fas fa-save"></i> Buscar Paciente</button>
+												  </form>
+												</div>
+												<br>
+												<br>
+												<br>
+												<br>
+												<br>
+												<br>
+												<br>
+
                                     <hr>
                                     <h4 class="my-4">Captura de datos de pacientes</h4>
-                                    
+
+
                                     <div class="row px-2">
                                            <div class="col-sm-4">
                                                <div class="form-group">
@@ -21,42 +43,42 @@
                                                    <input type="text" class="form-control" name="name" id="name" placeholder="obligatorio" required>
                                                </div>
                                            </div>
-    
+
                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Celular (10 digitos) </label>
                                                     <input type="number" class="form-control" name="cel" id="cel" placeholder="obligatorio" required>
                                                 </div>
                                             </div>
-    
+
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Correo</label>
                                                     <input type="email" class="form-control" name="mail" id="mail" placeholder="obligatorio" required>
                                                 </div>
-                                            </div>  
-                                    </div>  
-    
-                                    <!-- **************** Familiar 1 *****************-->  
+                                            </div>
+                                    </div>
+
+                                    <!-- **************** Familiar 1 *****************-->
                                     <h5 class="mt-5">Datos del familiar 1</h5>
                                     <hr>
-                                    
-                                    <div class="row mt-3 px-2">                                                                                  
-                                            
+
+                                    <div class="row mt-3 px-2">
+
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Nombre</label>
                                                     <input type="text" class="form-control" name="name1" id="name1" placeholder="obligatorio" required>
                                                 </div>
                                             </div>
-     
+
                                             <div class="col-sm-4">
                                                  <div class="form-group">
                                                      <label>Celular (10 digitos) </label>
                                                      <input type="number" class="form-control" name="cel1" id="cel1" placeholder="obligatorio" required>
                                                  </div>
                                              </div>
-     
+
                                              <div class="col-sm-4">
                                                  <div class="form-group">
                                                      <label>Correo</label>
@@ -64,58 +86,58 @@
                                                  </div>
                                              </div>
                                     </div>
-                                    <!-- **************** fin Familiar 1 *****************--> 
-    
+                                    <!-- **************** fin Familiar 1 *****************-->
+
                                     <!-- **************** Familiar 2 *****************-->
                                     <h5>Datos del familiar 2</h5>
                                     <hr>
-    
-                                    <div class="row mt-3 px-2">       
-    
+
+                                    <div class="row mt-3 px-2">
+
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Nombre</label>
                                                     <input type="text" class="form-control" name="name2" id="name2" placeholder="opcional">
                                                 </div>
                                             </div>
-     
+
                                             <div class="col-sm-4">
                                                  <div class="form-group">
                                                      <label>Celular (10 digitos) </label>
                                                      <input type="number" class="form-control" name="cel2" id="cel2" placeholder="opcional">
                                                  </div>
                                              </div>
-     
+
                                              <div class="col-sm-4">
                                                  <div class="form-group">
                                                      <label>Correo</label>
                                                      <input type="email" class="form-control" name="mail2" id="mail2" placeholder="opcional">
                                                  </div>
                                              </div>
-    
+
                                     </div>
                                     <!-- **************** fin Familiar 2 *****************-->
-    
+
                                     <!-- **************** Familiar 3 *****************-->
                                     <h5>Datos del familiar 3</h5>
                                     <hr>
-    
-                                    <div class="row mt-3 px-2">      
-    
+
+                                    <div class="row mt-3 px-2">
+
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Nombre</label>
                                                     <input type="text" class="form-control" name="name3" id="name3" placeholder="opcional">
                                                 </div>
                                             </div>
-     
+
                                             <div class="col-sm-4">
                                                  <div class="form-group">
                                                      <label>Celular (10 digitos) </label>
                                                      <input type="number" class="form-control" name="cel3" id="cel3" placeholder="opcional">
                                                  </div>
                                              </div>
-     
+
                                              <div class="col-sm-4">
                                                  <div class="form-group">
                                                      <label>Correo</label>
@@ -124,34 +146,37 @@
                                              </div>
                                     </div>
                                     <!-- **************** fin Familiar 3 *****************-->
-                                       
-                                    
-                                        
+
+
+
                                 </div>
                                 <div class="card-footer">
                                     <div class="row">
                                         <div class="col-12">
-                 <button class="btn btn-success float-right" type="button" onclick="obtenerDatosFormulario()" ><i class="nav-icon fas fa-save"></i> Guardar</button>
-                                        </div>   
+                 							<button class="btn btn-success float-right" type="button" onclick="obtenerDatosFormulario()" ><i class="nav-icon fas fa-save"></i> Guardar</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>                
-    
+                            </div>
+
                 </form>
-                
+
             </div>
-    
+
         </section>
 
 
 <script type="text/javascript" >
 	url_base = "http://localhost:5000"
 	url_insertar = url_base+'/insertdata'
+	action = "insert";//update
 
+    url_consultar_pacientes = url_base+'/getpacientes'
+    url_consultar_familiares = url_base+'/getfamiliares'
+    var paciente_id = "nulo"
 
     function obtenerDatosFormulario(){
 
-        
         console.log("entrando a la function");
 
         //document.getElementById("familiares").innerHTML = "";
@@ -163,7 +188,7 @@
         nombre_fam1 = document.getElementsByName("name1")[0].value;
         celular_fam1 = document.getElementsByName("cel1")[0].value;
         mail_fam1 = document.getElementsByName("mail1")[0].value;
- 
+
         nombre_fam2 = document.getElementsByName("name2")[0].value;
         celular_fam2 = document.getElementsByName("cel2")[0].value;
         mail_fam2 = document.getElementsByName("mail2")[0].value;
@@ -172,66 +197,311 @@
         celular_fam3 = document.getElementsByName("cel3")[0].value;
         mail_fam3 = document.getElementsByName("mail3")[0].value;
 
-        //Genera 3 tipos de json distintos en base a los campos que se han llenado 
+        if (/^[0-9]{1,10}$/.test(celular_paciente) && celular_paciente.length <=10){
 
-        if (nombre_paciente == "" || celular_paciente == "" || email_paciente == "" || nombre_fam1  == ""|| celular_fam1  == ""|| mail_fam1 == "") {
-        	console.log("Faltan Datos"); 
-		} else {
-			if(nombre_fam2 !="" && celular_fam2 !="" && mail_fam2 !="" && nombre_fam3 == "" && celular_fam3 == "" && mail_fam3 == ""){
+        }else{
+        	alert('Numero celular paciente incorrecto');
+        	return;
+        } // OR if (/^[0-9]{1,10}$/.test(+tempVal) && tempVal.length<=10)
 
-                if(nombre_fam2 =="" && celular_fam2 =="" && mail_fam2 =="" && nombre_fam3 != "" && celular_fam3 != "" && mail_fam3 != ""){
-                    //Valida si familiar 2 esta vacio y familiar 3 tiene datos
+        //Valida si existe el numero celular
+        $.ajax({
 
-                    var json_data='{"nombre_paciente":'+'"'+nombre_paciente+'","celular_paciente":'+'"'+celular_paciente+'","email_paciente":'
-                    +'"'+email_paciente+'","familiares_paciente":[{"nombre_familiar":"'+nombre_fam1+'","celular_familiar":"'+celular_fam1+'","email_familiar":"'+mail_fam1+'"},{"nombre_familiar":"'+nombre_fam3+'","celular_familiar":"'+celular_fam3+'","email_familiar":"'+mail_fam3+'"}]}';
+        	url:url_consultar_pacientes,
 
-                }else{
-                    var json_data='{"nombre_paciente":'+'"'+nombre_paciente+'","celular_paciente":'+'"'+celular_paciente+'","email_paciente":'
-                    +'"'+email_paciente+'","familiares_paciente":[{"nombre_familiar":"'+nombre_fam1+'","celular_familiar":"'+celular_fam1+'","email_familiar":"'+mail_fam1+'"},{"nombre_familiar":"'+nombre_fam2+'","celular_familiar":"'+celular_fam2+'","email_familiar":"'+mail_fam2+'"}]}';
-                }
-				//mete json con 2 campos en familia
-				
-			}else{
-				if(nombre_fam2 !="" && celular_fam2 !="" && mail_fam2 !="" && nombre_fam3 != "" && celular_fam3 != "" && mail_fam3 != ""){
-					//mete json con 3 campos de familia
-					var json_data='{"nombre_paciente":'+'"'+nombre_paciente+'","celular_paciente":'+'"'+celular_paciente+'","email_paciente":'
-   					+'"'+email_paciente+'","familiares_paciente":[{"nombre_familiar":"'+nombre_fam1+'","celular_familiar":"'+celular_fam1+'","email_familiar":"'+mail_fam1+'"},{"nombre_familiar":"'+nombre_fam2+'","celular_familiar":"'+celular_fam2+'","email_familiar":"'+mail_fam2+'"},{"nombre_familiar":"'+nombre_fam3+'","celular_familiar":"'+celular_fam3+'","email_familiar":"'+mail_fam3+'"}]}';
+	   		success: function(respuesta) {
+
+	      		var response = (""+respuesta).trim();
+	      			//console.log(response);
+	      			lista_pacientes = JSON.parse(response);
+	      			//console.log(lista_pacientes["pacientes"]);
+
+
+
+	      		var encontrado = "false";
+	      		var j;
+
+					for (j = 0; j < lista_pacientes["pacientes"].length; j++) {
+
+						if(lista_pacientes["pacientes"][j]["celular"] == celular_paciente){
+							encontrado = "true";
+
+							paciente_id_db = lista_pacientes["pacientes"][j]["id"]
+							document.getElementById("cel").value=lista_pacientes["pacientes"][j]["celular"];
+
+						}
+
+					}
+
+
+				if (encontrado == "true" && action == "insert"){
+					alert("Paciente ya registrado anteriormente, para hacer cambios seleccione 'Buscar Paciente'");
 				}else{
-					var json_data='{"nombre_paciente":'+'"'+nombre_paciente+'","celular_paciente":'+'"'+celular_paciente+'","email_paciente":'
-   					+'"'+email_paciente+'","familiares_paciente":[{"nombre_familiar":"'+nombre_fam1+'","celular_familiar":"'+celular_fam1+'","email_familiar":"'+mail_fam1+'"}]}';
+				        //Genera 3 tipos de json distintos en base a los campos que se han llenado 
+
+                	if (nombre_paciente == "" || celular_paciente == "" || email_paciente == "" || nombre_fam1  == ""|| celular_fam1  == ""|| mail_fam1 == "") {
+        				console.log("Error. hace falta llenar campos obligatorios");
+        				alert("Error. hace falta llenar campos obligatorios");
+					}else {
+
+						// Valida Celular paciente
+						   if (/^[0-9]{1,10}$/.test(celular_paciente) && celular_paciente.length == 10){
+
+        					}else{
+        						alert('Numero celular paciente incorrecto');
+        						return;
+        					}
+
+
+						   // Valida Celular familar 1
+						   if (/^[0-9]{1,10}$/.test(celular_fam1) && celular_fam1.length == 10){
+
+        					}else{
+        						alert('Numero celular familiar 1 incorrecto');
+        						return;
+        					}
+
+        					if(nombre_fam2 != "" || celular_fam2 != "" || mail_fam2 != "" || nombre_fam3 != "" || celular_fam3 != "" || mail_fam3 != "" ){
+
+
+       					//Valida Campos Familiar 2-------------------------------------------------------------------------------------------------------------=
+        					if(nombre_fam2 != "" || celular_fam2 != "" || mail_fam2 != "" && nombre_fam3 == "" && celular_fam3 == "" && mail_fam3 == "" || nombre_fam2 == "" && celular_fam2 == "" && mail_fam2 == "" || nombre_fam3 != "" && celular_fam3 != "" && mail_fam3 != ""){
+								//Valida los datos del familiar 2 
+	        					if(nombre_fam2.length>3){
+									if(celular_fam2.length == 10 && /^[0-9]{1,10}$/.test(celular_fam2)){
+										if(mail_fam2.length> 3){
+
+
+												if(nombre_fam3 != "" || celular_fam3 != "" || mail_fam3 != "" ){
+
+												//Valida los datos del familiar 3 
+					        					if(nombre_fam3.length>3){
+													if(celular_fam3.length == 10 && /^[0-9]{1,10}$/.test(celular_fam3)){
+														if(mail_fam3.length> 3){
+
+															alert("Solo inserta paciente, fam 1 y fam 2 y 3");
+															    var json_data='{"paciente_id":'+'"'+paciente_id+'","action":'+'"'+action+'","nombre_paciente":'+'"'+nombre_paciente+'","celular_paciente":'+'"'+celular_paciente+'","email_paciente":'+'"'+email_paciente+'","familiares_paciente":[{"nombre_familiar":"'+nombre_fam1+'","celular_familiar":"'+celular_fam1+'","email_familiar":"'+mail_fam1+'"},{"nombre_familiar":"'+nombre_fam2+'","celular_familiar":"'+celular_fam2+'","email_familiar":"'+mail_fam2+'"},{"nombre_familiar":"'+nombre_fam3+'","celular_familiar":"'+celular_fam3+'","email_familiar":"'+mail_fam3+'"}]}';
+
+														}else{
+															alert("Correo Familar 3 no puede estar en blanco.");
+					        								return;
+														}
+													}else{
+														alert("Error en celular Familar 3.");
+														return;
+													}
+					        					}else{
+					        						alert("Nombre Familar 3 no puede estar en blanco 11.");
+					        						return;
+					        					}	
+					        													
+												}else{
+													alert("Solo inserta paciente, fam 1 y fam 2");
+													var json_data='{"paciente_id":'+'"'+paciente_id+'","action":'+'"'+action+'","nombre_paciente":'+'"'+nombre_paciente+'","celular_paciente":'+'"'+celular_paciente+'","email_paciente":'+'"'+email_paciente+'","familiares_paciente":[{"nombre_familiar":"'+nombre_fam1+'","celular_familiar":"'+celular_fam1+'","email_familiar":"'+mail_fam1+'"},{"nombre_familiar":"'+nombre_fam2+'","celular_familiar":"'+celular_fam2+'","email_familiar":"'+mail_fam2+'"}]}';
+
+												}
+
+										}else{
+											alert("Correo Familar 2 no puede estar en blanco.");
+	        								return;
+										}
+									}else{
+										alert("Error en celular Familar 2.");
+										return;
+									}
+	        					}else{
+	        						alert("Nombre Familar 2 no puede estar en blanco.");
+	        						return;
+	        					}
+        					}else{
+
+        					}
+
+
+        					}else{
+
+        						alert("Solo inserta paciente y familiar 1");
+        						var json_data='{"paciente_id":'+'"'+paciente_id+'","action":'+'"'+action+'","nombre_paciente":'+'"'+nombre_paciente+'","celular_paciente":'+'"'+celular_paciente+'","email_paciente":'+'"'+email_paciente+'","familiares_paciente":[{"nombre_familiar":"'+nombre_fam1+'","celular_familiar":"'+celular_fam1+'","email_familiar":"'+mail_fam1+'"}]}';
+        		
+        					}
+
+					console.log(json_data);
+
+            		var data = json_data;
+
+	                $.ajax({
+	                    url : url_insertar,
+	                    header: 'Access-Control-Allow-Origin: *',
+	                    data : data,
+	                    method : 'post', //en este caso
+
+	                    success : function(response){
+	                        console.log(response);
+	                        alert("Datos insertados de manera exitosa");
+	                        document.getElementById("FormularioPaciente").reset();
+	                        action = "insert";//update
+	                    },
+	                    error: function(error){
+	                        alert("No se pudo contactar al servidor, intente de nuevo");
+	                    }
+	        			});
+
+    				}
+
+
 				}
-			}
 
-   			console.log(json_data);  
+	    },
+	    	error: function() {
+	      		console.log("No se ha podido obtener la información");
+	    	}
+	});
 
-            var data = json_data;
-                $.ajax({
-                    url : url_insertar,
-                    header: 'Access-Control-Allow-Origin: *',
-                    data : data,
-                    method : 'post', //en este caso
-                  
-                    success : function(response){
-                        console.log(response);
-                        alert("Datos insertados de manera exitosa");
-                        document.getElementById("FormularioPaciente").reset(); 
-                    },
-                    error: function(error){
-                        alert("No se pudo contactar al servidor, intente de nuevo");
-                    }
-        });
-
-    }
-    
+        	//---------------------------------------------------------------------------------------------------------------
 }
 
 
 
 
+
+
+	console.log("Entro a Buscar Familiar")
+
+
+	function modificarDatosFormulario(){
+	action = "update";//insert
+	console.log(action);
+
+	celular_busqueda = document.getElementsByName("campo_buscar")[0].value;
+	console.log(celular_busqueda)
+
+	$.ajax({
+
+	    url:url_consultar_pacientes,
+
+	    success: function(respuesta) {
+
+	      	var response = (""+respuesta).trim();
+	      		//console.log(response);
+	      		lista_pacientes = JSON.parse(response);
+	      		//console.log(lista_pacientes["pacientes"]);
+
+
+
+	      	var encontrado = "false";
+	      	var j;
+
+				for (j = 0; j < lista_pacientes["pacientes"].length; j++) {
+
+					//console.log(lista_pacientes["pacientes"][j]["celular"])
+					//console.log(lista_pacientes["pacientes"][j]["email"])
+					//console.log(lista_pacientes["pacientes"][j]["id"])
+					//console.log(lista_pacientes["pacientes"][j]["nombre"])
+
+					if(lista_pacientes["pacientes"][j]["celular"] == celular_busqueda){
+						encontrado = "true";
+
+						paciente_id_db = lista_pacientes["pacientes"][j]["id"]
+						paciente_id = paciente_id_db;
+
+						document.getElementById("name").value=lista_pacientes["pacientes"][j]["nombre"];
+						document.getElementById("cel").value=lista_pacientes["pacientes"][j]["celular"];
+    					document.getElementById("mail").value=lista_pacientes["pacientes"][j]["email"];
+
+						alert("Paciente encontrado, se cargaron los datos del paciente y familiares ");
+
+
+					}
+
+				}
+
+			if (encontrado == "false"){
+				alert("Paciente no Encontrado");
+			}else{
+
+				$.ajax({
+
+	    		url:url_consultar_familiares,
+
+	    			success: function(respuesta) {
+
+	      			var listaUsuarios = $("#lista-usuarios");
+	      			var response = (""+respuesta).trim();
+	      			//console.log(response);
+	      			lista_familiares= JSON.parse(response);
+	      			//console.log(lista_familiares["familiares"]);
+
+	      			var i;
+	      			var name;
+	      			var cel;
+	      			var mail;
+
+	      			var cont_familiares = 1
+
+					for (i = 0; i < lista_familiares["familiares"].length; i++) {
+
+						if(lista_familiares["familiares"][i]["id_paciente"] == paciente_id_db){
+
+							//console.log(lista_familiares["familiares"][i]["celular"])
+							//console.log(lista_familiares["familiares"][i]["email"])
+							//console.log(lista_familiares["familiares"][i]["id_paciente"])
+							//console.log(lista_familiares["familiares"][i]["nombre"])
+
+							name = "name"+cont_familiares;
+							cel = "cel"+cont_familiares;
+							mail = "mail"+cont_familiares;
+
+							cont_familiares = cont_familiares + 1;
+
+							document.getElementById(name).value=lista_familiares["familiares"][i]["nombre"];
+							document.getElementById(cel).value=lista_familiares["familiares"][i]["celular"];
+    						document.getElementById(mail).value=lista_familiares["familiares"][i]["email"];
+
+						}
+
+					}
+
+
+	    	},
+	    	error: function() {
+	      		console.log("No se ha podido obtener la información");
+	    	}
+		});
+
+
+			}
+
+	    },
+	    error: function() {
+	      	console.log("No se ha podido obtener la información");
+	    }
+	});
+
+    //document.getElementById('name').value="tuvariable";
+
+    //document.getElementById("name").value="tuvariable";
+    //document.getElementById("cel").value="0123456789";
+    //document.getElementById("mail").value="variable@hola.com";
+
+    //document.getElementById("name1").value="tuvariable";
+    //document.getElementById("cel1").value="0123456789";
+    //document.getElementById("mail1").value="variable@hola.com";
+
+    //document.getElementById("name2").value="tuvariable";
+    //document.getElementById("cel2").value="0123456789";
+    //document.getElementById("mail2").value="variable@hola.com";
+
+    //document.getElementById("name3").value="tuvariable";
+    //document.getElementById("cel3").value="0123456789";
+    //document.getElementById("mail3").value="variable@hola.com";
+
+
+	}
+
 </script>
 
 <script>
-    window.onload = function(e){ 
+    window.onload = function(e){
         console.log("se cargo la ventana ");
         var x = document.getElementById("capturista");
         x.style.display = "none";

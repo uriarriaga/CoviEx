@@ -34,7 +34,7 @@
 	    
 <div id="page">
 
-	    	    <table class="table table-striped">
+	    	    <table class="table table-striped" id="dtBasicExample" >
 						    <thead>
 						      <tr>
 						        <th>Paciente</th>
@@ -121,8 +121,8 @@
 			// Construimos e inyectamos el date piecker
 
 
-			//url_base="http://localhost:5000"
-			url_base="http://coviexlbtrans-470802257.us-east-1.elb.amazonaws.com"
+			url_base="http://localhost:5000"
+			//url_base="http://coviexlbtrans-470802257.us-east-1.elb.amazonaws.com"
 			
 			url_pacientes = url_base + '/getpacientes';
 			url_familiares =url_base + '/getfamiliares';
@@ -214,12 +214,31 @@
 					    }
 	  				});
 
+
+
+
 					 // las 3 lineas de abajo son para el load gif
 
-					  sleep(1000);	
+					  //sleep(1000);	
 					  document.getElementById("page").style.display = "block";
             		  document.getElementById("loading").style.display = "none";
+
+
+            		  					 // lienas que paginan la tabla ----/////////////// /////////////// /////
+
+					 // Basic example
+					 /*
+					
+						  $('#dtBasicExample').DataTable({
+						    "paging": false // false to disable pagination (or any other option)
+						  });
+						  $('.dataTables_length').addClass('bs-select');
+
+						  */
+						
 				}
+
+				// Fin de code Address
 
 
 				function pacientes_button( id) {

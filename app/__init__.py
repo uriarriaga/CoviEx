@@ -4,11 +4,11 @@ from flask_login import LoginManager
 from sqlalchemy.ext.automap import automap_base
 #import pymysql
 #pymysql.install_as_MySQLdb()
-from flask_cors import CORS
+#from flask_cors import CORS
 
 app = Flask(__name__)
 # Quitar cirs antes de subir a git hub
-CORS(app)
+#CORS(app)
 
 app.config["SECRET_KEY"]= "87f4236d17bbabd54836d1f65e4e0c63"
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://sql9336570:pHjGFAlvei@sql9.freemysqlhosting.net/sql9336570"

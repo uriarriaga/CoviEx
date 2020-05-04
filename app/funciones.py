@@ -21,33 +21,26 @@ def sendWebexMsg(texto,roomId=os.environ["idRoomYo"]):
     }
     requests.post( os.environ["urlWebextTeams"], headers=headers, json = payload )
 
-def createWebexMeeting():
+def createWebexMeeting(nombre,fecha):
     import requests
     with open("app/createMeetings.xml") as file: 
         data = file.read()
     url = "https://api.webex.com/WBXService/XMLService"
-    payload = data.format("prueba_Uriel")
+    payload = data.format(nombre,fecha)
     headers = {
     'Content-Type': 'text/plain'
     }
     response = requests.post( url, headers=headers, data = payload).text
-    #print(str(response["serv:message"]["serv:header"]["serv:response"]["serv:result"]) )
     response = xmltodict.parse(response)
     if str(response["serv:message"]["serv:header"]["serv:response"]["serv:result"]) == "SUCCESS":
-        sendWebexMsg("EL evento ha sido creado exitosamente!!")
         meetingKey = response["serv:message"]["serv:body"]["serv:bodyContent"]["meet:meetingkey"]
-        #sendWebexMsg(str(response["serv:message"]["serv:body"]["serv:bodyContent"]["meet:iCalendarURL"]["serv:attendee"]))
-        #sendWebexMsg(str(response["serv:message"]["serv:body"]["serv:bodyContent"]["meet:iCalendarURL"]["serv:host"]))
-        #print(meetingKey)
         with open("app/getmeeting.xml") as file: 
             data = file.read()
         payload = data.format(meetingKey)
         response = requests.post( url, headers=headers, data = payload).text
         response = xmltodict.parse(response)
-        #sendWebexMsg("Link para el Webex:")
-        #sendWebexMsg(str(response["serv:message"]["serv:body"]["serv:bodyContent"]["meet:meetingLink"]))
         sipURL = str(response["serv:message"]["serv:body"]["serv:bodyContent"]["meet:sipURL"])
-        print(sipURL)
+        print("EL evento '"+nombre+"' con fecha "+fecha+" ha sido creado exitosamente!!\nCon la SipURL: "+ sipURL)
         return sipURL
 
 def createJWT(user_id,expirationTime,secret):
@@ -84,9 +77,10 @@ def sendSMS(contacto,token):
             sendWebexMsg(r.status_code,os.environ["idRoomTodos"])
 
 
-def generarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com",nombre="teleconsulta"):
+def generarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com",nombre="teleconsulta",fecha=datetime.utcnow().timestamp()):
+    timeForWebex = datetime.fromtimestamp(int(fecha)-18000).strftime("%m/%d/20%y %H:%M:00")
     actualTimePlusHR = str(datetime.utcnow().timestamp()+3600)
-    sipURL = createWebexMeeting()
+    sipURL = createWebexMeeting(nombre,timeForWebex)
     for numero in listaNumeros:
         token = token_urlsafe(10)[:10]
         invitado = db.session.query(GuestUser).filter(GuestUser.expirationTime<=datetime.utcnow().timestamp()).first()

@@ -21,6 +21,7 @@
             <schedule>
                 <startDate>{}</startDate>
                 <duration>70</duration>
+                <hostWebExID>{}</hostWebExID>
             </schedule>
         </bodyContent>
     </body>

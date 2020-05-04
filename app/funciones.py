@@ -21,12 +21,11 @@ def sendWebexMsg(texto,roomId=os.environ["idRoomYo"]):
     }
     requests.post( os.environ["urlWebextTeams"], headers=headers, json = payload )
 
-def createWebexMeeting(nombre,fecha):
-    import requests
+def createWebexMeeting(nombre,fecha,host="joarriag.iner@gmail.com"):
     with open("app/createMeetings.xml") as file: 
         data = file.read()
     url = "https://api.webex.com/WBXService/XMLService"
-    payload = data.format(nombre,fecha)
+    payload = data.format(nombre,fecha,host)
     headers = {
     'Content-Type': 'text/plain'
     }
@@ -87,7 +86,6 @@ def generarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com",nombre=
         invitado.indentficadorTemporal = token
         invitado.expirationTime = actualTimePlusHR
         invitado.correo = sipURL
-        #print(invitado.username, str(datetime.fromtimestamp(invitado.expirationTime)))
         db.session.commit()
         sendSMS("+52"+numero,token)
 

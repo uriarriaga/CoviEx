@@ -9,12 +9,3 @@ Cambiar las URLs de las llamadas de API en los html (cada archivo tiene una vari
 
 Cambiar el archivo initi para apuntar a la base de datos nueva
 
-
-Para los requerimientos de MySQL en el S.O Ubuntu server:
-
-
-sudo apt-get install python3.4-dev
-
-sudo apt-get install libmysqlclient-dev
-
-sudo apt-get install mysql-client

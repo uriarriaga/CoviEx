@@ -306,7 +306,7 @@ def respuestainforme():
 
 @app.route('/')
 def index():
-    return "Hello World!"
+    return redirect(url_for('demo'))
 
 # //////////////////// LLAMADAS APIs ///////////// /////// /////// /////// /////// 
 

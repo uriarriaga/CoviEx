@@ -409,8 +409,16 @@ def llamada():
 
     email = current_user.email
 
+    nombre = call["name"]
+    tipo = call["tipo"]
+    print("EMAIL   ----- - - - - -   >" + email)
 
-    generarWebex(celulares,email)
+    if tipo == "1":
+        generarWebex(celulares,email, "Atencion domiciliaria " + nombre)
+    if tipo == "2":
+        generarWebex(celulares,email, "Informe Medico " + nombre)
+    if tipo == "3":
+        generarWebex(celulares,email, "TeleVisita " + nombre)
 
     #llamar funcoin envio de sms de uri todo en epoc
     # datetime

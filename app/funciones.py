@@ -78,9 +78,11 @@ def sendSMS(contacto,token):
             sendWebexMsg(r.status_code,os.environ["idRoomTodos"])
 
 
-def generarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com",nombre="teleconsulta",fecha=datetime.utcnow().timestamp()):
-    print(listaNumeros,correo,nombre,datetime.fromtimestamp(int(fecha)))
-    timeForWebex = datetime.utcfromtimestamp(int(fecha)).strftime("%m/%d/20%y %H:%M:00")
+
+def generarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com",nombre="teleconsulta"):
+    fecha=datetime.utcnow().timestamp()
+    print(listaNumeros,correo,nombre,datetime.fromtimestamp(int(fecha)-18000))
+    timeForWebex = datetime.fromtimestamp(int(fecha)-18000).strftime("%m/%d/20%y %H:%M:00")
     actualTimePlusHR = str(datetime.utcnow().timestamp()+3600)
     invitados = db.session.query(GuestUser).filter(GuestUser.expirationTime<=datetime.utcnow().timestamp()).all()
     if len(listaNumeros) > len(invitados):
@@ -97,7 +99,7 @@ def generarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com",nombre=
     return True
 
 def agendarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com",nombre="teleconsulta",fecha=datetime.utcnow().timestamp()):
-    print(listaNumeros,correo,nombre,datetime.fromtimestamp(int(fecha)))
+    print(listaNumeros,correo,nombre,datetime.utcfromtimestamp(int(fecha)))
     timeForWebex = datetime.utcfromtimestamp(int(fecha)-18000).strftime("%m/%d/20%y %H:%M:00")
     return  createWebexMeeting(nombre,timeForWebex,host=correo)    
 

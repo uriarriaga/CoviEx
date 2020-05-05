@@ -26,6 +26,7 @@ def createWebexMeeting(nombre,fecha,host="joarriag.iner@gmail.com"):
         data = file.read()
     url = "https://api.webex.com/WBXService/XMLService"
     payload = data.format(nombre,fecha,host)
+    print(payload)
     headers = {
     'Content-Type': 'text/plain'
     }

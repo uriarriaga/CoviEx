@@ -1,6 +1,6 @@
 from flask import request, redirect, url_for, render_template, flash, session ,  jsonify
 from app import app, db, Base, Familiar, GuestUser, Paciente, Agenda
-from app.funciones import sendWebexMsg, sendSMS, createJWT, generarWebex, existeWebex
+from app.funciones import sendWebexMsg, sendSMS, createJWT, generarWebex, existeWebex,agendarWebex
 from app.forms import LoginForm, smsForm, userForm,capturesForm, PacienteForm, PacientesForm
 from app.models import User
 from flask_sqlalchemy import SQLAlchemy
@@ -436,6 +436,7 @@ def agendarllamada():
 
     SIP = ""
 
+    email = current_user.email
 
     celulares = []
 
@@ -462,10 +463,10 @@ def agendarllamada():
     
     print('------------------------------------------------------------------')
     print(d)
-    utctime = int(d.utcnow().timestamp())
+    utctime = int(d.timestamp())
     print("UTC timestamp :" +  str(utctime))
     print(str(celulares))
-    print('------------------------------------------------------------------')
+    print('------------------------------------------------------------------' + tipo)
 
     if tipo == "1":
 
@@ -474,7 +475,7 @@ def agendarllamada():
 
 
 
-        SIP = generarWebex(celulares,email, "Atencion domiciliaria " + nombre, utctime)
+        SIP = agendarWebex(celulares,email, "Atencion domiciliaria " + nombre, utctime)
 
         if SIP != None :
 
@@ -495,7 +496,7 @@ def agendarllamada():
             #llamar a la funcion de uriel con el tipo de servicio de informe medico
             print("Informe Medico")
             
-            SIP = generarWebex(celulares,email, "Atencion domiciliaria " + nombre, utctime)
+            SIP = agendarWebex(celulares,email, "Informe Medico " + nombre, utctime)
 
             if SIP != None :
 
@@ -514,7 +515,7 @@ def agendarllamada():
             #llamar a la funcion de uriel con el tipo de servicio de Televistia
             print("TeleVistia")
 
-            SIP = generarWebex(celulares,email, "Atencion domiciliaria " + nombre, utctime)
+            SIP = agendarWebex(celulares,email, "TeleVistia" + nombre, utctime)
 
             if SIP != None :
 

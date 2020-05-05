@@ -78,7 +78,7 @@ def sendSMS(contacto,token):
             sendWebexMsg(r.status_code,os.environ["idRoomTodos"])
 
 
-def generarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com",nombre="teleconsulta",fecha=datetime.utcnow().timestamp())):
+def generarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com",nombre="teleconsulta",fecha=datetime.utcnow().timestamp()):
     print(listaNumeros,correo,nombre,datetime.fromtimestamp(int(fecha)))
     timeForWebex = datetime.utcfromtimestamp(int(fecha)-18000).strftime("%m/%d/20%y %H:%M:00")
     actualTimePlusHR = str(datetime.utcnow().timestamp()+3600)

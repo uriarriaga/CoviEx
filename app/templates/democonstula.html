@@ -90,7 +90,7 @@
        		 		var datos='{"name":'+'"'+nom+'","tipo":"1","Fecha":"'+fe+'","datos":[{"id":"'+identificador+'","celular":"'+celular+'"}]}';
        		 		console.log(datos);
        		 		$.ajax({
-					    url:"http://localhost:5000/agendarllamada",
+					    url: url_base + "/agendarllamada",
 					    type: 'post',
 					    dataType: 'json',
 					    success: function(respuesta) {

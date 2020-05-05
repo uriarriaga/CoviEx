@@ -82,7 +82,7 @@ def admin():
 
         if  formusr.admin.data != 0 or formusr.ad.data != 0 or formusr.cp.data != 0  :
 
-            if  existeWebex(formusr.email.data) :
+            if  existeWebex(formusr.email.data) or formusr.admin.data == 1 or formusr.cp.data ==1 :
 
                 user_ = User.query.filter_by(username=formusr.username.data).first()
 
@@ -444,15 +444,18 @@ def agendarllamada():
 
     inDate = call["Fecha"]
     tipo = call["tipo"]
+    nombre = call["name"]
+
 
     d = datetime.strptime(inDate, "%d/%m/%Y  %H:%M") 
+
     #dt = datetime.strptime("21/11/06 16:30", "%d/%m/%y %H:%M")
     #01/05/2020 9:44
     
     print('------------------------------------------------------------------')
     print(d)
-  
-    print(d.timestamp())
+    utctime = int(d.utcnow().timestamp())
+    print("UTC timestamp :" +  str(utctime))
     print(str(celulares))
     print('------------------------------------------------------------------')
 
@@ -460,22 +463,40 @@ def agendarllamada():
 
         #insertas el id del paciente en la tabla
         print("tipo de meeting 1:1")
-        meeting = Agenda(fecha_hora = d.timestamp(), email = current_user.email, id_user = current_user.id,
+        meeting = Agenda(fecha_hora = utctime, email = current_user.email, id_user = current_user.id,
                     id_paciente = ids_[0],    id_servicio = tipo,
                     celulares =  str(celulares) )
         db.session.add(meeting)
         db.session.commit() 
 
+        generarWebex(celulares,email, "Atencion domiciliaria " + nombre, utctime)
+
 
     else:
         
+        if tipo == "2":
+            #llamar a la funcion de uriel con el tipo de servicio de informe medico
+            print("Informe Medico")
+            generarWebex(celulares,email, "Informe Médico " + nombre, utctime)
+
+
+
+        if tipo == "3":
+            #llamar a la funcion de uriel con el tipo de servicio de Televistia
+            print("TeleVistia")
+            generarWebex(celulares,email, "TeleVistia " + nombre, utctime)
+
+
         print("tipo de meeting 1:X")
         # Insertas la cita y despues insertas el id de los pacientes con las citas
-        meeting = Agenda(fecha_hora = d.timestamp(), email = current_user.email,
+        meeting = Agenda(fecha_hora = utctime, email = current_user.email,
         id_user = current_user.id,id_servicio = tipo, celulares = str(celulares),id_paciente = "" )
         db.session.add(meeting)
-        db.session.commit() 
+        db.session.commit()
 
     #insertar los datos de la video llamada
+
+
+
     return data
 

@@ -168,9 +168,14 @@
 					      obj = JSON.parse(response);
 					      console.log(obj["pacientes"][0]);
 
+					      //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+					      lista_pacientes = obj["pacientes"];
+					      console.log( "lista de pacientes XXXXXX  " + lista_pacientes[0]["nombre"]);
+
 					      $.each(obj["pacientes"], function(index, elemento) {
 					      	//console.log("entrando al ajax");
 					      	//console.log(elemento.nombre);
+
 
 
 					        listaUsuarios.append(
@@ -354,13 +359,59 @@
 
 				var fe;
 				function Agendarllamada(){
+
+				// XXXXXXXXXXXXXXXXXXXXX	
+				var nombre_paciente ="";
+					
        		 	fe = $('#fec').val();
        		 	if(fe.length==0){
        		 		alert("el campo fecha se encuentra vacio");
        		 	}else{
 
+
+	       		 		// Aqui podemos meter el nombre del paciente XXXXXXXXXXXXXXXXXXXXX
+	       		 		contadorx =0 ;
+	       		 		for (var i=0;  i < lista_pacientes.length; i++){
+
+	       		 			//console.log(lista_pacientes[i]["id"])
+	       		 			if(contadorx > 0 )
+	       		 			{
+	       		 				//console.log('se rompe el for general');
+	       		 				break;	
+
+	       		 			}
+
+	       		 			for( var j=0;  j < lista_familiares["familiares"].length; j++ ){
+
+	       		 				if(lista_familiarescheck[0] == lista_familiares["familiares"][j]["id"]){
+
+
+
+	       		 				
+		       		 				if(lista_pacientes[i]["id"] == lista_familiares["familiares"][j]["id_paciente"]){
+
+			       		 				//alert("se encontro al paciente" + lista_pacientes[i]["nombre"]);
+			       		 				nombre_paciente =  lista_pacientes[i]["nombre"];
+			       		 				//alert(nombre_paciente );
+			       		 				contadorx ++;
+			       		 				break;	
+			       		 				
+		       		 				}
+
+		       		 			}
+
+
+	       		 			}
+
+
+	       		 		}
+
+
+
+	       		 		// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
        		 		// Aqui construyo mis datos
-       		 		var datos='{"tipo":"3","Fecha":"'+fe+'",';
+       		 		var datos='{"tipo":"3","Fecha":"'+fe+'",' + '"name":"'+nombre_paciente+'",';
 
        		 		// "datos":[{"id":"'+identificador+'","celular":"'+celular+'"}]}';
 

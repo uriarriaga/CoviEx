@@ -105,7 +105,7 @@ def admin():
 
                         print(formusr.username.data)
                         usr = User(username = formusr.username.data,email = formusr.email.data,password = formusr.password.data,
-                                    admin = formusr.admin.data,    atencionDomiciliaria = formusr.ad.data,
+                                    admin = formusr.admin.data,    atenciondomiciliaria = formusr.ad.data,
                                     informeMedico = formusr.im.data, teleVisita = formusr.tv.data,  capturista= formusr.cp.data)
                         db.session.add(usr)
                         db.session.commit()

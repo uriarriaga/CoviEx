@@ -434,7 +434,7 @@ def agendarllamada():
 
     call = json.loads(data)
 
-
+    SIP = ""
 
 
     celulares = []
@@ -471,13 +471,22 @@ def agendarllamada():
 
         #insertas el id del paciente en la tabla
         print("tipo de meeting 1:1")
-        meeting = Agenda(fecha_hora = utctime, email = current_user.email, id_user = current_user.id,
-                    id_paciente = ids_[0],    id_servicio = tipo,
-                    celulares =  str(celulares) )
-        db.session.add(meeting)
-        db.session.commit() 
 
-        generarWebex(celulares,email, "Atencion domiciliaria " + nombre, utctime)
+
+
+        SIP = generarWebex(celulares,email, "Atencion domiciliaria " + nombre, utctime)
+
+        if SIP != None :
+
+            meeting = Agenda(fecha_hora = utctime, email = current_user.email, id_user = current_user.id,
+            id_paciente = ids_[0],    id_servicio = tipo,
+            celulares =  str(celulares), SIP = SIP)
+            db.session.add(meeting)
+            db.session.commit()
+
+        else:
+
+            return"error"
 
 
     else:
@@ -485,22 +494,43 @@ def agendarllamada():
         if tipo == "2":
             #llamar a la funcion de uriel con el tipo de servicio de informe medico
             print("Informe Medico")
-            generarWebex(celulares,email, "Informe Médico " + nombre, utctime)
+            
+            SIP = generarWebex(celulares,email, "Atencion domiciliaria " + nombre, utctime)
+
+            if SIP != None :
+
+                meeting = Agenda(fecha_hora = utctime, email = current_user.email,
+                id_user = current_user.id,id_servicio = tipo, celulares = str(celulares),id_paciente = "", SIP = SIP )
+                db.session.add(meeting)
+                db.session.commit()
+
+            else:
+
+                return"error"
 
 
 
         if tipo == "3":
             #llamar a la funcion de uriel con el tipo de servicio de Televistia
             print("TeleVistia")
-            generarWebex(celulares,email, "TeleVistia " + nombre, utctime)
 
+            SIP = generarWebex(celulares,email, "Atencion domiciliaria " + nombre, utctime)
+
+            if SIP != None :
+
+                meeting = Agenda(fecha_hora = utctime, email = current_user.email,
+                id_user = current_user.id,id_servicio = tipo, celulares = str(celulares),id_paciente = "", SIP = SIP )
+                db.session.add(meeting)
+                db.session.commit()
+
+            else:
+
+                return"error"
+        
 
         print("tipo de meeting 1:X")
         # Insertas la cita y despues insertas el id de los pacientes con las citas
-        meeting = Agenda(fecha_hora = utctime, email = current_user.email,
-        id_user = current_user.id,id_servicio = tipo, celulares = str(celulares),id_paciente = "" )
-        db.session.add(meeting)
-        db.session.commit()
+
 
     #insertar los datos de la video llamada
 

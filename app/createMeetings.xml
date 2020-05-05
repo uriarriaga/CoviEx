@@ -19,9 +19,9 @@
                 <maxUserNumber>5</maxUserNumber>
             </participants>
             <schedule>
-                <startDate/>
+                <startDate>{}</startDate>
                 <duration>70</duration>
-                <timeZoneID>-6</timeZoneID>
+                <hostWebExID>{}</hostWebExID>
             </schedule>
         </bodyContent>
     </body>

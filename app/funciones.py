@@ -77,13 +77,14 @@ def sendSMS(contacto,token):
 
 
 def generarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com",nombre="teleconsulta",fecha=datetime.utcnow().timestamp()):
+    print(listaNumeros,correo,nombre,fecha)
     timeForWebex = datetime.fromtimestamp(int(fecha)-18000).strftime("%m/%d/20%y %H:%M:00")
     actualTimePlusHR = str(datetime.utcnow().timestamp()+3600)
     invitados = db.session.query(GuestUser).filter(GuestUser.expirationTime<=datetime.utcnow().timestamp()).all()
     if len(listaNumeros) > len(invitados):
         print("no hay suficientes GuestUsers para la sesion")
         return False
-    sipURL = createWebexMeeting(nombre,timeForWebex)
+    sipURL = createWebexMeeting(nombre,timeForWebex)    
     for numero,invitado in zip(listaNumeros,invitados):
         token = token_urlsafe(10)[:10]
         invitado.indentficadorTemporal = token

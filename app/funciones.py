@@ -31,6 +31,7 @@ def createWebexMeeting(nombre,fecha,host="joarriag.iner@gmail.com"):
     }
     response = requests.post( url, headers=headers, data = payload).text
     response = xmltodict.parse(response)
+    print(response)
     if str(response["serv:message"]["serv:header"]["serv:response"]["serv:result"]) == "SUCCESS":
         meetingKey = response["serv:message"]["serv:body"]["serv:bodyContent"]["meet:meetingkey"]
         with open("app/getmeeting.xml") as file: 

@@ -1,7 +1,7 @@
 import requests, os, jwt, xmltodict
 
 from app.models import User
-from app import GuestUser
+from app import GuestUser, Agenda
 from datetime import datetime
 from app import db  
 from secrets import token_urlsafe
@@ -116,9 +116,10 @@ def agendarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com",nombre=
 
 def cronSMS():
     actualTimePlusHR = str(datetime.utcnow().timestamp()+3600)
-    eventos = db.session.query(Agenda).filter(and_(Agenda.fecha_hora<datetime.utcnow().timestamp()+1200,Agenda.fecha_hora>datetime.utcnow().timestamp())).all()
+    eventos = db.session.query(Agenda).filter(Agenda.fecha_hora.between(datetime.utcnow().timestamp(),datetime.utcnow().timestamp()+1200)).all()
     for evento in eventos:
-        listaNumeros = evento.celulares 
+        print(evento.fecha_hora)
+        listaNumeros = evento.celulares[1:-1].split(",")
         invitados = db.session.query(GuestUser).filter(GuestUser.expirationTime<=datetime.utcnow().timestamp()).all()
         if len(listaNumeros) > len(invitados):
             print("no hay suficientes GuestUsers para la sesion")
@@ -130,7 +131,7 @@ def cronSMS():
             invitado.expirationTime = actualTimePlusHR
             invitado.correo = sipURL
             db.session.commit()
-            sendSMS("+52"+numero,token)
+            sendSMS("+52"+numero[1:-1],token)
     return True
 
 def existeWebex(correo="joarriag.iner@gmail.com"):

@@ -115,8 +115,23 @@ def agendarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com",nombre=
     return  createWebexMeeting(nombre,timeForWebex,host=correo)    
 
 
-def existeWebex(correo):
-    return True
+def existeWebex(correo="joarriag.iner@gmail.com"):
+    correoSplit = correo.split("@")
+    print(correo)
+    correoURL = correoSplit[0]+"%40"+correoSplit[1]
+    url = "https://api.ciscospark.com/v1/people?email="
+    headers = {
+    'Authorization': 'Bearer ZDJiMGQzNjctYTg4YS00ZjE0LWEwM2EtYTdlM2NiOWIyNDI3OGIxNTYyNTEtYjAx_PF84_9778f473-87b3-4fc8-9af5-a7dcf09d40db'
+    }
+    response = requests.get( url+correoURL, headers=headers).json()
+    try:
+        for item in response["items"]:
+            for email in item["emails"]:
+                print(email)
+                if email == correo:
+                    return True
+    except :
+        return False
 
 #if __name__ == "__main__":
     #sendSMS("+5215580663521")

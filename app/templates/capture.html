@@ -167,13 +167,13 @@
 
 
 <script type="text/javascript" >
-	//url_base = "http://localhost:5000"
-    url_base="https://iner.teleconsulta.mx";
+	url_base = ""
+    //url_base="https://iner.teleconsulta.mx";
     //url_base ="http://35.153.44.17:5007";
     //url_base="http://coviexlbtrans-470802257.us-east-1.elb.amazonaws.com";
     //url_base="https://teleconsulta.mx";
 
-	url_insertar = url_base+'/insertdata'
+	url_insertar =  ""
 	action = "insert";//update
 
     url_consultar_pacientes = url_base+'/getpacientes'
@@ -503,13 +503,20 @@
 
 	}
 
-</script>
 
-<script>
     window.onload = function(e){
         console.log("se cargo la ventana ");
         var x = document.getElementById("capturista");
         x.style.display = "none";
+
+
+
+        var URL = window.location.href;
+        console.log("LA URL Actual es:" + URL);
+        const splitString = URL.split("/");
+        console.log(splitString);
+        url_base = splitString[0]+ "//" + splitString[2] + "/";
+        url_insertar =  url_base+'/insertdata';
     }
 </script>
 

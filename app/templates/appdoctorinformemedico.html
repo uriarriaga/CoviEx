@@ -2,7 +2,24 @@
 
 {% block content %}
 
+<style>
 
+.page    { display: none;  }
+
+#loading {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  width: 50vw;
+  height: 50vh;
+  background-color: rgba(192, 192, 192, 0.5);
+  background-image: url("/static/cargando01.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+</style>
 
 
 <br>
@@ -11,7 +28,11 @@
 
 	    	  <h2 > Servicio de Informe Médico </h2>
 
-	    
+	<div id="loading">
+
+    </div>
+
+<div id="page"> 
 
 	    	    <table class="table table-striped">
 						    <thead>
@@ -87,7 +108,8 @@
 					
 					</div>
 	    	 </div>
-	
+
+</div>
 <br>
 <br>
 
@@ -196,6 +218,9 @@
 					      //console.log(response);
 					      lista_familiares= JSON.parse(response);
 					      console.log(lista_familiares["familiares"][0]);
+					      // Lineas para la carhga del Gif
+					      document.getElementById("page").style.display = "block";
+            		  	  document.getElementById("loading").style.display = "none";
 
 	
 					    },
@@ -256,6 +281,9 @@
 
 				function call( ) {
 
+				// Codigo para el loading ZZZZZZZZZZZZZZZZZ	
+				document.getElementById("page").style.display = "none";
+				document.getElementById("loading").style.display = "block";
 
 				// XXXXXXXXXXXXXXXXXXXXX	
 				var nombre_paciente ="";
@@ -341,10 +369,16 @@
 							    dataType: 'json',
 							    success: function(respuesta) {
 							      console.log(respuesta);	
-							      location.replace("/respuestainforme");	
+							      location.replace("/respuestainforme");
+							      // codigo para el loading ZZZZZZZZZZZZZZ
+					      		   document.getElementById("loading").style.display = "none";		
 							   
 							    },	data: datos,
 							    error: function() {
+
+							    	// codigo para el loading ZZZZZZZZZZZZZZ
+					     		 document.getElementById("loading").style.display = "none";
+					     		 document.getElementById("page").style.display = "block";
 							      console.log("No se ha podido obtener la información");
 
 							      alert("No pudimos contactar al servidor, favor de intentar nuevamente");
@@ -358,13 +392,22 @@
 				var fe;
 				function Agendarllamada(){
 
+					// Codigo para el loading ZZZZZZZZZZZZZZZZZ	
+				
+
 				// XXXXXXXXXXXXXXXXXXXXX	
 				var nombre_paciente ="";
+				//YYYYYYY
+				var id_paciente = "";
 
        		 	fe = $('#fec').val();
        		 	if(fe.length==0){
        		 		alert("el campo fecha se encuentra vacio");
        		 	}else{
+
+       		 		document.getElementById("page").style.display = "none";
+					document.getElementById("loading").style.display = "block";
+
 
 
 
@@ -389,6 +432,8 @@
 		       		 				
 			       		 				if(lista_pacientes[i]["id"] == lista_familiares["familiares"][j]["id_paciente"]){
 
+			       		 					//YYYYYYYY	
+			       		 					id_paciente = lista_pacientes[i]["id"];
 				       		 				//alert("se encontro al paciente" + lista_pacientes[i]["nombre"]);
 				       		 				nombre_paciente =  lista_pacientes[i]["nombre"];
 				       		 				//alert(nombre_paciente );
@@ -410,7 +455,7 @@
 	       		 		// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
        		 		// Aqui construyo mis datos
-       		 		var datos='{"tipo":"2","Fecha":"'+fe+'",' + '"name":"'+nombre_paciente+'",';
+       	var datos='{"tipo":"2","Fecha":"'+fe+'",' + '"name":"'+nombre_paciente+'",' + '"id_paciente":"'+id_paciente + '"'  + ',';
 
        		 		// "datos":[{"id":"'+identificador+'","celular":"'+celular+'"}]}';
 
@@ -423,7 +468,9 @@
        		 				var ce = $('#cel'+ lista_familiarescheck[i]).text();
        		 				console.log(ce);
        		 				console.log('#cel'+ lista_familiarescheck[i]);
-       		 				data += '{"id":"'+lista_familiarescheck[i]+'","celular":"'+ce+'"}'
+       		 				//YYYYYYYYYYYYY
+      						data += '{"id":"'+lista_familiarescheck[i]+'","celular":"'+ce+'"}'
+
        		 				if(i < (lista_familiarescheck.length-1))
        		 				{
        		 					data += ','
@@ -445,10 +492,16 @@
 					    dataType: 'json',
 					    success: function(respuesta) {
 					      console.log(respuesta);
-					      location.replace("/respuestainforme");		
+					      location.replace("/respuestainforme");
+					      //Z
+					      document.getElementById("loading").style.display = "none";		
 					   
 					    },	data: datos,
 					    error: function() {
+
+					        // codigo para el loading ZZZZZZZZZZZZZZ
+					      document.getElementById("loading").style.display = "none";
+					      document.getElementById("page").style.display = "block";
 					      console.log("No se ha podido obtener la información");
 					      alert("No pudimos contactar al servidor, favor de intentar nuevamente");
 					    }

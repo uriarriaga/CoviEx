@@ -33,7 +33,7 @@ def login():
                     print('entro a capturista')
                     return redirect(url_for('capture'))
 
-                return redirect(url_for('demo'))
+                return redirect(url_for('appdoctor'))
 
             else:
                 return redirect(url_for('admin'))
@@ -74,7 +74,7 @@ def widget():
 def admin():
 
     if not current_user.admin:
-        return redirect(url_for('demo'))
+        return redirect(url_for('appdoctor'))
 
         
     formusr = userForm()
@@ -233,29 +233,29 @@ def capture():
 
 
 
-# ////////////////////  Demos ///////////////
+# ////////////////////  appdoctors ///////////////
 
-@app.route('/demo')
+@app.route('/appdoctor')
 @login_required
-def demo():
+def appdoctor():
     if current_user.admin:
         return redirect(url_for('admin'))
-    return render_template('demo.html')
+    return render_template('appdoctor.html')
 
 
-@app.route('/democonstula', methods=['GET', 'POST'])
+@app.route('/appdoctorconstula', methods=['GET', 'POST'])
 @login_required
 def teleconsulta():
     if current_user.admin:
         return redirect(url_for('admin'))
 
 
-    return render_template('democonstula.html')
+    return render_template('appdoctorconstula.html')
 
 
-@app.route('/demovisita', methods=['GET', 'POST'])
+@app.route('/appdoctorvisita', methods=['GET', 'POST'])
 @login_required
-def demovisita():
+def appdoctorvisita():
     if current_user.admin:
         return redirect(url_for('admin'))
    
@@ -264,13 +264,13 @@ def demovisita():
         #sendSMS(numero)
         #return redirect(url_for('respuestatelevisita'))
 
-    return render_template('demovisita.html')
+    return render_template('appdoctorvisita.html')
 
 
 
-@app.route('/demoinformemedico', methods=['GET', 'POST'])
+@app.route('/appdoctorinformemedico', methods=['GET', 'POST'])
 @login_required
-def demoinformemedico():
+def appdoctorinformemedico():
     if current_user.admin:
         return redirect(url_for('admin'))
     formv = smsForm()
@@ -279,7 +279,7 @@ def demoinformemedico():
         if current_user.username != "debug":
             sendSMS(numero)
         return redirect(url_for('respuestainforme'))
-    return render_template('demoinformemedico.html', form = formv)
+    return render_template('appdoctorinformemedico.html', form = formv)
 
 
 
@@ -308,7 +308,7 @@ def respuestainforme():
 
 @app.route('/')
 def index():
-    return redirect(url_for('demo'))
+    return redirect(url_for('appdoctor'))
 
 # //////////////////// LLAMADAS APIs ///////////// /////// /////// /////// /////// 
 
@@ -456,6 +456,7 @@ def agendarllamada():
     inDate = call["Fecha"]
     tipo = call["tipo"]
     nombre = call["name"]
+    
 
 
     d = datetime.strptime(inDate, "%d/%m/%Y  %H:%M") 
@@ -494,6 +495,8 @@ def agendarllamada():
 
     else:
         
+        id_paciete = call["id_paciente"]
+        
         if tipo == "2":
             #llamar a la funcion de uriel con el tipo de servicio de informe medico
             print("Informe Medico")
@@ -503,7 +506,7 @@ def agendarllamada():
             if SIP != None :
 
                 meeting = Agenda(fecha_hora = utctime, email = current_user.email,
-                id_user = current_user.id,id_servicio = tipo, celulares = str(celulares),id_paciente = "", SIP = SIP )
+                id_user = current_user.id,id_servicio = tipo, celulares = str(celulares),id_paciente = int(id_paciete), SIP = SIP )
                 db.session.add(meeting)
                 db.session.commit()
 
@@ -522,7 +525,7 @@ def agendarllamada():
             if SIP != None :
 
                 meeting = Agenda(fecha_hora = utctime, email = current_user.email,
-                id_user = current_user.id,id_servicio = tipo, celulares = str(celulares),id_paciente = "", SIP = SIP )
+                id_user = current_user.id,id_servicio = tipo, celulares = str(celulares),id_paciente = int(id_paciete), SIP = SIP )
                 db.session.add(meeting)
                 db.session.commit()
 

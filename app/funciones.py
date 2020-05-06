@@ -111,7 +111,7 @@ def generarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com",nombre=
 
 def agendarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com",nombre="teleconsulta",fecha=datetime.utcnow().timestamp()):
     sendWebexMsg(datetime.utcfromtimestamp(int(fecha)))
-    timeForWebex = datetime.utcfromtimestamp(int(fecha)-18000).strftime("%m/%d/20%y %H:%M:00")
+    timeForWebex = datetime.utcfromtimestamp(int(fecha)).strftime("%m/%d/20%y %H:%M:00")
     return  createWebexMeeting(nombre,timeForWebex,host=correo)    
 
 def cronSMS():

@@ -29,6 +29,8 @@
         <p class="sansserif"> Para iniciar la videollamada, favor de presionar el botón verde "Call"</p>
           
         <p class="sansserif"> Sesion valida por una hora </p>
+
+        <p class="sansserif"> Se recomienda estar conectado a una red de tipo WiFi antes de iniciar la videollamada, con la finalidad de no consumir su plan de datos celular.</p>
       </div>
 
     <div id="my-webexteams-widget" style="width: 350px; height: 600px;"/>
@@ -39,7 +41,7 @@
       var widgetEl = document.getElementById('my-webexteams-widget');
       // Init a new widget
       webex.widget(widgetEl).spaceWidget({
-    guestToken:  '{{ token}}',
+    guestToken:  '{{ token }}',
     destinationId: '{{ SIP }}',
     destinationType: 'sip',
     spaceActivities: {"files":false,"meet":true,"message":false,"people":false},

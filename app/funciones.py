@@ -58,7 +58,7 @@ def createJWT(user_id,expirationTime,secret):
     return encoded
 
 def sendSMS(contacto,token):
-        text = "Servicio de TeleConsulta. Para iniciar la videollamada favor de ingresar a la siguiente direccion: https://teleconsulta.mx/widget?token=" + token 
+        text = "Servicio de TeleConsulta INER. Para iniciar la videollamada favor de ingresar a la siguiente direccion: https://iner.teleconsulta.mx/widget?token=" + token 
         params = {'from': os.environ["sender"], 'text': text, 
                 'to': contacto, 'api_key': os.environ["api_key"], 
                 'api_secret': os.environ["api_secret"]}

@@ -8,9 +8,9 @@ app = Flask(__name__)
 
 
 app.config["SECRET_KEY"]= "87f4236d17bbabd54836d1f65e4e0c63"
-#app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://teleconsulta:C1sco123!@172.16.30.10/teleconsulta"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://teleconsulta:C1sco123!@172.16.30.10/teleconsulta"
 #app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://teleconsulta:C1sco123!@52.3.2.155/teleconsulta"
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://sql9336570:pHjGFAlvei@sql9.freemysqlhosting.net/sql9336570"
+#app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://sql9336570:pHjGFAlvei@sql9.freemysqlhosting.net/sql9336570"
 #app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///site.db"
 #app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://uli:Kr4k3n1808!@192.168.100.24/teleconsultax"
 

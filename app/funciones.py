@@ -114,6 +114,24 @@ def agendarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com",nombre=
     timeForWebex = datetime.utcfromtimestamp(int(fecha)-18000).strftime("%m/%d/20%y %H:%M:00")
     return  createWebexMeeting(nombre,timeForWebex,host=correo)    
 
+def cronSMS():
+    actualTimePlusHR = str(datetime.utcnow().timestamp()+3600)
+    eventos = db.session.query(Agenda).filter(and_(Agenda.fecha_hora<datetime.utcnow().timestamp()+1200,Agenda.fecha_hora>datetime.utcnow().timestamp()).all()
+    for evento in eventos:
+        listaNumeros = evento.celulares 
+        invitados = db.session.query(GuestUser).filter(GuestUser.expirationTime<=datetime.utcnow().timestamp()).all()
+        if len(listaNumeros) > len(invitados):
+            print("no hay suficientes GuestUsers para la sesion")
+            return False
+        sipURL = evento.SIP   
+        for numero,invitado in zip(listaNumeros,invitados):
+            token = token_urlsafe(10)[:10]
+            invitado.indentficadorTemporal = token
+            invitado.expirationTime = actualTimePlusHR
+            invitado.correo = sipURL
+            db.session.commit()
+            sendSMS("+52"+numero,token)
+    return True
 
 def existeWebex(correo="joarriag.iner@gmail.com"):
     correoSplit = correo.split("@")

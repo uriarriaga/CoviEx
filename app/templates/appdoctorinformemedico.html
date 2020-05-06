@@ -22,19 +22,19 @@
 </style>
 
 
-<!-- se agrego el div de loading y el de page adicional alos estilos de arriba-->
+<br>
 
 
 
-	    	  <h2 > Servicio de TeleVisita</h2>
+	    	  <h2 > Servicio de Informe Médico </h2>
 
 	<div id="loading">
 
     </div>
-	    
-<div id="page">
 
-	    	    <table class="table table-striped" id="dtBasicExample" >
+<div id="page"> 
+
+	    	    <table class="table table-striped">
 						    <thead>
 						      <tr>
 						        <th>Paciente</th>
@@ -110,7 +110,6 @@
 	    	 </div>
 
 </div>
-	
 <br>
 <br>
 
@@ -122,15 +121,9 @@
 
 
 
+		//url_base="https://teleconsulta.mx";
 
-			//url_base="https://teleconsulta.mx";
 
-			//url_base="https://iner.teleconsulta.mx";
-
-			//url_base="http://localhostdedw"
-			//url_base ="http://35.153.44.17:5007";
-			//url_base="http://coviexlbtrans-470802257.us-east-1.elb.amazonaws.com";
-			
 			url_base="";
 			url_pacientes="";
 			url_familiares="";
@@ -143,7 +136,7 @@
 
 				function codeAddress() {
 
-
+					// crear y asignar el date picker
 
 					var URL = window.location.href;
 					console.log("LA URL Actual es:" + URL);
@@ -153,10 +146,6 @@
 
 					url_pacientes = url_base + '/getpacientes';
 					url_familiares =url_base + '/getfamiliares';
-
-					// crear y asignar el date picker
-
-
 
 
 					console.log("entrando a la funcion");
@@ -187,7 +176,6 @@
 					      $.each(obj["pacientes"], function(index, elemento) {
 					      	//console.log("entrando al ajax");
 					      	//console.log(elemento.nombre);
-
 
 
 					        listaUsuarios.append(
@@ -230,6 +218,9 @@
 					      //console.log(response);
 					      lista_familiares= JSON.parse(response);
 					      console.log(lista_familiares["familiares"][0]);
+					      // Lineas para la carhga del Gif
+					      document.getElementById("page").style.display = "block";
+            		  	  document.getElementById("loading").style.display = "none";
 
 	
 					    },
@@ -237,32 +228,7 @@
 					      console.log("No se ha podido obtener la información");
 					    }
 	  				});
-
-
-
-
-					 // las 3 lineas de abajo son para el load gif
-
-					  //sleep(1000);	
-					  document.getElementById("page").style.display = "block";
-            		  document.getElementById("loading").style.display = "none";
-
-
-            		  					 // lienas que paginan la tabla ----/////////////// /////////////// /////
-
-					 // Basic example
-					 /*
-					
-						  $('#dtBasicExample').DataTable({
-						    "paging": false // false to disable pagination (or any other option)
-						  });
-						  $('.dataTables_length').addClass('bs-select');
-
-						  */
-						
 				}
-
-				// Fin de code Address
 
 
 				function pacientes_button( id) {
@@ -315,9 +281,12 @@
 
 				function call( ) {
 
+				// Codigo para el loading ZZZZZZZZZZZZZZZZZ	
+				document.getElementById("page").style.display = "none";
+				document.getElementById("loading").style.display = "block";
+
 				// XXXXXXXXXXXXXXXXXXXXX	
 				var nombre_paciente ="";
-
 
 				console.log("se preciono el boton de call")
 				console.log(lista_familiarescheck);
@@ -364,7 +333,8 @@
 
 
 		       		 		// Aqui construyo mis datos
-		       		 		var datos='{"tipo":"3",' + ' "name":"'+nombre_paciente+'",';
+		       		 		var datos='{"tipo":"2",' + ' "name":"'+nombre_paciente+'",';
+		       		
 
 		       		 		// "datos":[{"id":"'+identificador+'","celular":"'+celular+'"}]}';
 
@@ -394,79 +364,92 @@
 		       		 		console.log(datos);
 
 		       		 		$.ajax({
-							    url: url_base + '/llamada',
+							    url:url_base +'/llamada',
 							    type: 'post',
 							    dataType: 'json',
 							    success: function(respuesta) {
-							      console.log(respuesta);
-							      location.replace("/respuestatelevisita");		
+							      console.log(respuesta);	
+							      location.replace("/respuestainforme");
+							      // codigo para el loading ZZZZZZZZZZZZZZ
+					      		   document.getElementById("loading").style.display = "none";		
 							   
 							    },	data: datos,
 							    error: function() {
+
+							    	// codigo para el loading ZZZZZZZZZZZZZZ
+					     		 document.getElementById("loading").style.display = "none";
+					     		 document.getElementById("page").style.display = "block";
 							      console.log("No se ha podido obtener la información");
-							     alert("No pudimos contactar al servidor, favor de intentar nuevamente");
+
+							      alert("No pudimos contactar al servidor, favor de intentar nuevamente");
 							    }
 			  				});
 
-			  				
+			  			
 		       		 	
 				}
 
 				var fe;
 				function Agendarllamada(){
 
+					// Codigo para el loading ZZZZZZZZZZZZZZZZZ	
+				document.getElementById("page").style.display = "none";
+				document.getElementById("loading").style.display = "block";
+
+
 				// XXXXXXXXXXXXXXXXXXXXX	
 				var nombre_paciente ="";
-					
+
        		 	fe = $('#fec').val();
        		 	if(fe.length==0){
        		 		alert("el campo fecha se encuentra vacio");
        		 	}else{
 
 
+
 	       		 		// Aqui podemos meter el nombre del paciente XXXXXXXXXXXXXXXXXXXXX
-	       		 		contadorx =0 ;
-	       		 		for (var i=0;  i < lista_pacientes.length; i++){
+		       		 		contadorx =0 ;
+		       		 		for (var i=0;  i < lista_pacientes.length; i++){
 
-	       		 			//console.log(lista_pacientes[i]["id"])
-	       		 			if(contadorx > 0 )
-	       		 			{
-	       		 				//console.log('se rompe el for general');
-	       		 				break;	
+		       		 			//console.log(lista_pacientes[i]["id"])
+		       		 			if(contadorx > 0 )
+		       		 			{
+		       		 				//console.log('se rompe el for general');
+		       		 				break;	
 
-	       		 			}
+		       		 			}
 
-	       		 			for( var j=0;  j < lista_familiares["familiares"].length; j++ ){
+		       		 			for( var j=0;  j < lista_familiares["familiares"].length; j++ ){
 
-	       		 				if(lista_familiarescheck[0] == lista_familiares["familiares"][j]["id"]){
+		       		 				if(lista_familiarescheck[0] == lista_familiares["familiares"][j]["id"]){
 
 
 
-	       		 				
-		       		 				if(lista_pacientes[i]["id"] == lista_familiares["familiares"][j]["id_paciente"]){
+		       		 				
+			       		 				if(lista_pacientes[i]["id"] == lista_familiares["familiares"][j]["id_paciente"]){
 
-			       		 				//alert("se encontro al paciente" + lista_pacientes[i]["nombre"]);
-			       		 				nombre_paciente =  lista_pacientes[i]["nombre"];
-			       		 				//alert(nombre_paciente );
-			       		 				contadorx ++;
-			       		 				break;	
-			       		 				
-		       		 				}
+				       		 				//alert("se encontro al paciente" + lista_pacientes[i]["nombre"]);
+				       		 				nombre_paciente =  lista_pacientes[i]["nombre"];
+				       		 				//alert(nombre_paciente );
+				       		 				contadorx ++;
+				       		 				break;	
+				       		 				
+			       		 				}
+
+			       		 			}
+
 
 		       		 			}
 
 
-	       		 			}
-
-
-	       		 		}
+		       		 		}
 
 
 
 	       		 		// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
        		 		// Aqui construyo mis datos
-       		 		var datos='{"tipo":"3","Fecha":"'+fe+'",' + '"name":"'+nombre_paciente+'",';
+       		 		var datos='{"tipo":"2","Fecha":"'+fe+'",' + '"name":"'+nombre_paciente+'",';
 
        		 		// "datos":[{"id":"'+identificador+'","celular":"'+celular+'"}]}';
 
@@ -496,15 +479,21 @@
        		 		console.log(datos);
 
        		 		$.ajax({
-					    url:url_base +'/agendarllamada',
+					    url: url_base +'/agendarllamada',
 					    type: 'post',
 					    dataType: 'json',
 					    success: function(respuesta) {
-					      console.log(respuesta);	
-					      location.replace("/respuestatelevisita");	
+					      console.log(respuesta);
+					      location.replace("/respuestainforme");
+					      //Z
+					      document.getElementById("loading").style.display = "none";		
 					   
 					    },	data: datos,
 					    error: function() {
+
+					        // codigo para el loading ZZZZZZZZZZZZZZ
+					      document.getElementById("loading").style.display = "none";
+					      document.getElementById("page").style.display = "block";
 					      console.log("No se ha podido obtener la información");
 					      alert("No pudimos contactar al servidor, favor de intentar nuevamente");
 					    }
@@ -513,7 +502,6 @@
 
        		 	
        		 }
-
 
 				$('#lista-familiares').change(function() {
 
@@ -563,7 +551,7 @@
 
 
 
-       			 url = url_base + '/getpacientes'
+       			 url = url_base +'/getpacientes'
        			 callback =[]
        				   
        		 window.onload = codeAddress;
@@ -586,19 +574,6 @@
 				    return false;
 			}
 
-			// lineas esxtra al ultimi commit
-
-			function sleep(milliseconds) {
-
-				  const date = Date.now();
-				  let currentDate = null;
-				  do {
-				    currentDate = Date.now();
-				  } while (currentDate - date < milliseconds);
-			}
-
-
-
 
 			</script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
@@ -608,6 +583,11 @@
 <br>
 <br>
 <br>
+
+
+
+
+
 
 
 

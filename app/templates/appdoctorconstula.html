@@ -2,9 +2,37 @@
 
 {% block content %}
 
+
+<style>
+
+.page    { display: none;  }
+
+#loading {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  width: 50vw;
+  height: 50vh;
+  background-color: rgba(192, 192, 192, 0.5);
+  background-image: url("/static/cargando01.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+</style>
+
+
+
 <br>
 
 	    	  <h2 > Servicio de Atención Domiciliaria </h2>
+
+	<div id="loading">
+
+    </div>
+
+<div id="page"> 
 
 	    	  <p id="demo"></p>
 
@@ -27,6 +55,8 @@
 	    	 <div id="lista-usuarios">
 	    	 	
 	    	 </div>
+
+</div>
 	
 <br>
 <br>
@@ -70,6 +100,8 @@
 					      var response = (""+respuesta).trim();
 					      obj = JSON.parse(response);
 					      $.each(obj["pacientes"], function(index, elemento) {
+
+
 					      	var selectFecha= $('<input type="text" id="fec'+elemento.id+'" class="form-control datepicker"></input>').datetimepicker({locale: 'es'});
 					      	
 
@@ -78,6 +110,10 @@
 					      		var jRow=$(row);
 					      		$('div:last',jRow).append(selectFecha);
 					      		listaUsuarios.append(jRow);
+
+					      		// codigo para generar el load en la carga de pacientes
+					      		document.getElementById("page").style.display = "block";
+            		  	  		document.getElementById("loading").style.display = "none";
 
 					      });
 					    },
@@ -92,7 +128,15 @@
        			 callback =[]
        				   
        		 window.onload = codeAddress;	
+
+
        		 function Agendarllamada(identificador,celular,nom){
+
+       		 			// Codigo para el loading ZZZZZZZZZZZZZZZZZ	
+				document.getElementById("page").style.display = "none";
+				document.getElementById("loading").style.display = "block";
+
+
        		 	var fe = $('#fec'+identificador).val();
        		 	if(fe.length==0){
        		 		alert("el campo fecha se encuentra vacio");
@@ -105,10 +149,15 @@
 					    dataType: 'json',
 					    success: function(respuesta) {
 					      console.log(respuesta);	
-					      location.replace("/respuestateleconsulta");	
+					      location.replace("/respuestateleconsulta");
+					      //ZZZZZZZZZ
+					      document.getElementById("loading").style.display = "none";	
 					   
 					    },data:datos,
 					    error: function() {
+					      // codigo para el loading ZZZZZZZZZZZZZZ
+					      document.getElementById("loading").style.display = "none";
+					      document.getElementById("page").style.display = "block";
 					      console.log("No se ha podido obtener la información");
 					      alert("No pudimos contactar al servidor, favor de intentar nuevamente");
 					    }
@@ -119,6 +168,10 @@
 
        		 }
        		 function llamada(identificador,celular,nom){
+
+       		 		// Codigo para el loading ZZZZZZZZZZZZZZZZZ	
+				document.getElementById("page").style.display = "none";
+				document.getElementById("loading").style.display = "block";
        		 	var datos='{"name":'+'"'+nom+'","tipo":"1","datos":[{"id":"'+identificador+'","celular":"'+celular+'"}]}';
        		 	console.log(datos);
        		 	$.ajax({
@@ -127,10 +180,14 @@
 					    dataType: 'json',
 					    success: function(respuesta) {
 					      console.log(respuesta);
-					      location.replace("/respuestateleconsulta");		
+					      location.replace("/respuestateleconsulta");	
+					      document.getElementById("loading").style.display = "none";	
 					   
 					    },data:datos,
 					    error: function() {
+					    	    	// codigo para el loading ZZZZZZZZZZZZZZ
+					     		 document.getElementById("loading").style.display = "none";
+					     		 document.getElementById("page").style.display = "block";
 					      console.log("No se ha podido obtener la información");
 					      alert("No pudimos contactar al servidor, favor de intentar nuevamente");
 					    }

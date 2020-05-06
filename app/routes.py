@@ -33,7 +33,7 @@ def login():
                     print('entro a capturista')
                     return redirect(url_for('capture'))
 
-                return redirect(url_for('demo'))
+                return redirect(url_for('appdoctor'))
 
             else:
                 return redirect(url_for('admin'))
@@ -72,7 +72,7 @@ def widget():
 def admin():
 
     if not current_user.admin:
-        return redirect(url_for('demo'))
+        return redirect(url_for('appdoctor'))
 
         
     formusr = userForm()
@@ -231,29 +231,29 @@ def capture():
 
 
 
-# ////////////////////  Demos ///////////////
+# ////////////////////  appdoctors ///////////////
 
-@app.route('/demo')
+@app.route('/appdoctor')
 @login_required
-def demo():
+def appdoctor():
     if current_user.admin:
         return redirect(url_for('admin'))
-    return render_template('demo.html')
+    return render_template('appdoctor.html')
 
 
-@app.route('/democonstula', methods=['GET', 'POST'])
+@app.route('/appdoctorconstula', methods=['GET', 'POST'])
 @login_required
 def teleconsulta():
     if current_user.admin:
         return redirect(url_for('admin'))
 
 
-    return render_template('democonstula.html')
+    return render_template('appdoctorconstula.html')
 
 
-@app.route('/demovisita', methods=['GET', 'POST'])
+@app.route('/appdoctorvisita', methods=['GET', 'POST'])
 @login_required
-def demovisita():
+def appdoctorvisita():
     if current_user.admin:
         return redirect(url_for('admin'))
    
@@ -262,13 +262,13 @@ def demovisita():
         #sendSMS(numero)
         #return redirect(url_for('respuestatelevisita'))
 
-    return render_template('demovisita.html')
+    return render_template('appdoctorvisita.html')
 
 
 
-@app.route('/demoinformemedico', methods=['GET', 'POST'])
+@app.route('/appdoctorinformemedico', methods=['GET', 'POST'])
 @login_required
-def demoinformemedico():
+def appdoctorinformemedico():
     if current_user.admin:
         return redirect(url_for('admin'))
     formv = smsForm()
@@ -277,7 +277,7 @@ def demoinformemedico():
         if current_user.username != "debug":
             sendSMS(numero)
         return redirect(url_for('respuestainforme'))
-    return render_template('demoinformemedico.html', form = formv)
+    return render_template('appdoctorinformemedico.html', form = formv)
 
 
 
@@ -306,7 +306,7 @@ def respuestainforme():
 
 @app.route('/')
 def index():
-    return redirect(url_for('demo'))
+    return redirect(url_for('appdoctor'))
 
 # //////////////////// LLAMADAS APIs ///////////// /////// /////// /////// /////// 
 

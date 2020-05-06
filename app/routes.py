@@ -454,6 +454,7 @@ def agendarllamada():
     inDate = call["Fecha"]
     tipo = call["tipo"]
     nombre = call["name"]
+    
 
 
     d = datetime.strptime(inDate, "%d/%m/%Y  %H:%M") 
@@ -492,6 +493,8 @@ def agendarllamada():
 
     else:
         
+        id_paciete = call["id_paciente"]
+        
         if tipo == "2":
             #llamar a la funcion de uriel con el tipo de servicio de informe medico
             print("Informe Medico")
@@ -501,7 +504,7 @@ def agendarllamada():
             if SIP != None :
 
                 meeting = Agenda(fecha_hora = utctime, email = current_user.email,
-                id_user = current_user.id,id_servicio = tipo, celulares = str(celulares),id_paciente = "", SIP = SIP )
+                id_user = current_user.id,id_servicio = tipo, celulares = str(celulares),id_paciente = int(id_paciete), SIP = SIP )
                 db.session.add(meeting)
                 db.session.commit()
 
@@ -520,7 +523,7 @@ def agendarllamada():
             if SIP != None :
 
                 meeting = Agenda(fecha_hora = utctime, email = current_user.email,
-                id_user = current_user.id,id_servicio = tipo, celulares = str(celulares),id_paciente = "", SIP = SIP )
+                id_user = current_user.id,id_servicio = tipo, celulares = str(celulares),id_paciente = int(id_paciete), SIP = SIP )
                 db.session.add(meeting)
                 db.session.commit()
 

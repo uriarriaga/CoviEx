@@ -132,15 +132,18 @@
 
        		 function Agendarllamada(identificador,celular,nom){
 
-       		 			// Codigo para el loading ZZZZZZZZZZZZZZZZZ	
-				document.getElementById("page").style.display = "none";
-				document.getElementById("loading").style.display = "block";
+   
 
 
        		 	var fe = $('#fec'+identificador).val();
        		 	if(fe.length==0){
        		 		alert("el campo fecha se encuentra vacio");
        		 	}else{
+
+       		 		    		 			// Codigo para el loading ZZZZZZZZZZZZZZZZZ	
+				document.getElementById("page").style.display = "none";
+				document.getElementById("loading").style.display = "block";
+				
        		 		var datos='{"name":'+'"'+nom+'","tipo":"1","Fecha":"'+fe+'","datos":[{"id":"'+identificador+'","celular":"'+celular+'"}]}';
        		 		console.log(datos);
        		 		$.ajax({

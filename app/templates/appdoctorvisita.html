@@ -430,17 +430,21 @@
 				function Agendarllamada(){
 
 				// Codigo para el loading ZZZZZZZZZZZZZZZZZ	
-				document.getElementById("page").style.display = "none";
-				document.getElementById("loading").style.display = "block";
+				
             		  	
 
 				// XXXXXXXXXXXXXXXXXXXXX	
 				var nombre_paciente ="";
+					//YYYYYYY
+				var id_paciente = "";
 					
        		 	fe = $('#fec').val();
        		 	if(fe.length==0){
        		 		alert("el campo fecha se encuentra vacio");
        		 	}else{
+
+       		 	document.getElementById("page").style.display = "none";
+				document.getElementById("loading").style.display = "block";
 
 
 	       		 		// Aqui podemos meter el nombre del paciente XXXXXXXXXXXXXXXXXXXXX
@@ -464,6 +468,9 @@
 	       		 				
 		       		 				if(lista_pacientes[i]["id"] == lista_familiares["familiares"][j]["id_paciente"]){
 
+		       		 					//YYYYYYYY	
+			       		 				id_paciente = lista_pacientes[i]["id"];
+
 			       		 				//alert("se encontro al paciente" + lista_pacientes[i]["nombre"]);
 			       		 				nombre_paciente =  lista_pacientes[i]["nombre"];
 			       		 				//alert(nombre_paciente );
@@ -485,7 +492,7 @@
 	       		 		// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
        		 		// Aqui construyo mis datos
-       		 		var datos='{"tipo":"3","Fecha":"'+fe+'",' + '"name":"'+nombre_paciente+'",';
+       		 var datos='{"tipo":"3","Fecha":"'+fe+'",' + '"name":"'+nombre_paciente+'",' + '"id_paciente":"'+id_paciente + '"'  + ',';
 
        		 		// "datos":[{"id":"'+identificador+'","celular":"'+celular+'"}]}';
 

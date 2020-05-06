@@ -1,6 +1,6 @@
 from flask import request, redirect, url_for, render_template, flash, session ,  jsonify
 from app import app, db, Base, Familiar, GuestUser, Paciente, Agenda
-from app.funciones import sendWebexMsg, sendSMS, createJWT, generarWebex, existeWebex,agendarWebex
+from app.funciones import sendWebexMsg, sendSMS, createJWT, generarWebex, existeWebex,agendarWebex, hostJoined
 from app.forms import LoginForm, smsForm, userForm,capturesForm, PacienteForm, PacientesForm
 from app.models import User
 from flask_sqlalchemy import SQLAlchemy
@@ -54,6 +54,8 @@ def widget():
     invitado = db.session.query(GuestUser).filter_by(indentficadorTemporal=token).first() 
     if invitado is None:
         return render_template('widgetexpired.html', title='widget')
+    if not hostJoined(invitado.correo.split("@")[0]):
+        return render_template('widgetLobby.html', title='widget')
     print(invitado.username,invitado.expirationTime)
     if invitado.expirationTime <= datetime.utcnow().timestamp():
         return render_template('widgetexpired.html', title='widget')

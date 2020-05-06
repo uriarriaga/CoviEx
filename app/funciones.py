@@ -44,6 +44,18 @@ def createWebexMeeting(nombre,fecha,host="joarriag.iner@gmail.com"):
         print("EL evento '"+nombre+"' con fecha "+fecha+" ha sido creado exitosamente!!\nCon la SipURL: "+ sipURL)
         return sipURL
 
+def hostJoined(meetingKey):
+    with open("app/getmeeting.xml") as file: 
+            data = file.read()
+    payload = data.format(meetingKey)
+    url = "https://api.webex.com/WBXService/XMLService"
+    headers = { 'Content-Type': 'text/plain'}
+    response = requests.post( url, headers=headers, data = payload).text
+    response = xmltodict.parse(response)
+    #print(response)
+    hostJoined = str(response["serv:message"]["serv:body"]["serv:bodyContent"]["meet:hostJoined"])
+    return hostJoined == "true"
+
 def createJWT(user_id,expirationTime,secret):
     key64 = base64.b64decode(secret)
     payload = {
@@ -54,7 +66,6 @@ def createJWT(user_id,expirationTime,secret):
     }
     headers= { "alg": "HS256","typ": "JWT" }
     encoded = str(jwt.encode(payload, key64, algorithm ='HS256', headers=headers).decode("utf-8"))
-    #print(str(datetime.fromtimestamp(int(invitado.expirationTime.split(".")[0]))),str(datetime.fromtimestamp(int(datetime.utcnow().timestamp()))))
     return encoded
 
 def sendSMS(contacto,token):

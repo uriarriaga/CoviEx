@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf8">
+    <meta http-equiv="refresh" content="30">
+    <title>Space Widget Demo</title>
+    <script src="https://code.s4d.io/widget-space/production/bundle.js"></script>
+    <link rel="stylesheet" href="https://code.s4d.io/widget-space/production/main.css">    
+  </head>
+  <body>
+    
+      <div align="center">
+        <h4>TeleConsulta COVID-19</h4>
+          
+        <p class="sansserif"> Favor de esperar a que ingrese el Doctor al sistema para iniciar la videollamada. </p>
+
+        <p class="sansserif"> Se recomienda estar conectado a una red de tipo WiFi antes de iniciar la videollamada, con la finalidad de no consumir su plan de datos celular.</p>
+      </div>
+
+    <div id="my-webexteams-widget" style="width: 350px; height: 600px;"/>
+
+
+
+    	
+  </body>
+
+  
+</html>
+{% endblock %}

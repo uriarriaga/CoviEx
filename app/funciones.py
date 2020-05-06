@@ -132,7 +132,7 @@ def cronSMS():
             invitado.correo = sipURL
             db.session.commit()
             sendSMS("+52"+numero,token)
-    return "SMSs Sends"
+    return "SMSs Sends para "+len(eventos)
 
 def existeWebex(correo="joarriag.iner@gmail.com"):
     correoSplit = correo.split("@")

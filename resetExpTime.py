@@ -8,4 +8,3 @@ for invitado in db.session.query(GuestUser).all() :
     invitado.expirationTime = 0
 db.session.commit()
 
-#createJWT()

@@ -119,7 +119,7 @@ def cronSMS():
     eventos = db.session.query(Agenda).filter(Agenda.fecha_hora.between(datetime.utcnow().timestamp(),datetime.utcnow().timestamp()+1200)).all()
     for evento in eventos:
         sendWebexMsg(datetime.fromtimestamp(int(evento.fecha_hora)))
-        listaNumeros = evento.celulares[1:-1].split(",")
+        listaNumeros = evento.celulares.split(",")
         invitados = db.session.query(GuestUser).filter(GuestUser.expirationTime<=datetime.utcnow().timestamp()).all()
         if len(listaNumeros) > len(invitados):
             print("no hay suficientes GuestUsers para la sesion")
@@ -131,7 +131,7 @@ def cronSMS():
             invitado.expirationTime = actualTimePlusHR
             invitado.correo = sipURL
             db.session.commit()
-            sendSMS("+52"+numero[1:-1],token)
+            sendSMS("+52"+numero,token)
     return "SMSs Sends"
 
 def existeWebex(correo="joarriag.iner@gmail.com"):

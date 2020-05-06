@@ -64,7 +64,7 @@ def widget():
 
 @app.route('/cronisticamente')
 def cron():
-    return cronSMS()
+    return str(cronSMS())
 
 #///////// ////// ADMIN ////// ////// //////   
 
@@ -486,7 +486,7 @@ def agendarllamada():
 
             meeting = Agenda(fecha_hora = utctime, email = current_user.email, id_user = current_user.id,
             id_paciente = ids_[0],    id_servicio = tipo,
-            celulares =  str(celulares), SIP = SIP)
+            celulares =  str(",".join(celulares)), SIP = SIP)
             db.session.add(meeting)
             db.session.commit()
 

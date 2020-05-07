@@ -116,7 +116,7 @@ def agendarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com",nombre=
 
 def cronSMS():
     actualTimePlusHR = str(datetime.utcnow().timestamp()+3600)
-    eventos = db.session.query(Agenda).filter(Agenda.fecha_hora.between(datetime.utcnow().timestamp(),datetime.utcnow().timestamp()+1200)).all()
+    eventos = db.session.query(Agenda).filter(Agenda.fecha_hora.between(datetime.utcnow().timestamp()-18000,datetime.utcnow().timestamp()+16800)).all()
     for evento in eventos:
         sendWebexMsg(datetime.fromtimestamp(int(evento.fecha_hora)))
         listaNumeros = evento.celulares.split(",")

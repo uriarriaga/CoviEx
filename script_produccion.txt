@@ -7,6 +7,12 @@ PASO 1.- PARA EL SO:
 	
 		sudo apt install python3  
 		sudo apt install python3-pip
+		sudo apt install python3-flask
+		
+	1.1.2 configurar las variables de entorno de FLASK en el archivo (~/.bashrc)
+	
+		export FLASK_APP=app
+		export FLASK_ENV=development
 		
 	1.2 
 

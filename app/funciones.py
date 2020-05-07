@@ -116,16 +116,20 @@ def agendarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com",nombre=
 
 def cronSMS():
     actualTimePlusHR = str(datetime.utcnow().timestamp()+3600)
-    eventos = db.session.query(Agenda).filter(Agenda.fecha_hora.between(datetime.utcnow().timestamp()-18000,datetime.utcnow().timestamp()-16800)).all()
+    ahora, en20min = (datetime.utcnow().timestamp()-18000,datetime.utcnow().timestamp()-16800)
+    print(ahora,en20min)
+    eventos = db.session.query(Agenda).filter(Agenda.fecha_hora.between(ahora,en20min)).all()
     for evento in eventos:
         sendWebexMsg(datetime.fromtimestamp(int(evento.fecha_hora)))
         listaNumeros = evento.celulares.split(",")
+        print(listaNumeros)
         invitados = db.session.query(GuestUser).filter(GuestUser.expirationTime<=datetime.utcnow().timestamp()).all()
         if len(listaNumeros) > len(invitados):
             print("no hay suficientes GuestUsers para la sesion")
             return False
         sipURL = evento.SIP   
         for numero,invitado in zip(listaNumeros,invitados):
+            print(numero)
             token = token_urlsafe(10)[:10]
             invitado.indentficadorTemporal = token
             invitado.expirationTime = actualTimePlusHR

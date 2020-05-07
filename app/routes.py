@@ -508,7 +508,7 @@ def agendarllamada():
             if SIP != None :
 
                 meeting = Agenda(fecha_hora = utctime, email = current_user.email,
-                id_user = current_user.id,id_servicio = tipo, celulares = str(celulares),id_paciente = int(id_paciete), SIP = SIP )
+                id_user = current_user.id,id_servicio = tipo, celulares = str(",".join(celulares)),id_paciente = int(id_paciete), SIP = SIP )
                 db.session.add(meeting)
                 db.session.commit()
 
@@ -527,7 +527,7 @@ def agendarllamada():
             if SIP != None :
 
                 meeting = Agenda(fecha_hora = utctime, email = current_user.email,
-                id_user = current_user.id,id_servicio = tipo, celulares = str(celulares),id_paciente = int(id_paciete), SIP = SIP )
+                id_user = current_user.id,id_servicio = tipo, celulares = str(",".join(celulares)),id_paciente = int(id_paciete), SIP = SIP )
                 db.session.add(meeting)
                 db.session.commit()
 

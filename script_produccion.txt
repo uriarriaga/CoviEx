@@ -4,18 +4,28 @@ SCRIPT de pase a producción
 PASO 1.- PARA EL SO:
 
 	1.1 Instalar python 3 en el SO con pip3
+	
+		sudo apt install python3  
+		sudo apt install python3-pip
+		sudo apt install python3-flask
+		
+	1.1.2 configurar las variables de entorno de FLASK en el archivo (~/.bashrc)
+	
+		export FLASK_APP=app
+		export FLASK_ENV=development
+		
 	1.2 
 
 		Para los requerimientos de MySQL en el S.O Ubuntu server:
 
 
-		sudo apt-get install python3.4-dev
+		sudo apt-get install python3.7-dev
 
 		sudo apt-get install libmysqlclient-dev
 
 		sudo apt-get install mysql-client
 
-	1.3 Apuntar el SO a python 3: sudo ln -s /usr/bin/python3 /usr/local/bin
+	1.3 Apuntar el SO a python 3 (En caso de que este instalado python 2) : sudo ln -s /usr/bin/python3 /usr/local/bin  
 
 
 	1.4 Instalar las librerías requeridas con el comando 

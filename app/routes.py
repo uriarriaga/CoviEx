@@ -1,6 +1,6 @@
 from flask import request, redirect, url_for, render_template, flash, session ,  jsonify
 from app import app, db, Base, Familiar, GuestUser, Paciente, Agenda
-from app.funciones import sendWebexMsg, sendSMS, createJWT, generarWebex, existeWebex,agendarWebex
+from app.funciones import sendWebexMsg, sendSMS, createJWT, generarWebex, existeWebex,agendarWebex, hostJoined, cronSMS, sendAgendaSMS
 from app.forms import LoginForm, smsForm, userForm,capturesForm, PacienteForm, PacientesForm
 from app.models import User
 from flask_sqlalchemy import SQLAlchemy
@@ -54,13 +54,17 @@ def widget():
     invitado = db.session.query(GuestUser).filter_by(indentficadorTemporal=token).first() 
     if invitado is None:
         return render_template('widgetexpired.html', title='widget')
-    print(invitado.username,invitado.expirationTime)
     if invitado.expirationTime <= datetime.utcnow().timestamp():
+        print(invitado.username,invitado.expirationTime)
         return render_template('widgetexpired.html', title='widget')
+    if not hostJoined(invitado.correo.split("@")[0]):
+        return render_template('widgetLobby.html', title='widget')
     JWToken = createJWT(invitado.user_id,invitado.expirationTime,invitado.secret)
     return render_template('widget.html', title='widget', token=JWToken, SIP=invitado.correo)
 
-
+@app.route('/cronisticamente')
+def cron():
+    return str(cronSMS())
 
 #///////// ////// ADMIN ////// ////// //////   
 
@@ -457,7 +461,7 @@ def agendarllamada():
     
 
 
-    d = datetime.strptime(inDate, "%d/%m/%Y  %H:%M") 
+    d = datetime.strptime(inDate, "%d/%m/%Y %H:%M") 
 
     #dt = datetime.strptime("21/11/06 16:30", "%d/%m/%y %H:%M")
     #01/05/2020 9:44
@@ -482,9 +486,10 @@ def agendarllamada():
 
             meeting = Agenda(fecha_hora = utctime, email = current_user.email, id_user = current_user.id,
             id_paciente = ids_[0],    id_servicio = tipo,
-            celulares =  str(celulares), SIP = SIP)
+            celulares =  str(",".join(celulares)), SIP = SIP)
             db.session.add(meeting)
             db.session.commit()
+            sendAgendaSMS(celulares,d,"Atencion domiciliaria ")
 
         else:
 
@@ -504,9 +509,10 @@ def agendarllamada():
             if SIP != None :
 
                 meeting = Agenda(fecha_hora = utctime, email = current_user.email,
-                id_user = current_user.id,id_servicio = tipo, celulares = str(celulares),id_paciente = int(id_paciete), SIP = SIP )
+                id_user = current_user.id,id_servicio = tipo, celulares = str(",".join(celulares)),id_paciente = int(id_paciete), SIP = SIP )
                 db.session.add(meeting)
                 db.session.commit()
+                sendAgendaSMS(celulares,d,"Informe Medico ")
 
             else:
 
@@ -518,14 +524,15 @@ def agendarllamada():
             #llamar a la funcion de uriel con el tipo de servicio de Televistia
             print("TeleVistia")
 
-            SIP = agendarWebex(celulares,email, "TeleVistia" + nombre, utctime)
+            SIP = agendarWebex(celulares,email, "TeleVisita" + nombre, utctime)
 
             if SIP != None :
 
                 meeting = Agenda(fecha_hora = utctime, email = current_user.email,
-                id_user = current_user.id,id_servicio = tipo, celulares = str(celulares),id_paciente = int(id_paciete), SIP = SIP )
+                id_user = current_user.id,id_servicio = tipo, celulares = str(",".join(celulares)),id_paciente = int(id_paciete), SIP = SIP )
                 db.session.add(meeting)
                 db.session.commit()
+                sendAgendaSMS(celulares,d,"TeleVisita ")
 
             else:
 

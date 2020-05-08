@@ -69,7 +69,7 @@ def createJWT(user_id,expirationTime,secret):
     return encoded
 
 def sendAgendaSMS(contactos=["5580663521"],fecha="fecha en pruebas",tipo="tipo de prueba"):
-    texto = "Se ha agendado una video llamada de "+tipo+" con el INER,  a las "+str(fecha)+". Recibira por SMS el acceso 10 minutos antes de la fecha/hora programada."
+    texto = "Se ha agendado una video llamada de "+tipo+"con el INER, con fecha/hora "+str(fecha)+". Recibira por SMS el acceso 10 minutos antes de la fecha/hora programada. Se recomienda ampliamente conectarse a traves de una red tipo WiFi"
     for contacto in contactos:
         sendSMS("+52"+contacto,texto)
 

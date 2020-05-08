@@ -1,6 +1,6 @@
 from flask import request, redirect, url_for, render_template, flash, session ,  jsonify
 from app import app, db, Base, Familiar, GuestUser, Paciente, Agenda
-from app.funciones import sendWebexMsg, sendSMS, createJWT, generarWebex, existeWebex,agendarWebex, hostJoined, cronSMS
+from app.funciones import sendWebexMsg, sendSMS, createJWT, generarWebex, existeWebex,agendarWebex, hostJoined, cronSMS, sendAgendaSMS
 from app.forms import LoginForm, smsForm, userForm,capturesForm, PacienteForm, PacientesForm
 from app.models import User
 from flask_sqlalchemy import SQLAlchemy
@@ -461,7 +461,7 @@ def agendarllamada():
     
 
 
-    d = datetime.strptime(inDate, "%d/%m/%Y  %H:%M") 
+    d = datetime.strptime(inDate, "%d/%m/%Y %H:%M") 
 
     #dt = datetime.strptime("21/11/06 16:30", "%d/%m/%y %H:%M")
     #01/05/2020 9:44
@@ -489,6 +489,7 @@ def agendarllamada():
             celulares =  str(",".join(celulares)), SIP = SIP)
             db.session.add(meeting)
             db.session.commit()
+            sendAgendaSMS(celulares,d,"Atencion domiciliaria ")
 
         else:
 
@@ -511,6 +512,7 @@ def agendarllamada():
                 id_user = current_user.id,id_servicio = tipo, celulares = str(",".join(celulares)),id_paciente = int(id_paciete), SIP = SIP )
                 db.session.add(meeting)
                 db.session.commit()
+                sendAgendaSMS(celulares,d,"Informe Medico ")
 
             else:
 
@@ -522,7 +524,7 @@ def agendarllamada():
             #llamar a la funcion de uriel con el tipo de servicio de Televistia
             print("TeleVistia")
 
-            SIP = agendarWebex(celulares,email, "TeleVistia" + nombre, utctime)
+            SIP = agendarWebex(celulares,email, "TeleVisita" + nombre, utctime)
 
             if SIP != None :
 
@@ -530,6 +532,7 @@ def agendarllamada():
                 id_user = current_user.id,id_servicio = tipo, celulares = str(",".join(celulares)),id_paciente = int(id_paciete), SIP = SIP )
                 db.session.add(meeting)
                 db.session.commit()
+                sendAgendaSMS(celulares,d,"TeleVisita ")
 
             else:
 

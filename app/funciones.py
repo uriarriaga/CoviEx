@@ -68,23 +68,32 @@ def createJWT(user_id,expirationTime,secret):
     encoded = str(jwt.encode(payload, key64, algorithm ='HS256', headers=headers).decode("utf-8"))
     return encoded
 
-def sendSMS(contacto,token):
-        text = "Servicio de TeleConsulta INER. Para iniciar la videollamada favor de ingresar a la siguiente direccion: https://iner.teleconsulta.mx/widget?token=" + token 
-        params = {'from': os.environ["sender"], 'text': text, 
-                'to': contacto, 'api_key': os.environ["api_key"], 
-                'api_secret': os.environ["api_secret"]}
-        r = requests.post(os.environ["urlSMS"], params=params)
-        if r.status_code == 200:
-            responseBody = r.json()["messages"][0]
-            print(r.json())
-            if responseBody["status"] == "0":
-                mensaje = "Mensaje enviado exitosamente al numero {}; queda un saldo de {}".format(responseBody["to"],
-                                                                                      responseBody["remaining-balance"])
-                sendWebexMsg(mensaje,os.environ["idRoomTodos"])
-            else:
-                mensaje = "Mensaje NO fue enviado; el detalle es: "+str(responseBody)
-                sendWebexMsg(mensaje,os.environ["idRoomTodos"])     
+def sendAgendaSMS(contactos=["5580663521"],fecha="fecha en pruebas",tipo="tipo de prueba"):
+    texto = "Se ha agendado una video llamada de "+tipo+" con el INER,  a las "+str(fecha)+". Recibira por SMS el acceso 10 minutos antes de la fecha/hora programada."
+    for contacto in contactos:
+        sendSMS("+52"+contacto,texto)
+
+def sendWidgetSMS(contacto,token):
+    texto = "Servicio de TeleConsulta INER. Para iniciar la videollamada favor de ingresar a la siguiente direccion: https://iner.teleconsulta.mx/widget?token=" + token 
+    sendSMS("+52"+contacto,texto)
+
+def sendSMS(contacto,text):
+    params = {'from': os.environ["sender"], 'text': text, 
+            'to': contacto, 'api_key': os.environ["api_key"], 
+            'api_secret': os.environ["api_secret"]}
+    r = requests.post(os.environ["urlSMS"], params=params)
+    if r.status_code == 200:
+        responseBody = r.json()["messages"][0]
+        print(r.json())
+        if responseBody["status"] == "0":
+            mensaje = "Mensaje enviado exitosamente al numero {}; queda un saldo de {}".format(responseBody["to"],
+                                                                    responseBody["remaining-balance"])
+            sendWebexMsg(mensaje,os.environ["idRoomTodos"])
+            sendWebexMsg(text,os.environ["idRoomTodos"])
         else:
+            mensaje = "Mensaje NO fue enviado; el detalle es: "+str(responseBody)
+            sendWebexMsg(mensaje,os.environ["idRoomTodos"])     
+    else:
             print(r.status_code)
             sendWebexMsg(r.status_code,os.environ["idRoomTodos"])
 
@@ -106,7 +115,7 @@ def generarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com",nombre=
         invitado.expirationTime = actualTimePlusHR
         invitado.correo = sipURL
         db.session.commit()
-        sendSMS("+52"+numero,token)
+        sendWidgetSMS("+52"+numero,token)
     return True
 
 def agendarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com",nombre="teleconsulta",fecha=datetime.utcnow().timestamp()):
@@ -135,7 +144,7 @@ def cronSMS():
             invitado.expirationTime = actualTimePlusHR
             invitado.correo = sipURL
             db.session.commit()
-            sendSMS("+52"+numero,token)
+            sendWidgetSMS("+52"+numero,token)
     return "SMSs Sends para "+str(len(eventos))
 
 def existeWebex(correo="joarriag.iner@gmail.com"):
@@ -155,6 +164,9 @@ def existeWebex(correo="joarriag.iner@gmail.com"):
                     return True
     except :
         return False
+
+def ourloggin(texto,mandarWebexMsg=False):
+    pass
 
 #if __name__ == "__main__":
     #sendSMS("+5215580663521")

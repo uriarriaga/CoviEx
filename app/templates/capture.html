@@ -183,6 +183,8 @@
     function obtenerDatosFormulario(){
 
         console.log("entrando a la function");
+        lista_pacientes ="";
+        var encontrado = "false";
 
         //document.getElementById("familiares").innerHTML = "";
 
@@ -218,26 +220,31 @@
 
 	      		var response = (""+respuesta).trim();
 	      			//console.log(response);
-	      			lista_pacientes = JSON.parse(response);
+                    console.log(response);
+                    if(response != "bd_0"){
+
+	      			  lista_pacientes = JSON.parse(response);
 	      			//console.log(lista_pacientes["pacientes"]);
 
+                   
 
+	      		
+        	      		var j;
 
-	      		var encontrado = "false";
-	      		var j;
+        					for (j = 0; j < lista_pacientes["pacientes"].length; j++) {
 
-					for (j = 0; j < lista_pacientes["pacientes"].length; j++) {
+        						if(lista_pacientes["pacientes"][j]["celular"] == celular_paciente){
+        							encontrado = "true";
 
-						if(lista_pacientes["pacientes"][j]["celular"] == celular_paciente){
-							encontrado = "true";
+        							paciente_id_db = lista_pacientes["pacientes"][j]["id"]
+        							document.getElementById("cel").value=lista_pacientes["pacientes"][j]["celular"];
 
-							paciente_id_db = lista_pacientes["pacientes"][j]["id"]
-							document.getElementById("cel").value=lista_pacientes["pacientes"][j]["celular"];
+        						}
 
-						}
+        					}
+                    }
 
-					}
-
+                    
 
 				if (encontrado == "true" && action == "insert"){
 					alert("Paciente ya registrado anteriormente, para hacer cambios seleccione 'Buscar Paciente'");
@@ -376,6 +383,7 @@
 	function modificarDatosFormulario(){
 	action = "update";//insert
 	console.log(action);
+
 
 	celular_busqueda = document.getElementsByName("campo_buscar")[0].value;
 	console.log(celular_busqueda)

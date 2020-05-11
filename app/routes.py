@@ -320,21 +320,31 @@ def index():
 def getpacientes():
     pacients =  db.session.query(Paciente).all()
 
-    list =  "{"  +  '"' + 'pacientes' + '"' + ":" + "["
-    for patient in pacients:
-        print(str(patient.nombre))
-        list +="{"+ '"' + "nombre" + '"'+":"+ '"'+ patient.nombre + '"'+ "," + '"' + "celular" + '"'+":"+ '"'+ patient.celular + '"'+ "," + '"' +"email" + '"'+":"+ '"' + patient.email + '"'+ "," + '"' +"id" + '"'+":"+ '"' + str(patient.id) + '"'+ "},"
-    list = list[:-1]  
-    list += "]}"  
+    # // lineas para el tema de DB sin tados
+    list = ""
+    listx =""
+    # if a pacients list is 0 ??? 
+    if len(pacients) == 0:
+        print("NUMERO DE PACIENTES: " +str(len(pacients)))
+        return "bd_0"
 
-    listx = list.strip()
+    else:
 
-    y = json.loads(list)
+        print("NUMERO DE PACIENTES: " +str(len(pacients)))
+
+        list =  "{"  +  '"' + 'pacientes' + '"' + ":" + "["
+        for patient in pacients:
+            print(str(patient.nombre))
+            list +="{"+ '"' + "nombre" + '"'+":"+ '"'+ patient.nombre + '"'+ "," + '"' + "celular" + '"'+":"+ '"'+ patient.celular + '"'+ "," + '"' +"email" + '"'+":"+ '"' + patient.email + '"'+ "," + '"' +"id" + '"'+":"+ '"' + str(patient.id) + '"'+ "},"
+        list = list[:-1]  
+        list += "]}"  
+
+        listx = list.strip()
 
     #print("------------" + y["employees"][0]["nombre"])
 
-    print(list)     
-    return listx
+        print(list)     
+        return listx
 
 
 @app.route('/getfamiliares', methods=['GET', 'POST'])

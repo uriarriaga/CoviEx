@@ -6,6 +6,8 @@
 
 .page    { display: none;  }
 
+
+
 #loading {
   display: block;
   position: absolute;
@@ -32,8 +34,10 @@
 
     </div>
 	    
+<div id="pacientesboton"> <button  onclick="mostrarpacientes()" class="btn btn-info btn-block" >Pacientes</button></div>
 <div id="page">
 
+			<div id="pacientes">
 	    	    <table class="table table-striped" id="dtBasicExample" >
 						    <thead>
 						      <tr>
@@ -43,13 +47,13 @@
 						         <th>Seleccionar</th>
 						      </tr>
 						    </thead>
-						    <tbody id="pacientes">
+						    <tbody id="tablapacientes">
 
 						    </tbody>
 						  </table>
 
 						
-						    
+			</div>	    
 
 	    	 <div id="lista-familiares" style="visibility: hidden" >
 
@@ -143,6 +147,8 @@
 
 				function codeAddress() {
 
+					document.getElementById("pacientesboton").style.display = "none";
+
 
 
 					var URL = window.location.href;
@@ -170,7 +176,7 @@
 					     
 					      //console.log(respuesta);		
 					   
-					      var listaUsuarios = $("#pacientes");
+					      var listaUsuarios = $("#tablapacientes");
 
 
 
@@ -269,6 +275,9 @@
 
 
 				function pacientes_button( id) {
+
+					document.getElementById("pacientesboton").style.display = "block";
+					document.getElementById("pacientes").style.display = "none";
 
 					      //Limpiamos los checks de los familiares ca vez que cambian la lista	
 					      lista_familiarescheck = [];	
@@ -439,8 +448,8 @@
 				var id_paciente = "";
 					
        		 	fe = $('#fec').val();
-       		 	if(fe.length==0){
-       		 		alert("el campo fecha se encuentra vacio");
+       		 	if(fe.length==0  || lista_familiarescheck.length ==0 ){
+       		 		alert("el campo fecha se encuentra vacio o no se ha seleccionado un familiar");
        		 	}else{
 
        		 	document.getElementById("page").style.display = "none";
@@ -609,6 +618,16 @@
 
 
     			});	
+
+       		 function mostrarpacientes() {
+
+       		 		document.getElementById("pacientes").style.display = "block";
+					document.getElementById("pacientesboton").style.display = "none";
+
+
+
+
+       		 }
 
        		 function contains(a, obj) {
 				    for (var i = 0; i < a.length; i++) {

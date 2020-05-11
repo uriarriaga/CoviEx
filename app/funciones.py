@@ -108,7 +108,7 @@ def generarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com",nombre=
     if len(listaNumeros) > len(invitados):
         print("no hay suficientes GuestUsers para la sesion")
         return False
-    sipURL = createWebexMeeting(nombre,timeForWebex)    
+    sipURL = createWebexMeeting(nombre,timeForWebex,host=correo)    
     for numero,invitado in zip(listaNumeros,invitados):
         token = token_urlsafe(10)[:10]
         invitado.indentficadorTemporal = token

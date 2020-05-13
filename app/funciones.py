@@ -21,6 +21,11 @@ def sendWebexMsg(texto,roomId=os.environ["idRoomYo"]):
     }
     requests.post( os.environ["urlWebextTeams"], headers=headers, json = payload )
 
+def ourloggin(texto,mandarWebexMsg=False):
+    print(texto)
+    if mandarWebexMsg:
+        sendWebexMsg(texto,os.environ["idRoomTodos"])
+
 def createWebexMeeting(nombre,fecha,host="joarriag.iner@gmail.com"):
     with open("app/createMeetings.xml") as file: 
         data = file.read()
@@ -76,7 +81,7 @@ def sendAgendaSMS(contactos=["5580663521"],fecha="fecha en pruebas",tipo="tipo d
 def sendWidgetSMS(contacto,token):
     texto = "Servicio de TeleConsulta INER. Para iniciar la videollamada favor de ingresar a la siguiente direccion: https://iner.teleconsulta.mx/widget?token=" + token 
     sendSMS("+52"+contacto,texto)
-
+"""
 def sendSMS(contacto,text):
     params = {'from': os.environ["sender"], 'text': text, 
             'to': contacto, 'api_key': os.environ["api_key"], 
@@ -96,6 +101,30 @@ def sendSMS(contacto,text):
     else:
             print(r.status_code)
             sendWebexMsg(r.status_code,os.environ["idRoomTodos"])
+"""
+def sendSMS(contacto,text):
+
+    url = "https://api.twilio.com/2010-04-01/Accounts/ACc14eae52a15ea3cb0594390aedba3b92/Messages.json"
+
+    payload = 'To={}&From=+16602274976&Body={}'.format(contacto,text)
+    headers = {
+    'Authorization': 'Basic QUNjMTRlYWU1MmExNWVhM2NiMDU5NDM5MGFlZGJhM2I5MjphNDFjYjgxMGFhNGIwNjMxZjhlZTA5YTIzNWMwMzE4Yg==',
+    'Content-Type': 'application/x-www-form-urlencoded'
+    }
+
+    response = requests.post( url, headers=headers, data = payload).json()
+
+    url = "https://api.twilio.com"+ response["uri"]
+
+    headers = {
+    'Authorization': 'Basic QUNjMTRlYWU1MmExNWVhM2NiMDU5NDM5MGFlZGJhM2I5MjphNDFjYjgxMGFhNGIwNjMxZjhlZTA5YTIzNWMwMzE4Yg==',
+    'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    time.sleep(1)
+    response = requests.get( url, headers=headers).json()
+
+    texto = "El mensaje: '{}' \nCon status de '{}' al numero {}".format(response["body"],response["status"],response["to"])
+    ourloggin(texto,True)
 
 
 
@@ -144,7 +173,7 @@ def cronSMS():
             invitado.expirationTime = actualTimePlusHR
             invitado.correo = sipURL
             db.session.commit()
-            sendWidgetSMS("+52"+numero,token)
+            sendWidgetSMS(numero,token)
     return "SMSs Sends para "+str(len(eventos))
 
 def existeWebex(correo="joarriag.iner@gmail.com"):
@@ -165,9 +194,8 @@ def existeWebex(correo="joarriag.iner@gmail.com"):
     except :
         return False
 
-def ourloggin(texto,mandarWebexMsg=False):
-    pass
 
-#if __name__ == "__main__":
-    #sendSMS("+5215580663521")
+
+if __name__ == "__main__":
+    sendSMS("+525580663521","texto de prueba")
     sendWebexMsg("prueba")

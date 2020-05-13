@@ -51,7 +51,7 @@ def createWebexMeeting(nombre,fecha,host="joarriag.iner@gmail.com"):
         return sipURL
     else:
         ourloggin(resultado+" al crear se sesion de Webex meetings",True)
-        razon = str(response["serv:message"]["serv:header"]["serv:response"]["serv:result"])
+        razon = str(response["serv:message"]["serv:header"]["serv:response"]["serv:reason"])
         ourloggin("La razon es: "+razon,True)
 
 def hostJoined(meetingKey):

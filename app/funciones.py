@@ -37,8 +37,9 @@ def createWebexMeeting(nombre,fecha,host="joarriag.iner@gmail.com"):
     }
     response = requests.post( url, headers=headers, data = payload).text
     response = xmltodict.parse(response)
-    sendWebexMsg(response)
-    if str(response["serv:message"]["serv:header"]["serv:response"]["serv:result"]) == "SUCCESS":
+    resultado = str(response["serv:message"]["serv:header"]["serv:response"]["serv:result"])
+    if resultado == "SUCCESS":
+        ourloggin(resultado+" al crear se sesion de Webex meetings",True)
         meetingKey = response["serv:message"]["serv:body"]["serv:bodyContent"]["meet:meetingkey"]
         with open("app/getmeeting.xml") as file: 
             data = file.read()
@@ -48,6 +49,10 @@ def createWebexMeeting(nombre,fecha,host="joarriag.iner@gmail.com"):
         sipURL = str(response["serv:message"]["serv:body"]["serv:bodyContent"]["meet:sipURL"])
         print("EL evento '"+nombre+"' con fecha "+fecha+" ha sido creado exitosamente!!\nCon la SipURL: "+ sipURL)
         return sipURL
+    else:
+        ourloggin(resultado+" al crear se sesion de Webex meetings",True)
+        razon = str(response["serv:message"]["serv:header"]["serv:response"]["serv:result"])
+        ourloggin("La razon es: "+razon,True)
 
 def hostJoined(meetingKey):
     with open("app/getmeeting.xml") as file: 
@@ -120,7 +125,7 @@ def sendSMS(contacto,text):
     'Authorization': 'Basic QUNjMTRlYWU1MmExNWVhM2NiMDU5NDM5MGFlZGJhM2I5MjphNDFjYjgxMGFhNGIwNjMxZjhlZTA5YTIzNWMwMzE4Yg==',
     'Content-Type': 'application/x-www-form-urlencoded'
     }
-    time.sleep(1)
+    time.sleep(2)
     response = requests.get( url, headers=headers).json()
 
     texto = "El mensaje: '{}' \nCon status de '{}' al numero {}".format(response["body"],response["status"],response["to"])

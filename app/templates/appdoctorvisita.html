@@ -327,113 +327,121 @@
 
 				function call( ) {
 
-					// Codigo para el loading ZZZZZZZZZZZZZZZZZ	
-				document.getElementById("page").style.display = "none";
-				document.getElementById("loading").style.display = "block";
 
 
-				// XXXXXXXXXXXXXXXXXXXXX	
-				var nombre_paciente ="";
+			
+       		 	if(lista_familiarescheck.length ==0 ){
+       		 		alert("no se ha seleccionado un familiar, favor de seleccionar un familiar.");
+       		 	}else{
 
 
-				console.log("se preciono el boton de call")
-				console.log(lista_familiarescheck);
+						// Codigo para el loading ZZZZZZZZZZZZZZZZZ	
+					document.getElementById("page").style.display = "none";
+					document.getElementById("loading").style.display = "block";
 
 
+					// XXXXXXXXXXXXXXXXXXXXX	
+					var nombre_paciente ="";
 
-	       		 		// Aqui podemos meter el nombre del paciente XXXXXXXXXXXXXXXXXXXXX
-	       		 		contadorx =0 ;
-	       		 		for (var i=0;  i < lista_pacientes.length; i++){
 
-	       		 			//console.log(lista_pacientes[i]["id"])
-	       		 			if(contadorx > 0 )
-	       		 			{
-	       		 				//console.log('se rompe el for general');
-	       		 				break;	
-
-	       		 			}
-
-	       		 			for( var j=0;  j < lista_familiares["familiares"].length; j++ ){
-
-	       		 				if(lista_familiarescheck[0] == lista_familiares["familiares"][j]["id"]){
+					console.log("se preciono el boton de call")
+					console.log(lista_familiarescheck);
 
 
 
-	       		 				
-		       		 				if(lista_pacientes[i]["id"] == lista_familiares["familiares"][j]["id_paciente"]){
+		       		 		// Aqui podemos meter el nombre del paciente XXXXXXXXXXXXXXXXXXXXX
+		       		 		contadorx =0 ;
+		       		 		for (var i=0;  i < lista_pacientes.length; i++){
 
-			       		 				//alert("se encontro al paciente" + lista_pacientes[i]["nombre"]);
-			       		 				nombre_paciente =  lista_pacientes[i]["nombre"];
-			       		 				//alert(nombre_paciente );
-			       		 				contadorx ++;
-			       		 				break;	
-			       		 				
-		       		 				}
+		       		 			//console.log(lista_pacientes[i]["id"])
+		       		 			if(contadorx > 0 )
+		       		 			{
+		       		 				//console.log('se rompe el for general');
+		       		 				break;	
+
+		       		 			}
+
+		       		 			for( var j=0;  j < lista_familiares["familiares"].length; j++ ){
+
+		       		 				if(lista_familiarescheck[0] == lista_familiares["familiares"][j]["id"]){
+
+
+
+		       		 				
+			       		 				if(lista_pacientes[i]["id"] == lista_familiares["familiares"][j]["id_paciente"]){
+
+				       		 				//alert("se encontro al paciente" + lista_pacientes[i]["nombre"]);
+				       		 				nombre_paciente =  lista_pacientes[i]["nombre"];
+				       		 				//alert(nombre_paciente );
+				       		 				contadorx ++;
+				       		 				break;	
+				       		 				
+			       		 				}
+
+			       		 			}
+
 
 		       		 			}
 
 
-	       		 			}
-
-
-	       		 		}
+		       		 		}
 
 
 
-		       		 		// Aqui construyo mis datos
-		       		 		var datos='{"tipo":"3",' + ' "name":"'+nombre_paciente+'",';
+			       		 		// Aqui construyo mis datos
+			       		 		var datos='{"tipo":"3",' + ' "name":"'+nombre_paciente+'",';
 
-		       		 		// "datos":[{"id":"'+identificador+'","celular":"'+celular+'"}]}';
+			       		 		// "datos":[{"id":"'+identificador+'","celular":"'+celular+'"}]}';
 
-		       		 		console.log(lista_familiarescheck);
+			       		 		console.log(lista_familiarescheck);
 
-		       		 			data = '"datos":['
+			       		 			data = '"datos":['
 
-		       		 			for (var i=0;  i < lista_familiarescheck.length; i++){
+			       		 			for (var i=0;  i < lista_familiarescheck.length; i++){
 
-		       		 				var ce = $('#cel'+ lista_familiarescheck[i]).text();
-		       		 				console.log(ce);
-		       		 				console.log('#cel'+ lista_familiarescheck[i]);
-		       		 				data += '{"id":"'+lista_familiarescheck[i]+'","celular":"'+ce+'"}'
-		       		 				if(i < (lista_familiarescheck.length-1))
-		       		 				{
-		       		 					data += ','
-		       		 				}
+			       		 				var ce = $('#cel'+ lista_familiarescheck[i]).text();
+			       		 				console.log(ce);
+			       		 				console.log('#cel'+ lista_familiarescheck[i]);
+			       		 				data += '{"id":"'+lista_familiarescheck[i]+'","celular":"'+ce+'"}'
+			       		 				if(i < (lista_familiarescheck.length-1))
+			       		 				{
+			       		 					data += ','
+			       		 				}
 
 
-		       		 			}
-		       		 			data += "]";
+			       		 			}
+			       		 			data += "]";
 
-		       		 			datos += data + '}';
+			       		 			datos += data + '}';
 
-		       		 		
+			       		 		
 
-		       		 		console.log(datos);
+			       		 		console.log(datos);
 
-		       		 		$.ajax({
-							    url: url_base + '/llamada',
-							    type: 'post',
-							    dataType: 'json',
-							    success: function(respuesta) {
-							      console.log(respuesta);
-							      location.replace("/respuestatelevisita");
-							       // codigo para el loading ZZZZZZZZZZZZZZ
-					      		   document.getElementById("loading").style.display = "none";		
-							   
-							    },	data: datos,
-							    error: function() {
+			       		 		$.ajax({
+								    url: url_base + '/llamada',
+								    type: 'post',
+								    dataType: 'json',
+								    success: function(respuesta) {
+								      console.log(respuesta);
+								      location.replace("/respuestatelevisita");
+								       // codigo para el loading ZZZZZZZZZZZZZZ
+						      		   document.getElementById("loading").style.display = "none";		
+								   
+								    },	data: datos,
+								    error: function() {
 
-							    // codigo para el loading ZZZZZZZZZZZZZZ
-					     		 document.getElementById("loading").style.display = "none";
-					     		 document.getElementById("page").style.display = "block";
-							      console.log("No se ha podido obtener la información");
-							     alert("No pudimos contactar al servidor, favor de intentar nuevamente");
-							    }
-			  				});
+								    // codigo para el loading ZZZZZZZZZZZZZZ
+						     		 document.getElementById("loading").style.display = "none";
+						     		 document.getElementById("page").style.display = "block";
+								      console.log("No se ha podido obtener la información");
+								     alert("No pudimos contactar al servidor, favor de intentar nuevamente");
+								    }
+				  				});
 
-			  				
+				  	} // fin del else principal			
 		       		 	
-				}
+				} // fin de la function call
 
 				var fe;
 				function Agendarllamada(){

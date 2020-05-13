@@ -425,7 +425,7 @@ def llamada():
 
     nombre = call["name"]
     tipo = call["tipo"]
-    print("EMAIL   ----- - - - - -   >" + email)
+    print("EMAIL   -----  >" + email + "nombre   ------   >" + nombre + "celulares   - - - -   >"  + str(celulares))
 
     if tipo == "1":
         generarWebex(celulares,email, "Atencion domiciliaria " + nombre)

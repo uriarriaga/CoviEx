@@ -84,8 +84,8 @@ def sendAgendaSMS(contactos=["5580663521"],fecha="fecha en pruebas",tipo="tipo d
         sendSMS("+52"+contacto,texto)
 
 def sendWidgetSMS(contacto,token):
-    #texto = "Servicio de TeleConsulta INER. Para iniciar la videollamada favor de ingresar a la siguiente direccion: https://iner.teleconsulta.mx/widget?token=" + token 
-    texto = "Servicio de TeleConsulta INER. Para iniciar la videollamada favor de ingresar a la siguiente direccion: https://bdcc448e.ngrok.io/widget?token=" + token 
+    texto = "Servicio de TeleConsulta INER. Para iniciar la videollamada favor de ingresar a la siguiente direccion: https://iner.teleconsulta.mx/widget?token=" + token 
+    #texto = "Servicio de TeleConsulta INER. Para iniciar la videollamada favor de ingresar a la siguiente direccion: https://bdcc448e.ngrok.io/widget?token=" + token 
     sendSMS("+52"+contacto,texto)
 """
 def sendSMS(contacto,text):

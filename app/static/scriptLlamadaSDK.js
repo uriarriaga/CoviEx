@@ -55,17 +55,12 @@ webex.once(`ready`, function() {
 
           // Of course, we'd also like to be able to leave the meeting:
           document.getElementById('hangup').addEventListener('click', () => {
-
-          
-
             meeting.leave();
           });
           }
 
           // Join the meeting and add media
           function joinMeeting(meeting) {
-
-
           return meeting.join().then(() => {
             const mediaSettings = {
               receiveVideo: true,

@@ -46,6 +46,7 @@ webex.once(`ready`, function() {
             }
             if (media.type === 'remoteVideo') {
               document.getElementById('remote-view-video').srcObject = null;
+              
             }
             if (media.type === 'remoteAudio') {
               document.getElementById('remote-view-audio').srcObject = null;
@@ -54,12 +55,16 @@ webex.once(`ready`, function() {
 
           // Of course, we'd also like to be able to leave the meeting:
           document.getElementById('hangup').addEventListener('click', () => {
+
+          
+
             meeting.leave();
           });
           }
 
           // Join the meeting and add media
           function joinMeeting(meeting) {
+
 
           return meeting.join().then(() => {
             const mediaSettings = {
@@ -82,9 +87,14 @@ webex.once(`ready`, function() {
               });
             });
           });
+
+
           }
 
           document.getElementById('destination').addEventListener('submit', (event) => {
+
+
+          
           // again, we don't want to reload when we try to join
           event.preventDefault();
 

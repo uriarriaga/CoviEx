@@ -3,7 +3,32 @@
 {% block content %}
 
 
-<div align="center">
+<style>
+
+button {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+  
+
+	
+}
+
+
+img {
+width:30%;
+height:auto;
+}
+
+
+
+</style>
+
+<body onload="getResolution();" >
+<div id="cabecera" align="center">
     <h4>TeleConsulta COVID-19</h4>
     <p class="sansserif"> Para iniciar la videollamada, favor de presionar el botón verde "Call"</p>
 
@@ -11,25 +36,157 @@
 
     <p class="sansserif"> Se recomienda estar conectado a una red de tipo WiFi antes de iniciar la videollamada, con la finalidad de no consumir su plan de datos celular.</p>
 </div>
-<p id=token hidden>{{ token }}</p>
-<p id=destino hidden>{{ SIP }}</p>
+<br>
+<br>
+<div  style="display:none"  id="conectando">
+	<p class="sansserif"> </p>
 
-<form id="destination">
-    <input title="join" type="submit" value="join" />
-</form>
-
-<div style="display: flex">
-    <video style="width:50%" id="self-view" muted autoplay></video>
-<div style="width:50%">
-        <audio id="remote-view-audio" autoplay></audio>
-<video id="remote-view-video" autoplay></video>
-</div>
 </div>
 
-<button id="hangup" title="hangup" type="button">cancel/hangup</button>
+<p id="token" hidden>{{ token }}</p>
+<p id="destino" hidden>{{ SIP }}</p>
 
+<div  id= "my-webexteams-widget">
+
+		<div  style="display:none" id="boton_call" align="center">
+			<form id="destination">
+			    <!-- <input title="join" type="submit" value="join" ><img src="static/call.png" /></input> -->
+			    <button  onclick="ocultar()" title="join" type="submit"><img src="static/call.png" /></button>
+
+			</form>
+		</div>
+
+		<div >
+			   
+			<!-- <div style="width:50%"> -->
+			   
+			    
+			    <audio  style="width:100%" id="remote-view-audio" autoplay></audio>
+			    <video   style="width:100%" id="remote-view-video" autoplay></video>
+			    <div align= "center">
+			    <video style="width:30%"  id="self-view" muted autoplay></video>
+				</div>
+			    
+			    
+			
+			<!-- </div> -->
+		</div>
+
+		<div id="colgar" style="display:none"  align="center">
+		<button  onclick="mostrar()" id="hangup" title="hangup" type="button"><img src="static/hangup.png" /></button>
+		</div>
         <script crossorigin src="https://unpkg.com/webex@^1/umd/webex.min.js"></script>
         <script src="/static/scriptLlamadaSDK.js"></script>
+
+ </div>
+
+ </body>
+
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+
+  <script>
+
+  	function ocultar(){
+
+
+
+
+  	      console.log("entro al submit");  
+          document.getElementById("cabecera").style.display = "none";
+          document.getElementById("boton_call").style.display = "none";
+          document.getElementById("conectando").style.display = "block";
+
+  	}
+
+  	function mostrar(){
+
+  		
+          document.getElementById("boton_call").style.display = "block";
+
+
+
+  	}
+
+
+
+
+
+    function getResolution() {
+
+
+    
+    	
+
+
+
+        //alert("Your screen is: " + screen.width + "x" + screen.height);
+        var srcw = 12;
+        var srch = 4;
+        if (screen.width > 800 ){
+
+          srcw=1.7;
+        }
+
+       
+        if (screen.height > 800 ){
+
+          srch=1.5;
+        }
+
+        document.getElementById("my-webexteams-widget").style.width =  " " + (screen.width - (screen.width/srcw)) + "px";
+        document.getElementById("my-webexteams-widget").style.height =  " " + (screen.height - (screen.height/srch))+ "px";
+
+
+        // Usage!
+		sleep(1500).then(() => {
+    		// Do something after the sleep!
+    	mostrar();
+        document.getElementById("colgar").style.display = "block";
+		});
+      
+
+
+        //document.getElementById("remote-view-video").style.height =  " " + ((screen.height - (screen.height/srch)) /10 )  + "px";
+
+        //document.getElementById("my-webexteams-widget").style.height = "900px";
+
+
+        // Este codigo oculta la parte del Menu
+        /*
+        console.log("se cargo la ventana ");
+        var x = document.getElementById("menu");
+       
+        x.style.display = "none";
+        */
+
+    }
+
+
+    function sleep (time) {
+  		return new Promise((resolve) => setTimeout(resolve, time));
+	}
+
+
+
+
+    </script>
 
 
 {% endblock %}

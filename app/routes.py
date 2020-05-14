@@ -60,7 +60,7 @@ def widget():
     if not hostJoined(invitado.correo.split("@")[0]):
         return render_template('widgetLobby.html', title='widget')
     JWToken = createJWT(invitado.user_id,invitado.expirationTime,invitado.secret)
-    return render_template('widget.html', title='widget', token=JWToken, SIP=invitado.correo)
+    return render_template('llamadaSDK.html', title='widget', token=JWToken, SIP=invitado.correo)
 
 @app.route('/cronisticamente')
 def cron():

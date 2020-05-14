@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div align="center">
+    <h4>TeleConsulta COVID-19</h4>
+    <p class="sansserif"> Para iniciar la videollamada, favor de presionar el botón verde "Call"</p>
+
+    <p class="sansserif"> Sesion valida por una hora </p>
+
+    <p class="sansserif"> Se recomienda estar conectado a una red de tipo WiFi antes de iniciar la videollamada, con la finalidad de no consumir su plan de datos celular.</p>
+</div>
+<p id=token hidden>{{ token }}</p>
+<p id=destino hidden>{{ SIP }}</p>
+
+<form id="destination">
+    <input title="join" type="submit" value="join" />
+</form>
+
+<div style="display: flex">
+    <video style="width:50%" id="self-view" muted autoplay></video>
+<div style="width:50%">
+        <audio id="remote-view-audio" autoplay></audio>
+<video id="remote-view-video" autoplay></video>
+</div>
+</div>
+
+<button id="hangup" title="hangup" type="button">cancel/hangup</button>
+
+        <script crossorigin src="https://unpkg.com/webex@^1/umd/webex.min.js"></script>
+        <script src="/static/scriptLlamadaSDK.js"></script>
+
+
+{% endblock %}

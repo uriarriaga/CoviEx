@@ -1,177 +1,178 @@
- {% extends "base.html" %}
+{% extends "base.html" %}
 
 {% block content %}
-           <section class="content">
+<section class="content">
 
-            <div class="container">
+	<div class="container">
 
-                <form method="post" action="" class="needs-validation" id="FormularioPaciente">
+		<form method="post" action="" class="needs-validation" id="FormularioPaciente">
 
-                            <div class="card shadow">
-                                <div class="card-body">
+			<div class="card shadow">
+				<div class="card-body">
 
-                                    <h2><strong>Consola de captura</strong></h2>
+					<h2>
+						<strong>Consola de captura</strong>
+					</h2>
 
 
-												<div  class="col-sm-10" align="rigth">
-												  <form class="form-inline">
-												    <div class="form-group">
-												     <label>Celular (10 digitos)</label>
-												     <p>Esta seccion permite la busqueda y modificacion datos de pacientes previamente registrados</p>
-												      <input type="text" class="form-control" name="campo_buscar" id="campo_buscar" placeholder="numero celular del paciente (opcional). Solo para editar" required>
-												    </div>
+					<div class="col-sm-10" align="rigth">
+						<form class="form-inline">
+							<div class="form-group">
+								<label>Celular (10 digitos)</label>
+								<p>Esta seccion permite la busqueda y modificacion datos de pacientes previamente registrados</p>
+								<input type="text" class="form-control" name="campo_buscar" id="campo_buscar" placeholder="numero celular del paciente (opcional). Solo para editar" required>
+</div>
 
-												           <button class="btn btn-success float-right" type="button" onclick="modificarDatosFormulario()" ><i class="nav-icon fas fa-save"></i> Buscar Paciente</button>
-												  </form>
-												</div>
+<button class="btn btn-success float-right" type="button" onclick="modificarDatosFormulario()">
+									<i class="nav-icon fas fa-save"></i> Buscar Paciente</button>
+							</form>
+						</div>
+						<br>
+							<br>
+								<br>
+									<br>
+										<br>
+											<br>
 												<br>
-												<br>
-												<br>
-												<br>
-												<br>
-												<br>
-												<br>
 
-                                    <hr>
-                                    <h4 class="my-4">Captura de datos de pacientes</h4>
+													<hr>
+														<h4 class="my-4">Captura de datos de pacientes</h4>
 
 
-                                    <div class="row px-2">
-                                           <div class="col-sm-4">
-                                               <div class="form-group">
-                                                   <label>Nombre</label>
-                                                   <input type="text" class="form-control" name="name" id="name" placeholder="obligatorio" required>
-                                               </div>
-                                           </div>
+														<div class="row px-2">
+															<div class="col-sm-4">
+																<div class="form-group">
+																	<label>Nombre</label>
+																	<input type="text" class="form-control" name="name" id="name" placeholder="obligatorio" required>
+</div>
+</div>
 
-                                           <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label>Celular (10 digitos) </label>
-                                                    <input type="number" class="form-control" name="cel" id="cel" placeholder="obligatorio" required>
-                                                </div>
-                                            </div>
+<div class="col-sm-4">
+																		<div class="form-group">
+																			<label>Celular (10 digitos) </label>
+																			<input type="number" class="form-control" name="cel" id="cel" placeholder="obligatorio" required>
+</div>
+</div>
 
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label>Correo</label>
-                                                    <input type="email" class="form-control" name="mail" id="mail" placeholder="obligatorio" required>
-                                                </div>
-                                            </div>
-                                    </div>
+<div class="col-sm-4">
+																				<div class="form-group">
+																					<label>Correo</label>
+																					<input type="email" class="form-control" name="mail" id="mail" placeholder="obligatorio" required>
+</div>
+</div>
+</div>
 
-                                    <!-- **************** Familiar 1 *****************-->
-                                    <h5 class="mt-5">Datos del familiar 1</h5>
-                                    <hr>
+<!-- **************** Familiar 1 *****************-->
+<h5 class="mt-5">Datos del familiar 1</h5>
+																					<hr>
 
-                                    <div class="row mt-3 px-2">
+																						<div class="row mt-3 px-2">
 
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label>Nombre</label>
-                                                    <input type="text" class="form-control" name="name1" id="name1" placeholder="obligatorio" required>
-                                                </div>
-                                            </div>
+																							<div class="col-sm-4">
+																								<div class="form-group">
+																									<label>Nombre</label>
+																									<input type="text" class="form-control" name="name1" id="name1" placeholder="obligatorio" required>
+</div>
+</div>
 
-                                            <div class="col-sm-4">
-                                                 <div class="form-group">
-                                                     <label>Celular (10 digitos) </label>
-                                                     <input type="number" class="form-control" name="cel1" id="cel1" placeholder="obligatorio" required>
-                                                 </div>
-                                             </div>
+<div class="col-sm-4">
+																										<div class="form-group">
+																											<label>Celular (10 digitos) </label>
+																											<input type="number" class="form-control" name="cel1" id="cel1" placeholder="obligatorio" required>
+</div>
+</div>
 
-                                             <div class="col-sm-4">
-                                                 <div class="form-group">
-                                                     <label>Correo</label>
-                                                     <input type="email" class="form-control" name="mail1" id="mail1" placeholder="obligatorio" required>
-                                                 </div>
-                                             </div>
-                                    </div>
-                                    <!-- **************** fin Familiar 1 *****************-->
+<div class="col-sm-4">
+																												<div class="form-group">
+																													<label>Correo</label>
+																													<input type="email" class="form-control" name="mail1" id="mail1" placeholder="obligatorio" required>
+</div>
+</div>
+</div>
+<!-- **************** fin Familiar 1 *****************-->
 
-                                    <!-- **************** Familiar 2 *****************-->
-                                    <h5>Datos del familiar 2</h5>
-                                    <hr>
+<!-- **************** Familiar 2 *****************-->
+<h5>Datos del familiar 2</h5>
+<hr>
 
-                                    <div class="row mt-3 px-2">
+<div class="row mt-3 px-2">
 
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label>Nombre</label>
-                                                    <input type="text" class="form-control" name="name2" id="name2" placeholder="opcional">
-                                                </div>
-                                            </div>
+																														<div class="col-sm-4">
+																															<div class="form-group">
+																																<label>Nombre</label>
+																																<input type="text" class="form-control" name="name2" id="name2" placeholder="opcional">
+																																</div>
+																															</div>
 
-                                            <div class="col-sm-4">
-                                                 <div class="form-group">
-                                                     <label>Celular (10 digitos) </label>
-                                                     <input type="number" class="form-control" name="cel2" id="cel2" placeholder="opcional">
-                                                 </div>
-                                             </div>
+																															<div class="col-sm-4">
+																																<div class="form-group">
+																																	<label>Celular (10 digitos) </label>
+																																	<input type="number" class="form-control" name="cel2" id="cel2" placeholder="opcional">
+																																	</div>
+																																</div>
 
-                                             <div class="col-sm-4">
-                                                 <div class="form-group">
-                                                     <label>Correo</label>
-                                                     <input type="email" class="form-control" name="mail2" id="mail2" placeholder="opcional">
-                                                 </div>
-                                             </div>
+																																<div class="col-sm-4">
+																																	<div class="form-group">
+																																		<label>Correo</label>
+																																		<input type="email" class="form-control" name="mail2" id="mail2" placeholder="opcional">
+																																		</div>
+																																	</div>
 
-                                    </div>
-                                    <!-- **************** fin Familiar 2 *****************-->
+																																</div>
+																																<!-- **************** fin Familiar 2 *****************-->
 
-                                    <!-- **************** Familiar 3 *****************-->
-                                    <h5>Datos del familiar 3</h5>
-                                    <hr>
+																																<!-- **************** Familiar 3 *****************-->
+																																<h5>Datos del familiar 3</h5>
+																																<hr>
 
-                                    <div class="row mt-3 px-2">
+																																	<div class="row mt-3 px-2">
 
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label>Nombre</label>
-                                                    <input type="text" class="form-control" name="name3" id="name3" placeholder="opcional">
-                                                </div>
-                                            </div>
+																																		<div class="col-sm-4">
+																																			<div class="form-group">
+																																				<label>Nombre</label>
+																																				<input type="text" class="form-control" name="name3" id="name3" placeholder="opcional">
+																																				</div>
+																																			</div>
 
-                                            <div class="col-sm-4">
-                                                 <div class="form-group">
-                                                     <label>Celular (10 digitos) </label>
-                                                     <input type="number" class="form-control" name="cel3" id="cel3" placeholder="opcional">
-                                                 </div>
-                                             </div>
+																																			<div class="col-sm-4">
+																																				<div class="form-group">
+																																					<label>Celular (10 digitos) </label>
+																																					<input type="number" class="form-control" name="cel3" id="cel3" placeholder="opcional">
+																																					</div>
+																																				</div>
 
-                                             <div class="col-sm-4">
-                                                 <div class="form-group">
-                                                     <label>Correo</label>
-                                                     <input type="email" class="form-control" name="mail3" id="mail3" placeholder="opcional">
-                                                 </div>
-                                             </div>
-                                    </div>
-                                    <!-- **************** fin Familiar 3 *****************-->
+																																				<div class="col-sm-4">
+																																					<div class="form-group">
+																																						<label>Correo</label>
+																																						<input type="email" class="form-control" name="mail3" id="mail3" placeholder="opcional">
+																																						</div>
+																																					</div>
+																																				</div>
+																																				<!-- **************** fin Familiar 3 *****************-->
 
 
 
-                                </div>
-                                <div class="card-footer">
-                                    <div class="row">
-                                        <div class="col-12">
-                 							<button class="btn btn-success float-right" type="button" onclick="obtenerDatosFormulario()" ><i class="nav-icon fas fa-save"></i> Guardar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+																																			</div>
+																																			<div class="card-footer">
+																																				<div class="row">
+																																					<div class="col-12">
+																																						<button class="btn btn-success float-right" type="button" onclick="obtenerDatosFormulario()">
+																																							<i class="nav-icon fas fa-save"></i> Guardar</button>
+																																					</div>
+																																				</div>
+																																			</div>
+																																		</div>
 
-                </form>
+																																	</form>
 
-            </div>
+																																</div>
 
-        </section>
+																															</section>
 
 
-<script type="text/javascript" >
-	url_base = ""
-    //url_base="https://iner.teleconsulta.mx";
-    //url_base ="http://35.153.44.17:5007";
-    //url_base="http://coviexlbtrans-470802257.us-east-1.elb.amazonaws.com";
-    //url_base="https://teleconsulta.mx";
+																															<script type="text/javascript">
+	url_base = "" //url_base="https://iner.teleconsulta.mx";
+    //url_base ="http://35.153.44.17:5007"; //url_base="http://coviexlbtrans-470802257.us-east-1.elb.amazonaws.com"; //url_base="https://teleconsulta.mx";
 
 	url_insertar =  ""
 	action = "insert";//update
@@ -440,8 +441,7 @@
 
 	      			var listaUsuarios = $("#lista-usuarios");
 	      			var response = (""+respuesta).trim();
-	      			//console.log(response);
-	      			lista_familiares= JSON.parse(response);
+	      			//console.log(response); lista_familiares= JSON.parse(response);
 	      			//console.log(lista_familiares["familiares"]);
 
 	      			var i;
@@ -464,11 +464,7 @@
 							cel = "cel"+cont_familiares;
 							mail = "mail"+cont_familiares;
 
-							cont_familiares = cont_familiares + 1;
-
-							document.getElementById(name).value=lista_familiares["familiares"][i]["nombre"];
-							document.getElementById(cel).value=lista_familiares["familiares"][i]["celular"];
-    						document.getElementById(mail).value=lista_familiares["familiares"][i]["email"];
+							cont_familiares = cont_familiares + 1; document.getElementById(name).value=lista_familiares["familiares"][i]["nombre"]; document.getElementById(cel).value=lista_familiares["familiares"][i]["celular"]; document.getElementById(mail).value=lista_familiares["familiares"][i]["email"];
 
 						}
 
@@ -488,9 +484,7 @@
 	    error: function() {
 	      	console.log("No se ha podido obtener la información");
 	    }
-	});
-
-    //document.getElementById('name').value="tuvariable";
+	}); //document.getElementById('name').value="tuvariable";
 
     //document.getElementById("name").value="tuvariable";
     //document.getElementById("cel").value="0123456789";

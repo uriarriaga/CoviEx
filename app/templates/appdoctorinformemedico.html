@@ -1,4 +1,4 @@
- {% extends "base.html" %}
+{% extends "base.html" %}
 
 {% block content %}
 
@@ -28,116 +28,119 @@
 
 
 
-	    	  <h2 > Servicio de Informe Médico</h2>
+<h2 > Servicio de Informe Médico</h2>
 
-	<div id="loading">
-
-    </div>
-	    
-<div id="pacientesboton"> <button  onclick="mostrarpacientes()" class="btn btn-info btn-block" >Pacientes</button></div>
-<div id="page">
-
-			<div id="pacientes">
-	    	    <table class="table table-striped" id="dtBasicExample" >
-						    <thead>
-						      <tr>
-						        <th>Paciente</th>
-						        <th>Celular</th>
-						        <th>Email</th>
-						         <th>Seleccionar</th>
-						      </tr>
-						    </thead>
-						    <tbody id="tablapacientes">
-
-						    </tbody>
-						  </table>
-
-						
-			</div>	    
-
-	    	 <div id="lista-familiares" style="visibility: hidden" >
-
-	    	 	<h4 > Familiares</h4>
-	    	 	 <br>
-
-					<table class="table table-striped">
-					    <thead>
-					      <tr>
-					      	<th>Seleccionar</th>
-					        <th>Nombre</th>
-					        <th>Celular</th>
-					        <th>Email</th>
-					    
-					      </tr>
-					    </thead>
-					    <tbody id="familiares">
-					      
-					    </tbody>
-  					</table>
-
-
-
-
-  					<div >
-  						<br>
-  						  <p>Selecciona una hora y fecha en saco de que sea una video llamada agenda y presiona el boton de agenda; En su defecto si se trata de una llamada inmediata, presiona el boton con el icono del telefono.</p>
-
-
-  						  			<table class="table table-striped">
-									    <thead>
-									      <tr>
-									      	<th>Generar Videollamada</th>
-									        <th>Hora y Fecha</th>
-									        <th>Agendar Videollamada</th>
-									      
-									    
-									      </tr>
-									    </thead>
-									    <tbody >
-
-									    <tr>
-									      	<th ><button onclick= "call()"  class="btn btn-success"><span align="center"  class="glyphicon glyphicon-earphone" aria-hidden="true"></span></button></th>
-									        <th><div class="input-group date" id="datetimepicker1"><input type="text" id="fec" class="form-control datepicker"></input><span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span></div></th>
-									        <th align="center" > <button onclick="Agendarllamada()" align="center" class="btn btn-success"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></button></th>
-									      
-									    
-									      </tr>
-									      
-									    </tbody>
-				  					</table>
-
-
-							
-
-					
-					</div>
-	    	 </div>
+<div id="loading">
 
 </div>
-	
-<br>
-<br>
+
+<div id="pacientesboton">
+	<button onclick="mostrarpacientes()" class="btn btn-info btn-block">Pacientes</button>
+</div>
+<div id="page">
+
+	<div id="pacientes">
+		<table class="table table-striped" id="dtBasicExample">
+			<thead>
+				<tr>
+					<th>Paciente</th>
+					<th>Celular</th>
+					<th>Email</th>
+					<th>Seleccionar</th>
+				</tr>
+			</thead>
+			<tbody id="tablapacientes">
+
+			</tbody>
+		</table>
 
 
-			<script>
+	</div>
+
+	<div id="lista-familiares" style="visibility: hidden">
+
+		<h4 > Familiares</h4>
+		<br>
+
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Seleccionar</th>
+						<th>Nombre</th>
+						<th>Celular</th>
+						<th>Email</th>
+
+					</tr>
+				</thead>
+				<tbody id="familiares">
+
+				</tbody>
+			</table>
 
 
-			// Construimos e inyectamos el date piecker
+
+
+			<div >
+				<br>
+					<p>Selecciona una hora y fecha en saco de que sea una video llamada agenda y presiona el boton de agenda; En su defecto si se trata de una llamada inmediata, presiona el boton con el icono del telefono.</p>
+
+
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Generar Videollamada</th>
+								<th>Hora y Fecha</th>
+								<th>Agendar Videollamada</th>
+
+
+							</tr>
+						</thead>
+						<tbody >
+
+							<tr>
+								<th >
+									<button onclick= "call()" class="btn btn-success">
+										<span align="center" class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+									</button>
+								</th>
+								<th>
+									<div class="input-group date" id="datetimepicker1">
+										<input type="text" id="fec" class="form-control datepicker"></input>
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-calendar"></span>
+										</span>
+									</div>
+								</th>
+								<th align="center">
+									<button onclick="Agendarllamada()" align="center" class="btn btn-success">
+										<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+									</button>
+								</th>
+
+
+							</tr>
+
+						</tbody>
+					</table>
 
 
 
 
-			//url_base="https://teleconsulta.mx";
 
-			//url_base="https://iner.teleconsulta.mx";
+				</div>
+			</div>
 
-			//url_base="http://localhostdedw"
-			//url_base ="http://35.153.44.17:5007";
-			//url_base="http://coviexlbtrans-470802257.us-east-1.elb.amazonaws.com";
-			
-			url_base="";
-			url_pacientes="";
-			url_familiares="";
+		</div>
+
+		<br>
+			<br>
+
+
+				<script>
+
+
+			// Construimos e inyectamos el date piecker //url_base="https://teleconsulta.mx"; //url_base="https://iner.teleconsulta.mx"; //url_base="http://localhostdedw"
+			//url_base ="http://35.153.44.17:5007"; //url_base="http://coviexlbtrans-470802257.us-east-1.elb.amazonaws.com"; url_base=""; url_pacientes=""; url_familiares="";
 
 			lista_familiares = "";
 			lista_pacientes ="";
@@ -198,12 +201,12 @@
 
 					        listaUsuarios.append(
 
-					           '<tr>'
+					           '					<tr>'
 					    
-					          +     '<td>' + elemento.nombre + '</td>'
-					            +     '<td>' + elemento.celular + '</td>'
-					              +     '<td>' + elemento.email + '</td>'
-					              +     '<td>' + '<button '+ 'id=' +  elemento.id +  ' onclick="pacientes_button(' + elemento.id + ')"'   + ' type="button" class="btn btn-primary">Seleccionar</button>' + '</td>'
+					          +     '						<td>' + elemento.nombre + '</td>'
+					            +     '						<td>' + elemento.celular + '</td>'
+					              +     '						<td>' + elemento.email + '</td>'
+					              +     '						<td>' + '							<button '+ 'id=' +  elemento.id +  ' onclick="pacientes_button(' + elemento.id + ')"'   + ' type="button" class="btn btn-primary">Seleccionar</button>' + '</td>'
 
 					          + '</tr>' 
 
@@ -233,8 +236,7 @@
 					   
 					      var listaUsuarios = $("#lista-usuarios");
 					      var response = (""+respuesta).trim();
-					      //console.log(response);
-					      lista_familiares= JSON.parse(response);
+					      //console.log(response); lista_familiares= JSON.parse(response);
 					      console.log(lista_familiares["familiares"][0]);
 
 					      // Lineas para la carhga del Gif
@@ -453,8 +455,7 @@
 					//YYYYYYY
 				var id_paciente = "";
 					
-       		 	fe = $('#fec').val();
-       		 	if(fe.length==0  || lista_familiarescheck.length ==0 ){
+       		 	fe = $('#fec').val(); if(fe.length==0  || lista_familiarescheck.length ==0 ){
        		 		alert("el campo fecha se encuentra vacio o no se ha seleccionado un familiar");
        		 	}else{
 
@@ -580,8 +581,7 @@
 							      }else{
 
 
-							        console.log("entro al else");	
-							      	value=parseFloat(($(this).val()));
+							        console.log("entro al else"); value=parseFloat(($(this).val()));
 							      }	
 							      	
 							      console.log('valor antes del parse' + ($(this).val()));
@@ -659,13 +659,13 @@
 
 
 			</script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
-<br>
-<br>
-<br>
-<br>
-<br>
+							<br>
+								<br>
+									<br>
+										<br>
+											<br>
 
 
 

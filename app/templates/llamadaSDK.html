@@ -1,9 +1,70 @@
-{% extends "base.html" %}
+<html>
+    <head>
+        <title>PSsCloud</title>
+     
 
-{% block content %}
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+        
+
+    
+      <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600" rel="stylesheet">
+      <meta name="description" content="gob.mx es la plataforma que conecta a la gente con el gobierno, impulsa la eficiencia, y transforma los procesos para proveer de información y  trámites">
+      <meta name="keywords" content="gobierno, digital, trámites, trámites en línea, gobierno digital">
+      <meta property="og:url" content="http://www.gob.mx/">
+      <meta property="og:site_name" content="gob.mx">
+      <meta property="og:title" content="gob.mx">
+      
+      <meta property="og:description" content="El portal único del gobierno.">
+      <meta property="og:type" content="website">
+     
+      <iframe src="javascript:void(0)" title="" style="width: 0px; height: 0px; border: 0px none; display: none;"></iframe>
+      <title>El portal único del gobierno. | gob.mx</title>
+
+ 
+
+      <link href="https://www.gob.mx/js/chunk-5a3a1038.782bb8bb.js" rel="prefetch">
+      <link href="https://www.gob.mx/css/app.244384b5.css" rel="preload" as="style">
+      <link href="https://www.gob.mx/css/chunk-vendors.e37f87fc.css" rel="preload" as="style">
+      <link href="https://www.gob.mx/js/app.b50f0172.js" rel="preload" as="script">
+      <link href="https://www.gob.mx/js/chunk-vendors.43d24fff.js" rel="preload" as="script">
+      <link href="https://www.gob.mx/css/chunk-vendors.e37f87fc.css" rel="stylesheet">
+      <link href="https://www.gob.mx/css/app.244384b5.css" rel="stylesheet">
+      <link href="https://www.gob.mx/favicon.ico" rel="shortcut icon">
 
 
-<style>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.25.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.25.0/locale/es.min.js"></script>
+    
+  
+
+    
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+
+
+      <style>
+              h2 {
+                color: #4d4d4d;
+              }
+
+              th {
+                color: #4d4d4d;
+              }
+      </style>
+
+
+      <style>
 
 button {
     background-color: Transparent;
@@ -27,58 +88,145 @@ height:auto;
 
 </style>
 
-<body onload="getResolution();" >
-<div id="cabecera" align="center">
-    <h4>TeleConsulta COVID-19</h4>
-    <p class="sansserif"> Para iniciar la videollamada, favor de presionar el botón verde "Call"</p>
 
-    <p class="sansserif"> Sesion valida por una hora </p>
+    <style> 
+        #loader { 
+            border: 12px solid #f3f3f3; 
+            border-radius: 50%; 
+            border-top: 12px solid #444444; 
+            width: 70px; 
+            height: 70px; 
+            animation: spin 1s linear infinite; 
+        } 
+          
+        @keyframes spin { 
+            100% { 
+                transform: rotate(360deg); 
+            } 
+        } 
+          
+        .center { 
+            position: absolute; 
+            top: 0; 
+            bottom: 0; 
+            left: 0; 
+            right: 0; 
+            margin: auto; 
+        } 
+    </style> 
 
-    <p class="sansserif"> Se recomienda estar conectado a una red de tipo WiFi antes de iniciar la videollamada, con la finalidad de no consumir su plan de datos celular.</p>
-</div>
+
+
+
+
+ </head>
+    <body>
+
+<div>
+    <div id="app" style="position: relative; width: 100% !important;">   
+            <nav data-v-4a3754a3="" id="header" class="navbar bg-dark navbar-dark navbar-expand-sm navbar-gob">
+                    <div data-v-4a3754a3="" class="container">
+                        <button data-v-4a3754a3="" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" class="navbar-toggler">
+                            <span data-v-4a3754a3="" class="navbar-toggler-icon"></span>
+                        </button>
+                            <a data-v-4a3754a3="" href="https://www.gob.mx" target="_blank" class="navbar-brand">
+                                <img data-v-4a3754a3="" src="https://framework-gb.cdn.gob.mx/landing/img/logoheader.svg" alt="logo gobierno de méxico" class="logos" style="width: 8rem; margin-top: -2%; margin-bottom: -2%; margin-left: -15%;">
+                            </a>
+                                <div data-v-4a3754a3="" id="collapsibleNavbar" class="collapse navbar-collapse justify-content-end">
+                                  <div id = "menu" class="navbar-nav">
+           
+                                </div>
+                    </div>
+            </nav> 
+        
+
+
+
 <br>
-<br>
-<div  style="display:none"  id="conectando">
-	<p class="sansserif"> </p>
 
-</div>
 
-<p id="token" hidden>{{ token }}</p>
-<p id="destino" hidden>{{ SIP }}</p>
 
-<div  id= "my-webexteams-widget">
+            <div class="container" style="margin-top:30px">
+                <div class="row">
+                        <div class="col-sm-1">
+                         
+                        </div>
 
-		<div  style="display:none" id="boton_call" align="center">
-			<form id="destination">
-			    <!-- <input title="join" type="submit" value="join" ><img src="static/call.png" /></input> -->
-			    <button  onclick="ocultar()" title="join" type="submit"><img src="static/call.png" /></button>
+                        <div class="col-sm-10">
 
-			</form>
-		</div>
+                            <div class="w3-panel w3-light-grey w3-border w3-round">
 
-		<div >
-			   
-			<!-- <div style="width:50%"> -->
-			   
-			    
-			    <audio  style="width:100%" id="remote-view-audio" autoplay></audio>
-			    <video   style="width:100%" id="remote-view-video" autoplay></video>
-			    <div align= "center">
-			    <video style="width:30%"  id="self-view" muted autoplay></video>
-				</div>
-			    
-			    
-			
-			<!-- </div> -->
-		</div>
 
-		<div id="colgar" style="display:none"  align="center">
-		<button  onclick="mostrar()" id="hangup" title="hangup" type="button"><img src="static/hangup.png" /></button>
-		</div>
+
+
+													<div id="loader" class="center"></div> 
+												<div id="cabecera" align="center">
+												    <h4>TeleConsulta COVID-19</h4>
+												    <p class="sansserif"> Para iniciar la videollamada, favor de presionar el botón verde "Call"</p>
+
+												    <p class="sansserif"> Sesion valida por una hora </p>
+
+												    <p class="sansserif"> Se recomienda estar conectado a una red de tipo WiFi antes de iniciar la videollamada, con la finalidad de no consumir su plan de datos celular.</p>
+												</div>
+												<br>
+												<br>
+												<div  style="display:none"  id="conectando">
+													<p class="sansserif"> </p>
+
+												</div>
+
+												<p id="token" hidden>{{ token }}</p>
+												<p id="destino" hidden>{{ SIP }}</p>
+
+												<div  id= "my-webexteams-widget">
+
+														<div  style="display:none" id="boton_call" align="center">
+															<form id="destination">
+															    <!-- <input title="join" type="submit" value="join" ><img src="static/call.png" /></input> -->
+															    <button  onclick="ocultar()" title="join" type="submit"><img src="static/call.png" /></button>
+
+															</form>
+														</div>
+
+														<div >
+															   
+															<!-- <div style="width:50%"> -->
+															   
+															    
+															    <audio  style="width:100%" id="remote-view-audio" autoplay></audio>
+															    <video   style="width:100%" id="remote-view-video" autoplay></video>
+															    <div align= "center">
+															    <video style="width:30%"  id="self-view" muted autoplay></video>
+																</div>
+															    
+															    
+															
+															<!-- </div> -->
+														</div>
+
+														<div id="colgar" style="display:none"  align="center">
+														<button  onclick="mostrar()" id="hangup" title="hangup" type="button"><img src="static/hangup.png" /></button>
+														</div>
+
+
+												 </div>
+
+                      </div>                
+
+                        </div>
+                        <div class="col-sm-1">
+                         
+                        </div>
+
+                </div>   
+            </div>                     
+    </div> <!-- fin del Div del NAV -->
+</div> <!-- fin del Div principal -->
+
+
+
         <script crossorigin src="https://unpkg.com/webex@^1/umd/webex.min.js"></script>
         <script src="/static/scriptLlamadaSDK.js"></script>
-
- </div>
 
  </body>
 
@@ -100,6 +248,8 @@ height:auto;
  <br>
  <br>
  <br>
+
+
 
   <script>
 
@@ -155,7 +305,7 @@ height:auto;
 
 
         // Usage!
-		sleep(1900).then(() => {
+		sleep(400).then(() => { 
     		// Do something after the sleep!
     	mostrar();
         document.getElementById("colgar").style.display = "block";
@@ -183,10 +333,50 @@ height:auto;
   		return new Promise((resolve) => setTimeout(resolve, time));
 	}
 
+	document.onreadystatechange = function() { 
+            if (document.readyState !== "complete") { 
+                document.querySelector( 
+                  "body").style.visibility = "hidden"; 
+                document.querySelector( 
+                  "#loader").style.visibility = "visible"; 
+            } else { 
 
+				        //alert("Your screen is: " + screen.width + "x" + screen.height);
+				        var srcw = 12;
+				        var srch = 4;
+				        if (screen.width > 800 ){
+
+				          srcw=1.7;
+				        }
+
+				       
+				        if (screen.height > 800 ){
+
+				          srch=1.5;
+				        }
+
+				        document.getElementById("my-webexteams-widget").style.width =  " " + (screen.width - (screen.width/srcw)) + "px";
+				        document.getElementById("my-webexteams-widget").style.height =  " " + (screen.height - (screen.height/srch))+ "px";
+
+
+
+
+									          // Usage!
+							sleep(5000).then(() => {
+					    		// Do something after the sleep!
+					    	mostrar();
+					        document.getElementById("colgar").style.display = "block";
+					                      document.querySelector( 
+				                  "#loader").style.display = "none"; 
+				                document.querySelector( 
+				                  "body").style.visibility = "visible"; 
+							});
+					
+				  
+         
+            } 
+     }; 
 
 
     </script>
 
-
-{% endblock %}

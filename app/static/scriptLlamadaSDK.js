@@ -1,5 +1,5 @@
 
-var webex = Webex.init();
+const webex = window.webex = Webex.init();
 
 const token = document.getElementById("token").innerHTML;
 console.log(token);

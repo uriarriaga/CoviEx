@@ -57,6 +57,8 @@ webex.once(`ready`, function () {
                 document.getElementById('hangup').addEventListener('click', () => {
                     meeting.leave();
                 });
+
+                return joinMeeting(meeting);
             }
 
 
@@ -102,7 +104,7 @@ webex.once(`ready`, function () {
             document.getElementById('start-sending-audio').addEventListener('click', () => {
                 if (activeMeeting) {
                   activeMeeting.unmuteAudio().then(() => {
-                    document.getElementById('microphone-state').innerHTML = 'on';
+                    console.log("unMute");
                   });
                 }
               });
@@ -110,7 +112,7 @@ webex.once(`ready`, function () {
               document.getElementById('stop-sending-audio').addEventListener('click', () => {
                 if (activeMeeting) {
                   activeMeeting.muteAudio().then(() => {
-                    document.getElementById('microphone-state').innerHTML = 'off';
+                    console.log("Mute");
                   });
                 }
               });
@@ -118,7 +120,7 @@ webex.once(`ready`, function () {
               document.getElementById('start-sending-video').addEventListener('click', () => {
                 if (activeMeeting) {
                   activeMeeting.unmuteVideo().then(() => {
-                    document.getElementById('camera-state').innerHTML = 'on';
+                    console.log("unMuteVideo");
                   });
                 }
               });
@@ -126,7 +128,7 @@ webex.once(`ready`, function () {
               document.getElementById('stop-sending-video').addEventListener('click', () => {
                 if (activeMeeting) {
                   activeMeeting.muteVideo().then(() => {
-                    document.getElementById('camera-state').innerHTML = 'off';
+                    console.log("MuteVideo");
                   });
                 }
               });
@@ -139,9 +141,11 @@ webex.once(`ready`, function () {
 
                 return webex.meetings.create(destination).then((meeting) => {
                     // Call our helper function for binding events to meetings
-                    bindMeetingEvents(meeting);
+                    activeMeeting = meeting;
 
-                    return joinMeeting(meeting);
+                    bindMeetingEvents(meeting);
+                    activeMeeting.muteVideo()
+
                 })
                     .catch((error) => {
                         // Report the error

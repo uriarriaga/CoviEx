@@ -66,8 +66,8 @@ webex.once(`ready`, function () {
             function joinMeeting(meeting) {
                 // Get constraints
                 const constraints = {
-                    audio: document.getElementById('constraints-audio').checked,
-                    video: document.getElementById('constraints-video').checked
+                    audio: true,
+                    video: true
                 };
 
                 return meeting.join().then(() => {
@@ -77,8 +77,8 @@ webex.once(`ready`, function () {
                     })
                         .then(({ sendAudio, sendVideo }) => {
                             const mediaSettings = {
-                                receiveVideo: constraints.video,
-                                receiveAudio: constraints.audio,
+                                receiveVideo: true,
+                                receiveAudio: true,
                                 receiveShare: false,
                                 sendShare: false,
                                 sendVideo: true,
@@ -100,38 +100,40 @@ webex.once(`ready`, function () {
                         })
                 });
             }
-            
-            document.getElementById('start-sending-audio').addEventListener('click', () => {
+
+            document.getElementById('toogle-audio').addEventListener('click', () => {
                 if (activeMeeting) {
-                  activeMeeting.unmuteAudio().then(() => {
-                    console.log("unMute");
-                  });
+                    var video = document.getElementById('toogle-audio').value;
+                    if (video == "on") {
+                        activeMeeting.muteAudio().then(() => {
+                            console.log("Mute");
+                            document.getElementById('toogle-audio').value = "off";
+                        });
+                    } else {
+                        activeMeeting.unmuteAudio().then(() => {
+                            console.log("unMute");
+                            document.getElementById('toogle-audio').value = "on";
+                        });
+                    }
                 }
-              });
-        
-              document.getElementById('stop-sending-audio').addEventListener('click', () => {
+            });
+
+            document.getElementById('toogle-video').addEventListener('click', () => {
                 if (activeMeeting) {
-                  activeMeeting.muteAudio().then(() => {
-                    console.log("Mute");
-                  });
+                    var video = document.getElementById('toogle-video').value;
+                    if (video == "on") {
+                        activeMeeting.muteVideo().then(() => {
+                            console.log("Mute");
+                            document.getElementById('toogle-video').value = "off";
+                        });
+                    } else {
+                        activeMeeting.unmuteVideo().then(() => {
+                            console.log("unMute");
+                            document.getElementById('toogle-video').value = "on";
+                        });
+                    }
                 }
-              });
-        
-              document.getElementById('start-sending-video').addEventListener('click', () => {
-                if (activeMeeting) {
-                  activeMeeting.unmuteVideo().then(() => {
-                    console.log("unMuteVideo");
-                  });
-                }
-              });
-        
-              document.getElementById('stop-sending-video').addEventListener('click', () => {
-                if (activeMeeting) {
-                  activeMeeting.muteVideo().then(() => {
-                    console.log("MuteVideo");
-                  });
-                }
-              });
+            });
 
 
             document.getElementById('destination').addEventListener('submit', (event) => {
@@ -144,7 +146,7 @@ webex.once(`ready`, function () {
                     activeMeeting = meeting;
 
                     bindMeetingEvents(meeting);
-                    activeMeeting.muteVideo()
+                    meeting.muteVideo()
 
                 })
                     .catch((error) => {
@@ -154,54 +156,6 @@ webex.once(`ready`, function () {
             });
         })
 });
-
-
-window.addEventListener('load', () => {
-    // Get elements from the DOM
-    const audio = document.getElementById('constraints-audio');
-    const video = document.getElementById('constraints-video');
-
-    // Get access to hardware source of media data
-    // For more info about enumerateDevices: https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/enumerateDevices
-    if (navigator && navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
-        navigator.mediaDevices.enumerateDevices()
-            .then((devices) => {
-                // Check if navigator has audio
-                const hasAudio = devices.filter(
-                    (device) => device.kind === 'audioinput'
-                ).length > 0;
-
-                // Check/uncheck and disable checkbox (if necessary) based on the results from the API
-                audio.checked = hasAudio;
-                audio.disabled = !hasAudio;
-
-                // Check if navigator has video
-                const hasVideo = devices.filter(
-                    (device) => device.kind === 'videoinput'
-                ).length > 0;
-
-                // Check/uncheck and disable checkbox (if necessary) based on the results from the API
-                video.checked = hasVideo;
-                video.disabled = !hasVideo;
-            })
-            .catch((error) => {
-                // Report the error
-                console.error(error);
-            });
-    }
-    else {
-        // If there is no media data, automatically uncheck and disable checkboxes
-        // for audio and video
-        audio.checked = false;
-        audio.disabled = true;
-
-        video.checked = false;
-        video.disabled = true;
-    }
-});
-
-
-
 
 
 window.addEventListener('beforeunload', () => {

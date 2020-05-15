@@ -86,7 +86,7 @@
 
 
     img {
-      width: 30%;
+      width: 100%;
       height: auto;
     }
   </style>
@@ -234,22 +234,12 @@
                   <button onclick="mostrar()" id="hangup" title="hangup" type="button"><img
                       src="static/hangup.png" /></button>
 
-                  <button id="stop-sending-audio" title="stop sending audio" type="button">stop sending audio</button>
-                  <button id="start-sending-audio" title="start sending audio" type="button">start sending
-                    audio</button>
+                  <button id="toogle-audio" title="toogle audio" value="on" type="button"><img
+                    src="static/mic.png" /></button>
 
-                  <button id="stop-sending-video" title="stop sending video" type="button">stop sending video</button>
-                  <button id="start-sending-video" title="start sending video" type="button">start sending
-                    video</button>
-                  <form id="constraints">
-                    <fieldset>
-                      <legend>Constraints</legend>
-                      <input id="constraints-audio" title="audio" type="checkbox" checked>
-                      <label for="constraints-audio">Audio</label>
-                      <input id="constraints-video" title="video" type="checkbox" checked>
-                      <label for="constraints-video">Video</label>
-                    </fieldset>
-                  </form>
+                  <button id="toogle-video" title="toogle video" value="on" type="button"><img
+                    src="static/video.png" /></button>
+
                 </div>
 
 

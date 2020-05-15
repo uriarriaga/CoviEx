@@ -119,14 +119,6 @@
 
 
 
-    #closecall {
-
-      display: none;
-
-      visibility: hidden;
-      display: none;
-
-    }
   </style>
 
 
@@ -167,11 +159,9 @@
 
       <div class="container" style="margin-top:30px">
         <div class="row">
-          <div class="col-sm-1">
 
-          </div>
 
-          <div class="col-sm-10">
+          <div class="col-sm-12">
 
             <div class="w3-panel w3-light-grey w3-border w3-round">
 
@@ -208,43 +198,37 @@
 
                   </form>
                 </div>
-                <div id="closecall">
-                  <p> La llamada a terminado de forma correcta! </p>
-                </div>
-                <div id="contenedor">
+
+                <div id="contenedor" style="display: flex" >
 
 
-                  <!-- <div style="width:50%"> -->
+                 
+               
+                          <audio style="width:100%"  id="remote-view-audio" autoplay playsinline></audio>
+                          <video  style="width:100%" id="remote-view-video" autoplay playsinline></video>
 
 
-                  <audio style="width:100%" id="remote-view-audio" autoplay></audio>
-                  <video style="width:100%" id="remote-view-video" autoplay></video>
-                  <br>
-                  <br>
-                  <div align="center">
 
-                    <video onresize="updateValue()"  width="120" height="120"  id="self-view" muted autoplay></video>
-
-
-                  </div>
-
+                                           <!-- <div style="width:50%"> -->
+                        <div class="container">
+                        <video  onresize="updateValue()" style="width:100%" height="150"  id="self-view" muted autoplay playsinline></video>
+                        </div>
+                  
 
 
                   <!-- </div> -->
                 </div>
-                <br>
-                <br>
-                <br>
+
                 <br>
                 <div id="colgar" style="display:none" align="center">
                   <button onclick="mostrar()" id="hangup" title="hangup" type="button"><img
                       src="static/hangup.png" /></button>
 
-                  <button id="stop-sending-audio" title="stop sending audio" type="button">stop sending audio</button>
+                 
                   <button id="start-sending-audio" title="start sending audio" type="button">start sending
                     audio</button>
 
-                  <button id="stop-sending-video" title="stop sending video" type="button">stop sending video</button>
+                 
                   <button id="start-sending-video" title="start sending video" type="button">start sending
                     video</button>
 
@@ -254,9 +238,6 @@
               </div>
 
             </div>
-
-          </div>
-          <div class="col-sm-1">
 
           </div>
 
@@ -295,8 +276,7 @@
 <script>
 
 
-  document.querySelector(
-    "#closecall").style.visibility = "hidden";
+
 
 
   var bandera = 0;
@@ -373,8 +353,7 @@
     document.getElementById("cabecera").style.display = "none";
     document.getElementById("boton_call").style.display = "none";
     document.getElementById("contenedor").style.display = "block";
-    document.querySelector(
-      "#closecall").style.visibility = "hidden";
+
 
 
 
@@ -392,10 +371,9 @@
     document.getElementById("boton_call").style.display = "block";
 
     document.getElementById("contenedor").style.display = "none";
-    document.getElementById("closecall").style.display = "block";
+    //document.getElementById("closecall").style.display = "block";
 
-    document.querySelector(
-      "#closecall").style.visibility = "visible";
+   
     document.getElementById("contenedor").style.display = "none";
 
 
@@ -469,8 +447,7 @@
       document.querySelector(
         "#loader").style.visibility = "visible";
 
-      document.querySelector(
-        "#closecall").style.visibility = "hidden";
+
 
     } else {
 
@@ -484,7 +461,7 @@
       if (screen.width > 800) {
 
         srcw = 1.7;
-      }
+      } 
 
 
       if (screen.height > 800) {

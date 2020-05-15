@@ -1,25 +1,25 @@
 
-var webex = Webex.init();
+const webex = window.webex = Webex.init();
 
 const token       = document.getElementById("token").innerHTML;
 console.log(token);
 const destination = document.getElementById('destino').innerHTML;
 console.log(destination);
 
-webex.once(`ready`, function() {
+webex.once('ready', function() {
     webex.authorization.requestAccessTokenFromJwt({jwt: token})
       .then(() => {
                   
           webex.meetings.register()
           .catch((err) => {
             console.error(err);
-            alert(err);
+            //alert(err);
             throw err;
           });
 
           function bindMeetingEvents(meeting) {
           meeting.on('error', (err) => {
-            console.error(err);
+           // console.error("XXXXXXX PUTO EL Q_Ue LO LEA ");
           });
 
           // Handle media streams changes to ready state
@@ -55,8 +55,21 @@ webex.once(`ready`, function() {
 
           // Of course, we'd also like to be able to leave the meeting:
           document.getElementById('hangup').addEventListener('click', () => {
-            meeting.leave();
+
+
+            try {
+                  meeting.leave();
+                } catch (error) {
+                console.error(error);
+                    // expected output: ReferenceError: nonExistentFunction is not defined
+                    // Note - error messages will vary depending on browser
+                }
+        
           });
+
+          console.log("llegamos al join meeting")
+          return joinMeeting(meeting);
+
           }
 
           // Join the meeting and add media
@@ -96,12 +109,13 @@ webex.once(`ready`, function() {
           return webex.meetings.create(destination).then((meeting) => {
             // Call our helper function for binding events to meetings
             bindMeetingEvents(meeting);
-
-            return joinMeeting(meeting);
+            
+            
           })
           .catch((error) => {
             // Report the error
             console.error(error);
+           
           });
           });
       })

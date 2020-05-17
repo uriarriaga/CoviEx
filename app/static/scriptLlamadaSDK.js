@@ -126,12 +126,24 @@ webex.authorization.requestAccessTokenFromJwt({ jwt: token })
                     activeMeeting.muteVideo().then(() => {
                         console.log("Mute");
                         document.getElementById('toogle-video').value = "off";
+                        document.getElementById('remote-view-video').style.visibility = 'hidden';
+                        document.getElementById('self-view').style.visibility = 'hidden';
+                        document.getElementById('self-view').style.height = '0px';
+                        document.getElementById('remote-view-video').style.height = '0px';
+                        document.getElementById('audioOnly').style.visibility = 'visible';
+                        document.getElementById('audioOnly').style.height = '100px';
                         $("#videox").removeAttr("src").attr("src", "static/video-off.png");
                     });
                 } else {
                     activeMeeting.unmuteVideo().then(() => {
                         console.log("unMute");
                         document.getElementById('toogle-video').value = "on";
+                        document.getElementById('remote-view-video').style.visibility = 'visible';
+                        document.getElementById('self-view').style.visibility = 'visible';
+                        document.getElementById('self-view').style.height = "100px";
+                        document.getElementById('remote-view-video').style.height = null;
+                        document.getElementById('audioOnly').style.visibility = 'hidden';
+                        document.getElementById('audioOnly').style.height = '0px';
                         $("#videox").removeAttr("src").attr("src", "static/video-on.png");
                     });
                 }

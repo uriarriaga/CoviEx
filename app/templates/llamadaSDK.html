@@ -118,16 +118,18 @@
     }
 
 
-table, th, td {
+    table,
+    th,
+    td {
 
-  border-collapse: collapse;
-}
-th, td {
-  padding: 5px;
-  text-align: center;    
-}
+      border-collapse: collapse;
+    }
 
-
+    th,
+    td {
+      padding: 5px;
+      text-align: center;
+    }
   </style>
 
 
@@ -208,23 +210,28 @@ th, td {
                   </form>
                 </div>
 
-                <div id="contenedor" style="display: flex"  >
+                <div id="contenedor" style="display: flex">
 
 
-                 
-                        <div class="row">
-                          <audio style="width:100%"  id="remote-view-audio" autoplay playsinline></audio>
-                          <video  style="width:100%" id="remote-view-video" autoplay playsinline>  Tu navegador no esta actualizado o no es compatible para poder realizar la llamada de video.</video>
-                        
-                        </div>
+
+                  <div class="row">
+                    <audio style="width:100%" id="remote-view-audio" autoplay playsinline></audio>
+                    <video style="width:100%" id="remote-view-video" autoplay playsinline> Tu navegador no esta
+                      actualizado o no es compatible para poder realizar la llamada de video.</video>
+                    <img id= "audioOnly" align="center" src="static/audioOnly.png" style="visibility: hidden; height: 0px;
+                    width: 100px;">
+                      
+                  </div>
 
 
-                                           <!-- <div style="width:50%">  style="width: 150%; height: 220px; overflow: hidden;"-->
-                        <div class="row" id="video-propio"  >
-                          
-                        <video  onresize="updateValue()"  style="width: 100%; height: 200px;"  id="self-view"  muted autoplay playsinline> Tu navegador no esta actualizado o no es compatible para poder realizar la llamada de video.</video>
-                        </div>
-                  
+                  <!-- <div style="width:50%">  style="width: 150%; height: 220px; overflow: hidden;"-->
+                  <div class="row" id="video-propio">
+
+                    <video onresize="updateValue()" style="width: 100%; height: 200px;" id="self-view" muted autoplay
+                      playsinline> Tu navegador no esta actualizado o no es compatible para poder realizar la llamada de
+                      video.</video>
+                  </div>
+
 
 
                   <!-- </div> -->
@@ -232,30 +239,30 @@ th, td {
 
                 <br>
                 <br>
-            
+
 
                 <div id="colgar" style="display:none" align="center">
 
 
 
-                    <table style="width:100%">
-                        <tr>
-                          <th>   <button onclick="mostrar()" id="hangup" title="hangup" type="button"><img
-                        src="static/hangup.png" /></button></th>
-                          <th >    <button id="toogle-audio" title="toogle audio" value="on" type="button"><img id="mute"
-                      src="static/mic.png" /></button></th>
-                          <th >          <button id="toogle-video" title="toogle video" value="on" type="button"><img id="videox"
-                      src="static/video-on.png" /></button></th>
-                        </tr>
+                  <table style="width:100%">
+                    <tr>
+                      <th> <button onclick="mostrar()" id="hangup" title="hangup" type="button"><img
+                            src="static/hangup.png" /></button></th>
+                      <th> <button id="toogle-audio" title="toogle audio" value="on" type="button"><img id="mute"
+                            src="static/mic.png" /></button></th>
+                      <th> <button id="toogle-video" title="toogle video" value="on" type="button"><img id="videox"
+                            src="static/video-on.png" /></button></th>
+                    </tr>
 
-                    </table>
-                 
-                 
+                  </table>
 
-                
 
-          
-                
+
+
+
+
+
 
                 </div>
 
@@ -398,7 +405,7 @@ th, td {
     document.getElementById("contenedor").style.display = "none";
     //document.getElementById("closecall").style.display = "block";
 
-   
+
     document.getElementById("contenedor").style.display = "none";
 
 
@@ -430,7 +437,7 @@ th, td {
       if (screen.width > 800) {
 
         srcw = 1.7;
-      } 
+      }
 
 
       if (screen.height > 800) {
@@ -442,8 +449,8 @@ th, td {
       document.getElementById("my-webexteams-widget").style.height = " " + (screen.height - (screen.height / srch)) + "px";
 
 
-       //  document.getElementById("self-view").style.width = " " + screen.width  + "px"; 
-       //document.getElementById("self-view").style.height = " " + ((screen.height - (screen.height / srch))-400) + "px";
+      //  document.getElementById("self-view").style.width = " " + screen.width  + "px"; 
+      //document.getElementById("self-view").style.height = " " + ((screen.height - (screen.height / srch))-400) + "px";
 
       // Usage!
       sleep(7000).then(() => {

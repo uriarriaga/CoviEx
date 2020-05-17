@@ -66,11 +66,13 @@ def hostJoined(meetingKey):
     hostJoined = str(response["serv:message"]["serv:body"]["serv:bodyContent"]["meet:hostJoined"])
     return hostJoined == "true"
 
-def createJWT(user_id,expirationTime,secret):
+def createJWT(expirationTime,token):
+    secret  = "jp8+HKzN0IuidhQ0DDRugsenQ88yK4MR3/qk7fvfauE="
+    user_id = "Y2lzY29zcGFyazovL3VzL09SR0FOSVpBVElPTi8zOTg4NzRjZC1lZDY0LTQ4OWMtODFhMS0yNDE5NzBiMTY2NjE"
     key64 = base64.b64decode(secret)
     payload = {
-    "sub": "Teleconsulta",
-    "name": "Teleconsulta",
+    "sub": token,
+    "name": token,
     "iss": user_id,
     "exp": expirationTime
     }
@@ -84,30 +86,9 @@ def sendAgendaSMS(contactos=["5580663521"],fecha="fecha en pruebas",tipo="tipo d
         sendSMS("+52"+contacto,texto)
 
 def sendWidgetSMS(contacto,token):
-    #texto = "Servicio de TeleConsulta INER. Para iniciar la videollamada favor de ingresar a la siguiente direccion: https://iner.teleconsulta.mx/widget?token=" + token 
-    texto = "Servicio de TeleConsulta INER. Para iniciar la videollamada favor de ingresar a la siguiente direccion: https://a27ee2a9.ngrok.io/widget?token=" + token 
+    texto = "Servicio de TeleConsulta INER. Para iniciar la videollamada favor de ingresar a la siguiente direccion: https://iner.teleconsulta.mx/widget?token=" + token 
     sendSMS("+52"+contacto,texto)
-"""
-def sendSMS(contacto,text):
-    params = {'from': os.environ["sender"], 'text': text, 
-            'to': contacto, 'api_key': os.environ["api_key"], 
-            'api_secret': os.environ["api_secret"]}
-    r = requests.post(os.environ["urlSMS"], params=params)
-    if r.status_code == 200:
-        responseBody = r.json()["messages"][0]
-        print(r.json())
-        if responseBody["status"] == "0":
-            mensaje = "Mensaje enviado exitosamente al numero {}; queda un saldo de {}".format(responseBody["to"],
-                                                                    responseBody["remaining-balance"])
-            sendWebexMsg(mensaje,os.environ["idRoomTodos"])
-            sendWebexMsg(text,os.environ["idRoomTodos"])
-        else:
-            mensaje = "Mensaje NO fue enviado; el detalle es: "+str(responseBody)
-            sendWebexMsg(mensaje,os.environ["idRoomTodos"])     
-    else:
-            print(r.status_code)
-            sendWebexMsg(r.status_code,os.environ["idRoomTodos"])
-"""
+
 def sendSMS(contacto,text):
 
     url = "https://api.twilio.com/2010-04-01/Accounts/ACc14eae52a15ea3cb0594390aedba3b92/Messages.json"
@@ -117,11 +98,8 @@ def sendSMS(contacto,text):
     'Authorization': 'Basic QUNjMTRlYWU1MmExNWVhM2NiMDU5NDM5MGFlZGJhM2I5MjphNDFjYjgxMGFhNGIwNjMxZjhlZTA5YTIzNWMwMzE4Yg==',
     'Content-Type': 'application/x-www-form-urlencoded'
     }
-
     response = requests.post( url, headers=headers, data = payload).json()
-
     url = "https://api.twilio.com"+ response["uri"]
-
     headers = {
     'Authorization': 'Basic QUNjMTRlYWU1MmExNWVhM2NiMDU5NDM5MGFlZGJhM2I5MjphNDFjYjgxMGFhNGIwNjMxZjhlZTA5YTIzNWMwMzE4Yg==',
     'Content-Type': 'application/x-www-form-urlencoded'
@@ -134,21 +112,17 @@ def sendSMS(contacto,text):
 
 
 
-def generarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com",nombre="teleconsulta"):
+def generarWebex(listaNumeros=["5580663521"],correo="joarriag.iner@gmail.com",nombre="teleconsulta"):
     fecha=datetime.utcnow().timestamp()
     sendWebexMsg(datetime.fromtimestamp(int(fecha)-18000))
     timeForWebex = datetime.fromtimestamp(int(fecha)-18000).strftime("%m/%d/20%y %H:%M:00")
     actualTimePlusHR = str(datetime.utcnow().timestamp()+3600)
-    invitados = db.session.query(GuestUser).filter(GuestUser.expirationTime<=datetime.utcnow().timestamp()).all()
-    if len(listaNumeros) > len(invitados):
-        print("no hay suficientes GuestUsers para la sesion")
-        return False
-    sipURL = createWebexMeeting(nombre,timeForWebex,host=correo)    
-    for numero,invitado in zip(listaNumeros,invitados):
+    sipURL = createWebexMeeting(nombre,timeForWebex,correo)  
+    if sipURL is None: return  False
+    for numero in listaNumeros:
         token = token_urlsafe(10)[:10]
-        invitado.indentficadorTemporal = token
-        invitado.expirationTime = actualTimePlusHR
-        invitado.correo = sipURL
+        guestUser = GuestUser(token = token, expirationTime = actualTimePlusHR,SIP = sipURL)
+        db.session.add(guestUser)
         db.session.commit()
         sendWidgetSMS(numero,token)
     return True
@@ -166,18 +140,13 @@ def cronSMS():
     for evento in eventos:
         sendWebexMsg(datetime.fromtimestamp(int(evento.fecha_hora)))
         listaNumeros = evento.celulares.split(",")
-        print(listaNumeros)
         invitados = db.session.query(GuestUser).filter(GuestUser.expirationTime<=datetime.utcnow().timestamp()).all()
-        if len(listaNumeros) > len(invitados):
-            print("no hay suficientes GuestUsers para la sesion")
-            return False
         sipURL = evento.SIP   
-        for numero,invitado in zip(listaNumeros,invitados):
+        for numero in listaNumeros:
             print(numero)
             token = token_urlsafe(10)[:10]
-            invitado.indentficadorTemporal = token
-            invitado.expirationTime = actualTimePlusHR
-            invitado.correo = sipURL
+            guestUser = GuestUser(token = token, expirationTime = actualTimePlusHR,SIP = sipURL)
+            db.session.add(guestUser)
             db.session.commit()
             sendWidgetSMS(numero,token)
     return "SMSs Sends para "+str(len(eventos))

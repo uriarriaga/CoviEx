@@ -51,16 +51,16 @@ def logout():
 @app.route('/widget')
 def widget():
     token = request.args.get('token')
-    invitado = db.session.query(GuestUser).filter_by(indentficadorTemporal=token).first() 
+    invitado = db.session.query(GuestUser).filter_by(token=token).first() 
     if invitado is None:
         return render_template('widgetexpired.html', title='widget')
     if invitado.expirationTime <= datetime.utcnow().timestamp():
-        print(invitado.username,invitado.expirationTime)
+        print(invitado.token,invitado.expirationTime)
         return render_template('widgetexpired.html', title='widget')
-    if not hostJoined(invitado.correo.split("@")[0]):
+    if not hostJoined(invitado.SIP.split("@")[0]):
         return render_template('widgetLobby.html', title='widget')
-    JWToken = createJWT(invitado.user_id,invitado.expirationTime,invitado.secret)
-    return render_template('llamadaSDK.html', title='widget', token=JWToken, SIP=invitado.correo)
+    JWToken = createJWT(invitado.expirationTime,token)
+    return render_template('llamadaSDK.html', title='widget', token=JWToken, SIP=invitado.SIP)
 
 @app.route('/cronisticamente')
 def cron():

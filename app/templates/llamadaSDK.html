@@ -86,7 +86,7 @@
 
 
     img {
-      width: 100%;
+      width: 60%;
       height: auto;
     }
   </style>
@@ -117,6 +117,15 @@
       margin: auto;
     }
 
+
+table, th, td {
+
+  border-collapse: collapse;
+}
+th, td {
+  padding: 5px;
+  text-align: center;    
+}
 
 
   </style>
@@ -157,7 +166,7 @@
 
 
 
-      <div class="container" style="margin-top:30px">
+      <div class="container" style="margin-top:10px">
         <div class="row">
 
 
@@ -188,7 +197,7 @@
               <p id="token" hidden>{{ token }}</p>
               <p id="destino" hidden>{{ SIP }}</p>
 
-              <div id="my-webexteams-widget">
+              <div id="my-webexteams-widget" align="center">
 
                 <div style="display:none" id="boton_call" align="center">
                   <form id="destination">
@@ -199,19 +208,21 @@
                   </form>
                 </div>
 
-                <div id="contenedor" style="display: flex" >
+                <div id="contenedor" style="display: flex"  >
 
 
                  
-               
+                        <div class="row">
                           <audio style="width:100%"  id="remote-view-audio" autoplay playsinline></audio>
-                          <video  style="width:100%" id="remote-view-video" autoplay playsinline></video>
+                          <video  style="width:100%" id="remote-view-video" autoplay playsinline>  Tu navegador no esta actualizado o no es compatible para poder realizar la llamada de video.</video>
+                        
+                        </div>
 
 
-
-                                           <!-- <div style="width:50%"> -->
-                        <div class="container">
-                        <video  onresize="updateValue()" style="width:100%" height="150"  id="self-view" muted autoplay playsinline></video>
+                                           <!-- <div style="width:50%">  style="width: 150%; height: 220px; overflow: hidden;"-->
+                        <div class="row" id="video-propio"  >
+                          
+                        <video  onresize="updateValue()"  style="width: 100%; height: 200px;"  id="self-view"  muted autoplay playsinline> Tu navegador no esta actualizado o no es compatible para poder realizar la llamada de video.</video>
                         </div>
                   
 
@@ -220,25 +231,31 @@
                 </div>
 
                 <br>
+                <br>
+            
+
                 <div id="colgar" style="display:none" align="center">
-                  <button onclick="mostrar()" id="hangup" title="hangup" type="button"><img
-                      src="static/hangup.png" /></button>
 
-<<<<<<< HEAD
+
+
+                    <table style="width:100%">
+                        <tr>
+                          <th>   <button onclick="mostrar()" id="hangup" title="hangup" type="button"><img
+                        src="static/hangup.png" /></button></th>
+                          <th >    <button id="toogle-audio" title="toogle audio" value="on" type="button"><img id="mute"
+                      src="static/mic.png" /></button></th>
+                          <th >          <button id="toogle-video" title="toogle video" value="on" type="button"><img id="videox"
+                      src="static/video-on.png" /></button></th>
+                        </tr>
+
+                    </table>
                  
-                  <button id="start-sending-audio" title="start sending audio" type="button">start sending
-                    audio</button>
-
                  
-                  <button id="start-sending-video" title="start sending video" type="button">start sending
-                    video</button>
-=======
-                  <button id="toogle-audio" title="toogle audio" value="on" type="button"><img
-                    src="static/mic.png" /></button>
 
-                  <button id="toogle-video" title="toogle video" value="on" type="button"><img
-                    src="static/video.png" /></button>
->>>>>>> f5692001f74d23d8e3301a15bb3420ab35a8380f
+                
+
+          
+                
 
                 </div>
 
@@ -385,62 +402,6 @@
     document.getElementById("contenedor").style.display = "none";
 
 
-
-
-  }
-
-
-
-
-
-  function getResolution() {
-
-
-
-
-
-
-
-    //alert("Your screen is: " + screen.width + "x" + screen.height);
-    var srcw = 12;
-    var srch = 4;
-    if (screen.width > 800) {
-
-      srcw = 1.7;
-    }
-
-
-    if (screen.height > 800) {
-
-      srch = 1.5;
-    }
-
-    document.getElementById("my-webexteams-widget").style.width = " " + (screen.width - (screen.width / srcw)) + "px";
-    document.getElementById("my-webexteams-widget").style.height = " " + (screen.height - (screen.height / srch)) + "px";
-
-
-    // Usage!
-    sleep(400).then(() => {
-      // Do something after the sleep!
-      mostrar();
-      document.getElementById("colgar").style.display = "block";
-    });
-
-
-
-    //document.getElementById("remote-view-video").style.height =  " " + ((screen.height - (screen.height/srch)) /10 )  + "px";
-
-    //document.getElementById("my-webexteams-widget").style.height = "900px";
-
-
-    // Este codigo oculta la parte del Menu
-    /*
-    console.log("se cargo la ventana ");
-    var x = document.getElementById("menu");
-   
-    x.style.display = "none";
-    */
-
   }
 
 
@@ -463,9 +424,9 @@
 
 
       // your code here
-      //alert("Your screen is: " + screen.width + "x" + screen.height);
-      var srcw = 12;
-      var srch = 4;
+      console.log("Your screen is width: " + screen.width + " x screen height:  " + screen.height);
+      var srcw = 15;
+      var srch = 6;
       if (screen.width > 800) {
 
         srcw = 1.7;
@@ -481,7 +442,8 @@
       document.getElementById("my-webexteams-widget").style.height = " " + (screen.height - (screen.height / srch)) + "px";
 
 
-
+       //  document.getElementById("self-view").style.width = " " + screen.width  + "px"; 
+       //document.getElementById("self-view").style.height = " " + ((screen.height - (screen.height / srch))-400) + "px";
 
       // Usage!
       sleep(7000).then(() => {

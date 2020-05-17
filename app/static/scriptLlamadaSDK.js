@@ -3,7 +3,7 @@ const token = document.getElementById("token").innerHTML;
 console.log(token);
 const destination = document.getElementById('destino').innerHTML;
 console.log(destination);
-webex.once(ready, function () {
+webex.once('ready', function () {
 webex.authorization.requestAccessTokenFromJwt({ jwt: token })
 .then(() => {
         webex.meetings.register()
@@ -104,11 +104,16 @@ webex.authorization.requestAccessTokenFromJwt({ jwt: token })
                     activeMeeting.muteAudio().then(() => {
                         console.log("Mute");
                         document.getElementById('toogle-audio').value = "off";
+     
+
+                        $("#mute").removeAttr("src").attr("src", "static/mute.png");
                     });
                 } else {
                     activeMeeting.unmuteAudio().then(() => {
                         console.log("unMute");
                         document.getElementById('toogle-audio').value = "on";
+                        $("#mute").removeAttr("src").attr("src", "static/mic.png");
+             
                     });
                 }
             }
@@ -121,11 +126,13 @@ webex.authorization.requestAccessTokenFromJwt({ jwt: token })
                     activeMeeting.muteVideo().then(() => {
                         console.log("Mute");
                         document.getElementById('toogle-video').value = "off";
+                        $("#videox").removeAttr("src").attr("src", "static/video-off.png");
                     });
                 } else {
                     activeMeeting.unmuteVideo().then(() => {
                         console.log("unMute");
                         document.getElementById('toogle-video').value = "on";
+                        $("#videox").removeAttr("src").attr("src", "static/video-on.png");
                     });
                 }
             }
@@ -142,7 +149,7 @@ webex.authorization.requestAccessTokenFromJwt({ jwt: token })
                 activeMeeting = meeting;
 
                 bindMeetingEvents(meeting);
-                meeting.muteVideo()
+            
 
             })
                 .catch((error) => {

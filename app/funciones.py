@@ -75,7 +75,7 @@ def webexURL(meetingKey):
     response = requests.post( url, headers=headers, data = payload).text
     response = xmltodict.parse(response)
     #print(response)
-    return = str(response["serv:message"]["serv:body"]["serv:bodyContent"]["meet:meet:meetingLink"])
+    return str(response["serv:message"]["serv:body"]["serv:bodyContent"]["meet:meetingLink"])
      
 
 def createJWT(expirationTime,token):

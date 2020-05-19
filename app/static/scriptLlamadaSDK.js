@@ -3,6 +3,7 @@ const token = document.getElementById("token").innerHTML;
 console.log(token);
 const destination = document.getElementById('destino').innerHTML;
 console.log(destination);
+
 webex.once('ready', function () {
 webex.authorization.requestAccessTokenFromJwt({ jwt: token })
 .then(() => {

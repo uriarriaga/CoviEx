@@ -66,6 +66,18 @@ def hostJoined(meetingKey):
     hostJoined = str(response["serv:message"]["serv:body"]["serv:bodyContent"]["meet:hostJoined"])
     return hostJoined == "true"
 
+def webexURL(meetingKey):
+    with open("app/getmeeting.xml") as file: 
+            data = file.read()
+    payload = data.format(meetingKey)
+    url = "https://api.webex.com/WBXService/XMLService"
+    headers = { 'Content-Type': 'text/plain'}
+    response = requests.post( url, headers=headers, data = payload).text
+    response = xmltodict.parse(response)
+    #print(response)
+    return = str(response["serv:message"]["serv:body"]["serv:bodyContent"]["meet:meet:meetingLink"])
+     
+
 def createJWT(expirationTime,token):
     secret  = "jp8+HKzN0IuidhQ0DDRugsenQ88yK4MR3/qk7fvfauE="
     user_id = "Y2lzY29zcGFyazovL3VzL09SR0FOSVpBVElPTi8zOTg4NzRjZC1lZDY0LTQ4OWMtODFhMS0yNDE5NzBiMTY2NjE"

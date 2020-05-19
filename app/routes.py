@@ -1,6 +1,6 @@
 from flask import request, redirect, url_for, render_template, flash, session ,  jsonify
 from app import app, db, Base, Familiar, GuestUser, Paciente, Agenda
-from app.funciones import sendWebexMsg, sendSMS, createJWT, generarWebex, existeWebex,agendarWebex, hostJoined, cronSMS, sendAgendaSMS
+from app.funciones import sendWebexMsg, sendSMS, createJWT, generarWebex, existeWebex,agendarWebex, hostJoined, cronSMS, sendAgendaSMS, webexURL 
 from app.forms import LoginForm, smsForm, userForm,capturesForm, PacienteForm, PacientesForm
 from app.models import User
 from flask_sqlalchemy import SQLAlchemy
@@ -60,7 +60,7 @@ def widget():
     if not hostJoined(invitado.SIP.split("@")[0]):
         return render_template('widgetLobby.html', title='widget')
     JWToken = createJWT(invitado.expirationTime,token)
-    return render_template('llamadaSDK.html', title='widget', token=JWToken, SIP=invitado.SIP)
+    return render_template('llamadaSDK.html', title='widget', token=JWToken, SIP=invitado.SIP,redirect=webexURL)
 
 @app.route('/cronisticamente')
 def cron():

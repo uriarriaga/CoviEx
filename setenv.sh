@@ -7,5 +7,5 @@ export urlSMS=https://rest.nexmo.com/sms/json
 export sender=INER-t
 export api_key=19868339
 export api_secret=u4gdopqbTdxav4lM
-export URLApp=staging.teleconsulta.mx
+export URLApp=https://d5bc5a52.ngrok.io
 export URL_DB=mysql://sql9336570:pHjGFAlvei@sql9.freemysqlhosting.net/sql9336570

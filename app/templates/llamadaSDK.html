@@ -132,11 +132,9 @@
     }
   </style>
 
-
-
-
-
 </head>
+
+
 
 
 <body>
@@ -198,6 +196,7 @@
 
               <p id="token" hidden>{{ token }}</p>
               <p id="destino" hidden>{{ SIP }}</p>
+              <p id="redirect" hidden>{{ redirect }}</p>
 
               <div id="my-webexteams-widget" align="center">
 
@@ -218,9 +217,9 @@
                     <audio style="width:100%" id="remote-view-audio" autoplay playsinline></audio>
                     <video style="width:100%" id="remote-view-video" autoplay playsinline> Tu navegador no esta
                       actualizado o no es compatible para poder realizar la llamada de video.</video>
-                    <img id= "audioOnly" align="center" src="static/audioOnly.png" style="visibility: hidden; height: 0px;
+                    <img id="audioOnly" align="center" src="static/audioOnly.png" style="visibility: hidden; height: 0px;
                     width: 100px;">
-                      
+
                   </div>
 
 
@@ -335,16 +334,11 @@
 
     if (bandera == 0) {
 
-
-
-
       console.log("cambio l ventana");
 
-      //400
       sleep(400).then(() => {
         document.getElementById("conectando").style.display = "block";
         document.getElementById("hangup").click(); // Click on the checkbox
-
       });
 
       bandera = 1;
@@ -358,20 +352,26 @@
 
       });
 
-
     }
-
-
 
   }
 
 
   window.onload = function () {
+    var myRE = /^[A-Z]{3}-L(X?[0-9]*[A-Z]*|[0-9]*[A-Z]*)/;
+    var res = navigator.userAgent.split(";");
+    var res1 = res[2].split(")");
+    console.log(res1)
+    const URLRedirect = document.getElementById('redirect').innerHTML;
+    console.log(URLRedirect)
+
+    if (myRE.test(res1[0].trim())) {
+      alert("Dispositivo No Soportado para Llamadas via Web Browser \n Por favor descargue la APP de Webex");
+      window.location = URLRedirect;
+      return;
+    }
     if (!window.location.hash) {
       window.location = window.location + '#loaded';
-
-
-
 
       var head = document.getElementsByTagName('head')[0];
       var script = document.createElement('script');
@@ -380,41 +380,19 @@
       script.src = "https://unpkg.com/webex@^1/umd/webex.min.js";
       head.appendChild(script);
 
-
-
-
-
       window.location.reload();
 
     }
   }
 
-
-
-
   function ocultar() {
-
-
-
-
-
-
-
 
     console.log("entro al submit. - -- - - - " + bandera + "se incrementa timer");
     document.getElementById("cabecera").style.display = "none";
     document.getElementById("boton_call").style.display = "none";
     document.getElementById("contenedor").style.display = "block";
 
-
-
-
     // Click on the checkbox
-
-
-
-
-
   }
 
   function mostrar() {
@@ -424,7 +402,6 @@
 
     document.getElementById("contenedor").style.display = "none";
     //document.getElementById("closecall").style.display = "block";
-
 
     document.getElementById("contenedor").style.display = "none";
 

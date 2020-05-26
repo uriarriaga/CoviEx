@@ -432,8 +432,8 @@ def llamada():
     if tipo == "2":
         generarWebex(celulares,email, "Informe Medico " + nombre)
     if tipo == "3":
-        #generarWebex(celulares,email, "TeleVisita " + nombre)
-        print("echo")
+        generarWebex(celulares,email, "TeleVisita " + nombre)
+     
 
     #llamar funcoin envio de sms de uri todo en epoc
     # datetime

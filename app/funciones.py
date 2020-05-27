@@ -144,15 +144,17 @@ def agendarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com",nombre=
     timeForWebex = datetime.utcfromtimestamp(int(fecha)).strftime("%m/%d/20%y %H:%M:00")
     return  createWebexMeeting(nombre,timeForWebex,host=correo)    
 
-def cronSMS():
+def cronSMS(minutos):
     actualTimePlusHR = str(datetime.utcnow().timestamp()+3600)
-    ahora, en20min = (datetime.utcnow().timestamp()-18000,datetime.utcnow().timestamp()-16800)
-    print(ahora,en20min)
-    eventos = db.session.query(Agenda).filter(Agenda.fecha_hora.between(ahora,en20min)).all()
+    JSONeventos ={"eventos":[]}
+    enXsec = 18000-(60*minutos)
+    ahora, enXmin = (datetime.utcnow().timestamp()-18000,datetime.utcnow().timestamp()-enXsec)
+    print(ahora,enXmin)
+    eventos = db.session.query(Agenda).filter(Agenda.fecha_hora.between(ahora,enXmin)).all()
     for evento in eventos:
-        sendWebexMsg(datetime.fromtimestamp(int(evento.fecha_hora)))
         listaNumeros = evento.celulares.split(",")
-        invitados = db.session.query(GuestUser).filter(GuestUser.expirationTime<=datetime.utcnow().timestamp()).all()
+        JSONevento={"fecha":str(datetime.fromtimestamp(int(evento.fecha_hora))),"numeros":listaNumeros}
+        JSONeventos["eventos"].append(JSONevento)
         sipURL = evento.SIP   
         for numero in listaNumeros:
             print(numero)
@@ -161,7 +163,7 @@ def cronSMS():
             db.session.add(guestUser)
             db.session.commit()
             sendWidgetSMS(numero,token)
-    return "SMSs Sends para "+str(len(eventos))
+    return str(JSONeventos)
 
 def existeWebex(correo="joarriag.iner@gmail.com"):
     correoSplit = correo.split("@")

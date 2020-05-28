@@ -27,7 +27,7 @@ def ourloggin(texto,mandarWebexMsg=False):
         sendWebexMsg(texto,os.environ["idRoomTodos"])
 
 def setSchedulingPermissions(host="joarriag.iner@gmail.com"):
-     with open("app/setUsers.xml") as file: 
+    with open("app/setUser.xml") as file: 
         data = file.read()
     url = "https://api.webex.com/WBXService/XMLService"
     payload = data.format(host)
@@ -35,7 +35,8 @@ def setSchedulingPermissions(host="joarriag.iner@gmail.com"):
     headers = {'Content-Type': 'text/plain'}
     response = requests.post( url, headers=headers, data = payload).text
     response = xmltodict.parse(response)
-    print(response)
+    exitoso = response["serv:message"]["serv:header"]["serv:response"]["serv:result"])
+    return exitoso = "SUCCESS"
 
 
 def createWebexMeeting(nombre,fecha,host="joarriag.iner@gmail.com"):
@@ -44,9 +45,7 @@ def createWebexMeeting(nombre,fecha,host="joarriag.iner@gmail.com"):
     url = "https://api.webex.com/WBXService/XMLService"
     payload = data.format(nombre,fecha,host)
     print(payload)
-    headers = {
-    'Content-Type': 'text/plain'
-    }
+    headers = {'Content-Type': 'text/plain'}
     response = requests.post( url, headers=headers, data = payload).text
     response = xmltodict.parse(response)
     resultado = str(response["serv:message"]["serv:header"]["serv:response"]["serv:result"])
@@ -182,15 +181,13 @@ def existeWebex(correo="joarriag.iner@gmail.com"):
     print(correo)
     correoURL = correoSplit[0]+"%40"+correoSplit[1]
     url = "https://api.ciscospark.com/v1/people?email="
-    headers = {
-    'Authorization': 'Bearer ZDJiMGQzNjctYTg4YS00ZjE0LWEwM2EtYTdlM2NiOWIyNDI3OGIxNTYyNTEtYjAx_PF84_9778f473-87b3-4fc8-9af5-a7dcf09d40db'
-    }
+    headers = {'Authorization': 'Bearer ZDJiMGQzNjctYTg4YS00ZjE0LWEwM2EtYTdlM2NiOWIyNDI3OGIxNTYyNTEtYjAx_PF84_9778f473-87b3-4fc8-9af5-a7dcf09d40db'}
     response = requests.get( url+correoURL, headers=headers).json()
     try:
         for item in response["items"]:
             for email in item["emails"]:
                 print(email)
-                if email == correo:
+                if email == correo and  setSchedulingPermissions():
                     return True
     except :
         return False

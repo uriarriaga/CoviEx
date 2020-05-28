@@ -10,7 +10,7 @@
     <body>
         <bodyContent xsi:type="java:com.webex.service.binding.user.SetUser">
         <webExId>{}</webExId>
-       <shedulingPermissions>ulmartin.iner@gmail.com<shedulingPermissions>
+       <schedulingPermission>ulmartin.iner@gmail.com</schedulingPermission>
     </bodyContent>
     </body>
 </serv:message>

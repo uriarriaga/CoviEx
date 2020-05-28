@@ -9,3 +9,17 @@ Cambiar las URLs de las llamadas de API en los html (cada archivo tiene una vari
 
 Cambiar el archivo initi para apuntar a la base de datos nueva
 
+
+
+Queries para modificar la base en produccion:
+
+ALTER TABLE GuestUser DROP COLUMN secret;
+ALTER TABLE GuestUser DROP COLUMN username;
+ALTER TABLE GuestUser DROP COLUMN user_id;
+ALTER TABLE GuestUser DROP COLUMN correo;
+
+
+
+ALTER TABLE GuestUser CHANGE indentficadorTemporal token varchar(10);
+
+ALTER TABLE GuestUser MODIFY SIP varchar(40);

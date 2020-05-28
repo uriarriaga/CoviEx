@@ -74,11 +74,11 @@ webex.authorization.requestAccessTokenFromJwt({ jwt: token })
                 })
                     .then(({ sendAudio, sendVideo }) => {
                         const mediaSettings = {
-                            receiveVideo: true,
+                            receiveVideo: true, //true
                             receiveAudio: true,
                             receiveShare: false,
                             sendShare: false,
-                            sendVideo: true,
+                            sendVideo: true, //true
                             sendAudio: true
                         };
 

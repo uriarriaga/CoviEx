@@ -26,6 +26,18 @@ def ourloggin(texto,mandarWebexMsg=False):
     if mandarWebexMsg:
         sendWebexMsg(texto,os.environ["idRoomTodos"])
 
+def setSchedulingPermissions(host="joarriag.iner@gmail.com"):
+     with open("app/setUsers.xml") as file: 
+        data = file.read()
+    url = "https://api.webex.com/WBXService/XMLService"
+    payload = data.format(host)
+    print(payload)
+    headers = {'Content-Type': 'text/plain'}
+    response = requests.post( url, headers=headers, data = payload).text
+    response = xmltodict.parse(response)
+    print(response)
+
+
 def createWebexMeeting(nombre,fecha,host="joarriag.iner@gmail.com"):
     with open("app/createMeetings.xml") as file: 
         data = file.read()

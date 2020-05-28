@@ -134,7 +134,18 @@
 
 </head>
 
-
+<script charset='UTF-8'>
+  window['adrum-start-time'] = new Date().getTime();
+  (function (config) {
+    config.appKey = 'AD-AAB-AAW-UCT';
+    config.adrumExtUrlHttp = 'http://cdn.appdynamics.com';
+    config.adrumExtUrlHttps = 'https://cdn.appdynamics.com';
+    config.beaconUrlHttp = 'http://pdx-col.eum-appdynamics.com';
+    config.beaconUrlHttps = 'https://pdx-col.eum-appdynamics.com';
+    config.xd = { enable: false };
+  })(window['adrum-config'] || (window['adrum-config'] = {}));
+</script>
+<script src='//cdn.appdynamics.com/adrum/adrum-20.4.0.3090.js'></script>
 
 
 <body>
@@ -257,23 +268,25 @@
                   </table>
 
 
-                     <div align="center">
-                          <h5>
-                           <strong>Cisco. Una iniciativa por México </strong>
-                           </h5>
-                           <ul style="list-style-type: none; margin: 0; padding: 0;">
-                           <li>
-                           <a  href="#"></a>
-                           </li>
-                           <li>
-                           <a  href="#">Al hacer uso de esta plataforma estás aceptando los Términos y Condiciones de la Licencia de Uso:</a>
-                           </li>
-                           <li>
-                           <a  href="https://developer.cisco.com/site/license/cisco-sample-code-license/"  target="_blank" >https://developer.cisco.com/site/license/cisco-sample-code-license/</a>
-                           </li>
-                           
-                           </ul>
-                    </div>
+                  <div align="center">
+                    <h5>
+                      <strong>Cisco. Una iniciativa por México </strong>
+                    </h5>
+                    <ul style="list-style-type: none; margin: 0; padding: 0;">
+                      <li>
+                        <a href="#"></a>
+                      </li>
+                      <li>
+                        <a href="#">Al hacer uso de esta plataforma estás aceptando los Términos y Condiciones de la
+                          Licencia de Uso:</a>
+                      </li>
+                      <li>
+                        <a href="https://developer.cisco.com/site/license/cisco-sample-code-license/"
+                          target="_blank">https://developer.cisco.com/site/license/cisco-sample-code-license/</a>
+                      </li>
+
+                    </ul>
+                  </div>
 
 
 

@@ -166,13 +166,19 @@
 
 
 
-      <div class="container" style="margin-top:10px">
+      <div  class="container" style="margin-top:10px">
         <div class="row">
 
 
           <div class="col-sm-12">
+            <div style="display:none" id="firefox">
+              <br>
+              <br>
+              <br>
+               <p class="sansserif"> Navegador No Soportado para Llamadas via Web Browser, por favor utilice otro navegador como Chrome o Safari. </p>
+            </div>
 
-            <div class="w3-panel w3-light-grey w3-border w3-round">
+            <div  id="xall" class="w3-panel w3-light-grey w3-border w3-round">
 
 
 
@@ -359,11 +365,25 @@
 
   window.onload = function () {
     var myRE = /^[A-Z]{3}-L(X?[0-9]*[A-Z]*|[0-9]*[A-Z]*)/;
+
     var res = navigator.userAgent.split(";");
     var res1 = res[2].split(")");
+
     console.log(res1)
     const URLRedirect = document.getElementById('redirect').innerHTML;
     console.log(URLRedirect)
+
+    if(navigator.userAgent.includes("Firefox")){
+
+
+        alert(" Navegador No Soportado para Llamadas via Web Browser, por favor utilice otro navegador como Chrome o Safari ");
+            document.getElementById("xall").style.display = "none";
+            document.getElementById("firefox").style.display = "block";
+
+        return;
+
+
+    }
 
     if (myRE.test(res1[0].trim())) {
       alert("Dispositivo No Soportado para Llamadas via Web Browser \n Por favor descargue la APP de Webex");

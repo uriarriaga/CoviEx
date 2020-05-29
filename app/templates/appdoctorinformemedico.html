@@ -423,6 +423,7 @@
 			       		 		$.ajax({
 								    url: url_base + '/llamada',
 								    type: 'post',
+								    header: 'Access-Control-Allow-Origin: *',
 								    dataType: 'json',
 								    success: function(respuesta) {
 								      console.log(respuesta);
@@ -542,6 +543,7 @@
        		 		$.ajax({
 					    url:url_base +'/agendarllamada',
 					    type: 'post',
+					    header: 'Access-Control-Allow-Origin: *',
 					    dataType: 'json',
 					    success: function(respuesta) {
 					      console.log(respuesta);	

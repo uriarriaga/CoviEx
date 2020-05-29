@@ -14,6 +14,14 @@ webex.authorization.requestAccessTokenFromJwt({ jwt: token })
                 throw err;
             });
 
+            webex.meetings.create(destino)
+            .then((meeting) => {
+              bindMeetingEvents(meeting);
+              joinMeeting(meeting);
+              meeting.leave()
+            })
+  
+
         function bindMeetingEvents(meeting) {
             meeting.on('error', (err) => {
                 console.error(err);

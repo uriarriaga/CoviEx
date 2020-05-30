@@ -336,7 +336,7 @@ def getpacientes():
 
     #print("------------" + y["employees"][0]["nombre"])
 
-        print(list)
+        #print(list)
         return listx
 
 

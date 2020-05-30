@@ -324,7 +324,7 @@ def getpacientes():
 
         list = "{" + '"' + 'pacientes' + '"' + ":" + "["
         for patient in pacients:
-            print(str(patient.nombre))
+            #print(str(patient.nombre))
             list += "{" + '"' + "nombre" + '"'+":" + '"' + patient.nombre + '"' + "," + '"' + "celular" + '"'+":" + '"' + patient.celular + \
                 '"' + "," + '"' + "email" + '"'+":" + '"' + patient.email + '"' + \
                     "," + '"' + "id" + '"'+":" + '"' + \

@@ -64,7 +64,7 @@ def widget():
 
 @app.route('/cronisticamente')
 def cron():
-    return str(cronSMS())
+    return str(cronSMS(10))
 
 # ///////// ////// ADMIN ////// ////// //////
 

@@ -186,8 +186,7 @@
               <br>
               <br>
               <br>
-              <p class="sansserif"> Navegador No Soportado para Llamadas via Web Browser, por favor utilice otro
-                navegador como Chrome o Safari. </p>
+              <p  id = "firefox_text" class="sansserif">  </p>
             </div>
 
             <div id="xall" class="w3-panel w3-light-grey w3-border w3-round">
@@ -387,6 +386,8 @@
   window.onload = function () {
     var myRE = /^[A-Z]{3}-L(X?[0-9]*[A-Z]*|[0-9]*[A-Z]*)/;
 
+    var URL_firefox = window.location.href;
+
     var res = navigator.userAgent.split(";");
     var res1 = res[2].split(")");
 
@@ -397,6 +398,8 @@
     if (navigator.userAgent.includes("Firefox")) {
 
 
+
+      document.getElementById("firefox_text").innerHTML ="Navegador No Soportado para Llamadas via Web Browser, por favor utilice otro navegador como Chrome o Safari, copie y pegue la siguiente liga:  " + URL_firefox;
       alert(" Navegador No Soportado para Llamadas via Web Browser, por favor utilice otro navegador como Chrome o Safari ");
       document.getElementById("xall").style.display = "none";
       document.getElementById("firefox").style.display = "block";

@@ -346,6 +346,7 @@
 	                    url : url_insertar,
 	                    header: 'Access-Control-Allow-Origin: *',
 	                    data : data,
+	                    dataType: 'json',
 	                    method : 'post', //en este caso
 
 	                    success : function(response){
@@ -518,7 +519,7 @@
         console.log("LA URL Actual es:" + URL);
         const splitString = URL.split("/");
         console.log(splitString);
-        url_base = splitString[0]+ "//" + splitString[2] + "/";
+        url_base = splitString[0]+ "//" + splitString[2] ;
         url_insertar =  url_base+'/insertdata';
     }
 </script>

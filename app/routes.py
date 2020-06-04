@@ -207,7 +207,7 @@ def insertdata():
 
         db.session.commit()
 
-    return "json_data OK"
+    return json_data
 
 
 @app.route('/capture', methods=['GET', 'POST'])

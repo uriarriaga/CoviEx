@@ -177,7 +177,7 @@
 
 
 
-      <div  class="container" style="margin-top:10px">
+      <div class="container" style="margin-top:10px">
         <div class="row">
 
 
@@ -186,10 +186,11 @@
               <br>
               <br>
               <br>
-               <p class="sansserif"> Navegador No Soportado para Llamadas via Web Browser, por favor utilice otro navegador como Chrome o Safari. </p>
+              <p class="sansserif"> Navegador No Soportado para Llamadas via Web Browser, por favor utilice otro
+                navegador como Chrome o Safari. </p>
             </div>
 
-            <div  id="xall" class="w3-panel w3-light-grey w3-border w3-round">
+            <div id="xall" class="w3-panel w3-light-grey w3-border w3-round">
 
 
 
@@ -378,7 +379,7 @@
 
     */
 
-     document.getElementById("boton_call").style.display = "none";
+    document.getElementById("boton_call").style.display = "none";
 
   }
 
@@ -393,14 +394,14 @@
     const URLRedirect = document.getElementById('redirect').innerHTML;
     console.log(URLRedirect)
 
-    if(navigator.userAgent.includes("Firefox")){
+    if (navigator.userAgent.includes("Firefox")) {
 
 
-        alert(" Navegador No Soportado para Llamadas via Web Browser, por favor utilice otro navegador como Chrome o Safari ");
-            document.getElementById("xall").style.display = "none";
-            document.getElementById("firefox").style.display = "block";
+      alert(" Navegador No Soportado para Llamadas via Web Browser, por favor utilice otro navegador como Chrome o Safari ");
+      document.getElementById("xall").style.display = "none";
+      document.getElementById("firefox").style.display = "block";
 
-        return;
+      return;
 
 
     }

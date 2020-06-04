@@ -40,5 +40,13 @@ Cambiar el archivo __init__ para apuntar a la base de datos nueva
 
 Agregar las variables de ambiente del archivo setenv.sh al archivo ~/.bashrc
 
+Para la base deatos, los permisos del user: (cuando se desplega una nueva base)
+
+GRANT ALL PRIVILEGES ON *.* TO 'teleconsulta'@'%';
+GRANT ALL ON *.* TO 'teleconsulta'@'localhost';
+FLUSH PRIVILEGES;
+
+
+
 
 

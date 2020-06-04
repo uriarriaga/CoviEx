@@ -64,7 +64,7 @@ def widget():
 
 @app.route('/cronisticamente')
 def cron():
-    return str(cronSMS())
+    return str(cronSMS(10))
 
 # ///////// ////// ADMIN ////// ////// //////
 
@@ -324,7 +324,7 @@ def getpacientes():
 
         list = "{" + '"' + 'pacientes' + '"' + ":" + "["
         for patient in pacients:
-            print(str(patient.nombre))
+            #print(str(patient.nombre))
             list += "{" + '"' + "nombre" + '"'+":" + '"' + patient.nombre + '"' + "," + '"' + "celular" + '"'+":" + '"' + patient.celular + \
                 '"' + "," + '"' + "email" + '"'+":" + '"' + patient.email + '"' + \
                     "," + '"' + "id" + '"'+":" + '"' + \
@@ -336,7 +336,7 @@ def getpacientes():
 
     #print("------------" + y["employees"][0]["nombre"])
 
-        print(list)
+        #print(list)
         return listx
 
 
@@ -385,7 +385,7 @@ def getusuarios():
 
     #print("------------" + y["employees"][0]["nombre"])
 
-    print(list)
+    #print(list)
     return listx
 
 

@@ -155,7 +155,7 @@ def agendarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com",nombre=
     timeForWebex = datetime.utcfromtimestamp(int(fecha)).strftime("%m/%d/20%y %H:%M:00")
     return  createWebexMeeting(nombre,timeForWebex,host=correo)    
 
-def cronSMS(minutos):
+def cronSMS(minutos=10):
     actualTimePlusHR = str(datetime.utcnow().timestamp()+3600)
     JSONeventos ={"eventos":[]}
     enXsec = 18000-(60*minutos)

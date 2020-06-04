@@ -136,12 +136,12 @@ def insertdata():
         #paciente_id_db = db.session.query(Paciente).filter_by(celular=str(json_data["celular_paciente"])).first()
         #paciente_id = paciente_id_db.id
 
-        print("Entro a Update Paciente")
+        #print("Entro a Update Paciente")
 
         paciente_db = db.session.query(
             Paciente).filter_by(id=paciente_id).first()
 
-        print(str(json_data["nombre_paciente"]))
+        #print(str(json_data["nombre_paciente"]))
 
         # paciente_db.id
         paciente_db.nombre = str(json_data["nombre_paciente"])
@@ -361,7 +361,7 @@ def getfamiliares():
 
     #print("------------" + y["employees"][0]["nombre"])
 
-    print(list)
+    #print(list)
     return listx
 
 

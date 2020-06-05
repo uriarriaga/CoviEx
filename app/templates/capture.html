@@ -383,7 +383,7 @@
 
 
 	function modificarDatosFormulario(){
-	action = "update";//insert
+	//insert
 	console.log(action);
 
 
@@ -415,6 +415,7 @@
 
 					if(lista_pacientes["pacientes"][j]["celular"] == celular_busqueda){
 						encontrado = "true";
+						action = "update";
 
 						paciente_id_db = lista_pacientes["pacientes"][j]["id"]
 						paciente_id = paciente_id_db;

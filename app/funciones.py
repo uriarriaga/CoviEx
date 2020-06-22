@@ -26,11 +26,11 @@ def ourloggin(texto,mandarWebexMsg=False):
     if mandarWebexMsg:
         sendWebexMsg(texto,os.environ["idRoomTodos"])
 
-def setSchedulingPermissions(host="joarriag.iner@gmail.com"):
+def setSchedulingPermissions(host=os.environ["host"]):
     with open("app/setUser.xml") as file: 
         data = file.read()
     url = "https://api.webex.com/WBXService/XMLService"
-    payload = data.format(host)
+    payload = data.format(os.environ["webExID"],os.environ["XMLpassword"],os.environ["siteName"],host)
     print(payload)
     headers = {'Content-Type': 'text/plain'}
     response = requests.post( url, headers=headers, data = payload).text
@@ -39,11 +39,11 @@ def setSchedulingPermissions(host="joarriag.iner@gmail.com"):
     return exitoso == "SUCCESS"
 
 
-def createWebexMeeting(nombre,fecha,host="joarriag.iner@gmail.com"):
+def createWebexMeeting(nombre,fecha,host=os.environ["host"]):
     with open("app/createMeetings.xml") as file: 
         data = file.read()
     url = "https://api.webex.com/WBXService/XMLService"
-    payload = data.format(nombre,fecha,host)
+    payload = data.format(os.environ["webExID"],os.environ["XMLpassword"],os.environ["siteName"],nombre,fecha,host)
     print(payload)
     headers = {'Content-Type': 'text/plain'}
     response = requests.post( url, headers=headers, data = payload).text
@@ -54,7 +54,7 @@ def createWebexMeeting(nombre,fecha,host="joarriag.iner@gmail.com"):
         meetingKey = response["serv:message"]["serv:body"]["serv:bodyContent"]["meet:meetingkey"]
         with open("app/getmeeting.xml") as file: 
             data = file.read()
-        payload = data.format(meetingKey)
+        payload = data.format(os.environ["webExID"],os.environ["XMLpassword"],os.environ["siteName"],meetingKey)
         response = requests.post( url, headers=headers, data = payload).text
         response = xmltodict.parse(response)
         sipURL = str(response["serv:message"]["serv:body"]["serv:bodyContent"]["meet:sipURL"])
@@ -68,7 +68,7 @@ def createWebexMeeting(nombre,fecha,host="joarriag.iner@gmail.com"):
 def hostJoined(meetingKey):
     with open("app/getmeeting.xml") as file: 
             data = file.read()
-    payload = data.format(meetingKey)
+    payload = data.format(os.environ["webExID"],os.environ["XMLpassword"],os.environ["siteName"],meetingKey)
     url = "https://api.webex.com/WBXService/XMLService"
     headers = { 'Content-Type': 'text/plain'}
     response = requests.post( url, headers=headers, data = payload).text
@@ -80,7 +80,7 @@ def hostJoined(meetingKey):
 def webexURL(meetingKey):
     with open("app/getmeeting.xml") as file: 
             data = file.read()
-    payload = data.format(meetingKey)
+    payload = data.format(os.environ["webExID"],os.environ["XMLpassword"],os.environ["siteName"],meetingKey)
     url = "https://api.webex.com/WBXService/XMLService"
     headers = { 'Content-Type': 'text/plain'}
     response = requests.post( url, headers=headers, data = payload).text
@@ -90,8 +90,8 @@ def webexURL(meetingKey):
      
 
 def createJWT(expirationTime,token):
-    secret  = "jp8+HKzN0IuidhQ0DDRugsenQ88yK4MR3/qk7fvfauE="
-    user_id = "Y2lzY29zcGFyazovL3VzL09SR0FOSVpBVElPTi8zOTg4NzRjZC1lZDY0LTQ4OWMtODFhMS0yNDE5NzBiMTY2NjE"
+    secret  = os.environ["secret"]
+    user_id = os.environ["user_id"]
     key64 = base64.b64decode(secret)
     payload = {
     "sub": token,
@@ -114,19 +114,15 @@ def sendWidgetSMS(contacto,token):
 
 def sendSMS(contacto,text):
 
-    url = "https://api.twilio.com/2010-04-01/Accounts/ACc14eae52a15ea3cb0594390aedba3b92/Messages.json"
+    url = "https://api.twilio.com/2010-04-01/Accounts/{}/Messages.json".format(os.environ["smsBasicAuth"])
 
     payload = 'To={}&From=+16602274976&Body={}'.format(contacto,text)
     headers = {
-    'Authorization': 'Basic QUNjMTRlYWU1MmExNWVhM2NiMDU5NDM5MGFlZGJhM2I5MjphNDFjYjgxMGFhNGIwNjMxZjhlZTA5YTIzNWMwMzE4Yg==',
+    'Authorization': 'Basic '+ os.environ["smsBasicAuth"],
     'Content-Type': 'application/x-www-form-urlencoded'
     }
     response = requests.post( url, headers=headers, data = payload).json()
     url = "https://api.twilio.com"+ response["uri"]
-    headers = {
-    'Authorization': 'Basic QUNjMTRlYWU1MmExNWVhM2NiMDU5NDM5MGFlZGJhM2I5MjphNDFjYjgxMGFhNGIwNjMxZjhlZTA5YTIzNWMwMzE4Yg==',
-    'Content-Type': 'application/x-www-form-urlencoded'
-    }
     time.sleep(2)
     response = requests.get( url, headers=headers).json()
 
@@ -135,7 +131,7 @@ def sendSMS(contacto,text):
 
 
 
-def generarWebex(listaNumeros=["5580663521"],correo="joarriag.iner@gmail.com",nombre="teleconsulta"):
+def generarWebex(listaNumeros=["5580663521"],correo=os.environ["host"],nombre="teleconsulta"):
     fecha=datetime.utcnow().timestamp()
     sendWebexMsg(datetime.fromtimestamp(int(fecha)-18000))
     timeForWebex = datetime.fromtimestamp(int(fecha)-18000).strftime("%m/%d/20%y %H:%M:00")
@@ -150,7 +146,7 @@ def generarWebex(listaNumeros=["5580663521"],correo="joarriag.iner@gmail.com",no
         sendWidgetSMS(numero,token)
     return True
 
-def agendarWebex(listaNumeros=["5580663521"],correo="joarriag@cisco.com",nombre="teleconsulta",fecha=datetime.utcnow().timestamp()):
+def agendarWebex(listaNumeros=["5580663521"],correo=os.environ["host"],nombre="teleconsulta",fecha=datetime.utcnow().timestamp()):
     sendWebexMsg(datetime.utcfromtimestamp(int(fecha)))
     timeForWebex = datetime.utcfromtimestamp(int(fecha)).strftime("%m/%d/20%y %H:%M:00")
     return  createWebexMeeting(nombre,timeForWebex,host=correo)    
@@ -176,7 +172,7 @@ def cronSMS(minutos=10):
             sendWidgetSMS(numero,token)
     return str(JSONeventos)
 
-def existeWebex(correo="joarriag.iner@gmail.com"):
+def existeWebex(correo=os.environ["host"]):
     print(correo)
     return  setSchedulingPermissions(correo)
 

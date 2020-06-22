@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <serv:message xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <header>
-        <securityContext>
-            <webExID>joarriag.iner@gmail.com</webExID>
-            <password>C15c0123!</password>
-            <siteName>iner-gobmex</siteName>
+         <securityContext>
+            <webExID>{}</webExID>
+            <password>{}</password>
+            <siteName>{}</siteName>
         </securityContext>
     </header>
     <body>

@@ -3,10 +3,10 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:serv="http://www.webex.com/schemas/2002/06/service">
     <header>
-        <securityContext>
-            <webExID>joarriag.iner@gmail.com</webExID>
-    		<password>C15c0123!</password>
-    		<siteName>iner-gobmex</siteName>
+       <securityContext>
+            <webExID>{}</webExID>
+            <password>{}</password>
+            <siteName>{}</siteName>
         </securityContext>
     </header>
     <body>

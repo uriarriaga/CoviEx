@@ -9,21 +9,8 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-
 app.config["SECRET_KEY"]= "87f4236d17bbabd54836d1f65e4e0c63"
-
-#Productiva
-#app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://teleconsulta:C1sco123!@172.16.30.10/teleconsulta"
-
-#Staging
-#app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://teleconsulta:C1sco123!@172.17.30.10/teleconsulta"
-
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ["URL_DB"]
-
-#app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///site.db"
-
-
-
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config["DEBUG"] = True
 db = SQLAlchemy(app)

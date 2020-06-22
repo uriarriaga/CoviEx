@@ -135,12 +135,7 @@
 		<br>
 			<br>
 
-
 				<script>
-
-
-			// Construimos e inyectamos el date piecker //url_base="https://teleconsulta.mx"; //url_base="https://iner.teleconsulta.mx"; //url_base="http://localhostdedw"
-			//url_base ="http://35.153.44.17:5007"; //url_base="http://coviexlbtrans-470802257.us-east-1.elb.amazonaws.com"; url_base=""; url_pacientes=""; url_familiares="";
 
 			lista_familiares = "";
 			lista_pacientes ="";
@@ -153,8 +148,6 @@
 
 					document.getElementById("pacientesboton").style.display = "none";
 
-
-
 					var URL = window.location.href;
 					console.log("LA URL Actual es:" + URL);
 					const splitString = URL.split("/");
@@ -166,11 +159,7 @@
 
 					// crear y asignar el date picker
 
-
-
-
 					console.log("entrando a la funcion");
-
 
 					 $.ajax({
 
@@ -182,9 +171,6 @@
 					   
 					      var listaUsuarios = $("#tablapacientes");
 
-
-
-					 
 					      var response = (""+respuesta).trim();
 					      console.log(response);
 					      obj = JSON.parse(response);
@@ -195,11 +181,7 @@
 					      console.log( "lista de pacientes XXXXXX  " + lista_pacientes[0]["nombre"]);
 
 					      $.each(obj["pacientes"], function(index, elemento) {
-					      	//console.log("entrando al ajax");
-					      	//console.log(elemento.nombre);
-
-
-
+					
 					        listaUsuarios.append(
 
 					           '					<tr>'
@@ -211,14 +193,8 @@
 
 					          + '</tr>' 
 
-					           
-
-
-
 					        );    
 					      });
-
-					   
 
 					    },
 					    error: function() {
@@ -226,25 +202,20 @@
 					    }
 	  				});
 
-
 					 $.ajax({
 
 					    url:url_familiares,
 					   
 					    success: function(respuesta) {
 					     
-					
-					   
 					      var listaUsuarios = $("#lista-usuarios");
 					      var response = (""+respuesta).trim();
-					      //console.log(response); 
 					      lista_familiares= JSON.parse(response);
 					      console.log(lista_familiares["familiares"][0]);
 
 					      // Lineas para la carhga del Gif
 					      document.getElementById("page").style.display = "block";
             		  	  document.getElementById("loading").style.display = "none";
-
 	
 					    },
 					    error: function() {
@@ -309,29 +280,15 @@
 					            +     '<td id="cel'+ lista_familiares["familiares"][i].id + '">' + lista_familiares["familiares"][i].celular + '</td>'
 					              +     '<td>' + lista_familiares["familiares"][i].email + '</td>' +
 					             '</tr>');
-
-
-
 							 }
-
-						  
 						} 
 
-
-					
-					
 						 var x = document.getElementById("lista-familiares");   // Get the element with id="demo"
 						 x.style.visibility = "visible";    
-
-						 
-					
-
 
 				}
 
 				function call( ) {
-
-
 			
        		 	if( lista_familiarescheck.length ==0 ){
        		 		alert("no se ha seleccionado un familiar, favor de seleccionar un familiar.");
@@ -345,11 +302,8 @@
 					// XXXXXXXXXXXXXXXXXXXXX	
 					var nombre_paciente ="";
 
-
 					console.log("se preciono el boton de call")
 					console.log(lista_familiarescheck);
-
-
 
 		       		 		// Aqui podemos meter el nombre del paciente XXXXXXXXXXXXXXXXXXXXX
 		       		 		contadorx =0 ;
@@ -360,47 +314,22 @@
 		       		 			{
 		       		 				//console.log('se rompe el for general');
 		       		 				break;	
-
 		       		 			}
-
 		       		 			for( var j=0;  j < lista_familiares["familiares"].length; j++ ){
-
 		       		 				if(lista_familiarescheck[0] == lista_familiares["familiares"][j]["id"]){
-
-
-
-		       		 				
 			       		 				if(lista_pacientes[i]["id"] == lista_familiares["familiares"][j]["id_paciente"]){
-
-				       		 				//alert("se encontro al paciente" + lista_pacientes[i]["nombre"]);
 				       		 				nombre_paciente =  lista_pacientes[i]["nombre"];
-				       		 				//alert(nombre_paciente );
 				       		 				contadorx ++;
 				       		 				break;	
-				       		 				
 			       		 				}
-
 			       		 			}
-
-
 		       		 			}
-
-
 		       		 		}
-
-
-
 			       		 		// Aqui construyo mis datos
 			       		 		var datos='{"tipo":"2",' + ' "name":"'+nombre_paciente+'",';
-
-			       		 		// "datos":[{"id":"'+identificador+'","celular":"'+celular+'"}]}';
-
 			       		 		console.log(lista_familiarescheck);
-
 			       		 			data = '"datos":['
-
 			       		 			for (var i=0;  i < lista_familiarescheck.length; i++){
-
 			       		 				var ce = $('#cel'+ lista_familiarescheck[i]).text();
 			       		 				console.log(ce);
 			       		 				console.log('#cel'+ lista_familiarescheck[i]);
@@ -409,17 +338,10 @@
 			       		 				{
 			       		 					data += ','
 			       		 				}
-
-
 			       		 			}
 			       		 			data += "]";
-
 			       		 			datos += data + '}';
-
-			       		 		
-
 			       		 		console.log(datos);
-
 			       		 		$.ajax({
 								    url: url_base + '/llamada',
 								    type: 'post',
@@ -428,99 +350,54 @@
 								    success: function(respuesta) {
 								      console.log(respuesta);
 								      location.replace("/respuestainforme");
-								       // codigo para el loading ZZZZZZZZZZZZZZ
+								       // codigo para el loading 
 						      		   document.getElementById("loading").style.display = "none";		
-								   
 								    },	data: datos,
 								    error: function() {
-
-								    // codigo para el loading ZZZZZZZZZZZZZZ
-						     		 document.getElementById("loading").style.display = "none";
-						     		 document.getElementById("page").style.display = "block";
-								      console.log("No se ha podido obtener la información");
-								     alert("No pudimos contactar al servidor, favor de intentar nuevamente");
+								    // codigo para el loading 
+						     		document.getElementById("loading").style.display = "none";
+						     		document.getElementById("page").style.display = "block";
+								    console.log("No se ha podido obtener la información");
+								    alert("No pudimos contactar al servidor, favor de intentar nuevamente");
 								    }
 				  				});
-
 				  	} // fin del else			
-			       		 	
 				}
-
 				var fe;
 				function Agendarllamada(){
-
-				// Codigo para el loading ZZZZZZZZZZZZZZZZZ	
-				
-            		  	
-
-				// XXXXXXXXXXXXXXXXXXXXX	
+				// Codigo para el loading 		
 				var nombre_paciente ="";
-					//YYYYYYY
 				var id_paciente = "";
-					
        		 	fe = $('#fec').val(); if(fe.length==0  || lista_familiarescheck.length ==0 ){
        		 		alert("el campo fecha se encuentra vacio o no se ha seleccionado un familiar");
        		 	}else{
-
        		 	document.getElementById("page").style.display = "none";
 				document.getElementById("loading").style.display = "block";
-
-
-	       		 		// Aqui podemos meter el nombre del paciente XXXXXXXXXXXXXXXXXXXXX
+	       		 		// Aqui podemos meter el nombre del paciente 
 	       		 		contadorx =0 ;
 	       		 		for (var i=0;  i < lista_pacientes.length; i++){
-
 	       		 			//console.log(lista_pacientes[i]["id"])
 	       		 			if(contadorx > 0 )
 	       		 			{
-	       		 				//console.log('se rompe el for general');
 	       		 				break;	
-
 	       		 			}
-
 	       		 			for( var j=0;  j < lista_familiares["familiares"].length; j++ ){
-
 	       		 				if(lista_familiarescheck[0] == lista_familiares["familiares"][j]["id"]){
-
-
-
-	       		 				
 		       		 				if(lista_pacientes[i]["id"] == lista_familiares["familiares"][j]["id_paciente"]){
-
-		       		 					//YYYYYYYY	
 			       		 				id_paciente = lista_pacientes[i]["id"];
-
-			       		 				//alert("se encontro al paciente" + lista_pacientes[i]["nombre"]);
 			       		 				nombre_paciente =  lista_pacientes[i]["nombre"];
-			       		 				//alert(nombre_paciente );
 			       		 				contadorx ++;
 			       		 				break;	
-			       		 				
 		       		 				}
-
 		       		 			}
-
-
 	       		 			}
-
-
 	       		 		}
-
-
-
-	       		 		// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
        		 		// Aqui construyo mis datos
        		 var datos='{"tipo":"2","Fecha":"'+fe+'",' + '"name":"'+nombre_paciente+'",' + '"id_paciente":"'+id_paciente + '"'  + ',';
-
-       		 		// "datos":[{"id":"'+identificador+'","celular":"'+celular+'"}]}';
-
        		 		console.log(lista_familiarescheck);
-
        		 			data = '"datos":['
-
        		 			for (var i=0;  i < lista_familiarescheck.length; i++){
-
        		 				var ce = $('#cel'+ lista_familiarescheck[i]).text();
        		 				console.log(ce);
        		 				console.log('#cel'+ lista_familiarescheck[i]);
@@ -529,17 +406,10 @@
        		 				{
        		 					data += ','
        		 				}
-
-
        		 			}
        		 			data += "]";
-
        		 			datos += data + '}';
-
-       		 		
-
        		 		console.log(datos);
-
        		 		$.ajax({
 					    url:url_base +'/agendarllamada',
 					    type: 'post',
@@ -548,97 +418,53 @@
 					    success: function(respuesta) {
 					      console.log(respuesta);	
 					      location.replace("/respuestainforme");
-					      // codigo para el loading ZZZZZZZZZZZZZZ
+					      // codigo para el loading 
 					      document.getElementById("loading").style.display = "none";
-					   
 					    },	data: datos,
 					    error: function() {
-
-					      // codigo para el loading ZZZZZZZZZZZZZZ
+					      // codigo para el loading 
 					      document.getElementById("loading").style.display = "none";
 					      document.getElementById("page").style.display = "block";
-
 					      console.log("No se ha podido obtener la información");
 					      alert("No pudimos contactar al servidor, favor de intentar nuevamente");
 					    }
 	  				});
        		 	}
-
-       		 	
        		 }
-
-
 				$('#lista-familiares').change(function() {
-
 							  var value = 0.00;	
 							  var i = 0;
 							  {
 							    $('#lista-familiares :checked').each(function() {
-							      //if(values.indexOf($(this).val()) === -1){
-							      //var value = 0.00;
 							      console.log ("valor original " + parseFloat(($(this).val())))
 							      if( contains(lista_familiarescheck,parseFloat(($(this).val())) ))
 							      {
 							      		 console.log("entro al if");
-
-
 							      }else{
-
-
 							        console.log("entro al else"); value=parseFloat(($(this).val()));
 							      }	
-							      	
 							      console.log('valor antes del parse' + ($(this).val()));
-							      // }
 							    });
 							    console.log('valor en el parse' + parseFloat(value));
-
-
 							    if(lista_familiarescheck.length < 3 &&  value !=0){
-					
-
 							   		lista_familiarescheck.push(value);
 							    	console.log(lista_familiarescheck);
-							    
-							    	
-							   
-
 							    }else{lista_familiarescheck.pop();}
-	
-
 								 if(lista_familiarescheck.length > 2 ){
-
 								    	alert("Solo se permite un maximo de hasta 3 familiares"); }
-
 								}
 				});
-
-
-
        			 url = url_base + '/getpacientes'
        			 callback =[]
-       				   
        		 window.onload = codeAddress;
-
        		 $( document ).ready(function() {
-
-
        		 	$('#datetimepicker1').datetimepicker();
-
-
-
     			});	
-
        		 function mostrarpacientes() {
 
        		 		document.getElementById("pacientes").style.display = "block";
 					document.getElementById("pacientesboton").style.display = "none";
-
-
-
-
        		 }
-
        		 function contains(a, obj) {
 				    for (var i = 0; i < a.length; i++) {
 				        if (a[i] === obj) {
@@ -647,21 +473,14 @@
 				    }
 				    return false;
 			}
-
 			// lineas esxtra al ultimi commit
-
 			function sleep(milliseconds) {
-
 				  const date = Date.now();
 				  let currentDate = null;
 				  do {
 				    currentDate = Date.now();
 				  } while (currentDate - date < milliseconds);
 			}
-
-
-
-
 			</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 

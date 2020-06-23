@@ -37,4 +37,5 @@ To generate the video call the browser will need to ask for acces to the micfofo
 
 I recommend to use another service like NGNIX as a proxy and to provide the Cert.
 
+[![published](https://static.production.devnetcloud.com/codeexchange/assets/images/devnet-published.svg)](https://developer.cisco.com/codeexchange/github/repo/Momoyactly/PSdCloud)
 

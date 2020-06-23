@@ -2,11 +2,11 @@
 This repository is a template that can be used as a base to replicate the service os teleHealth. 
 
 For this you will need the next things:
--A Webex with admin access to the control Hub
--Enough licenses to cover the medical acounts created
--A Twilio account 
--A webex Teams bot
--A Webex Guest Issuer 
+<br>-A Webex with admin access to the control Hub
+<br>-Enough licenses to cover the medical acounts created
+<br>-A Twilio account 
+<br>-A webex Teams bot
+<br>-A Webex Guest Issuer 
 
 
 ## Instructions
@@ -25,16 +25,17 @@ if you run the bashRunMe.sh you should alredy get installed gunicorn; you can us
 gunicorn3 --workers=8 --bind 0.0.0.0:xxx run:app --access-logfile gunicorn.log --error-logfile gunicorn-error.log --capture-output -D
 ```
 Let me explain a little bit datailed this command:
-Workers: it is recommendes that you use between 2-4 workes per Core
-Bind: the IP and port for the service(i reccomend that you use other than default 5000 port in flask)
-run:app make reference to the name of the file (without the .py) and the module to run
-access-logfile: the name of the to store the logs
-error-logfile: the name of the file where the errors logs will be stored
-capture-output: this force all the outputs to be store as error logs
-D: this make the command to run as a Deamon
+<br>Workers: it is recommendes that you use between 2-4 workes per Core
+<br>Bind: the IP and port for the service(i reccomend that you use other than default 5000 port in flask)
+<br>run:app make reference to the name of the file (without the .py) and the module to run
+<br>access-logfile: the name of the to store the logs
+<br>error-logfile: the name of the file where the errors logs will be stored
+<br>capture-output: this force all the outputs to be store as error logs
+<br>D: this make the command to run as a Deamon
 
 To generate the video call the browser will need to ask for acces to the micfofone an the camera; all the most user browser will need a valited Cert for this.
 
 I recommend to use another service like NGNIX as a proxy and to provide the Cert.
 
+[![published](https://static.production.devnetcloud.com/codeexchange/assets/images/devnet-published.svg)](https://developer.cisco.com/codeexchange/github/repo/Momoyactly/PSdCloud)
 

@@ -1,21 +1,28 @@
 # Televisista Webex in HTML5 via SMS (NO APP) 
 This repository is a template that can be used as a base to replicate the teleHealth service. 
 
-For this you will need the next things:
+The objective of this document is to technically detail the Tele Consultation Application that is based on the Webex video conferencing engine and that is being used at INER
+<br>The application aims to:
+<br>• Generate accessibility for people who are not native to the digital age
+<br>• Automate and facilitate the generation of communication channels between doctors, patients and relatives
+<br>• Give full control of these communication channels to Health personnel
+<br>• Integrate technologies such as HTML5, Webex, and SMS to achieve the above objectives
+
+The way in which these objectives are achieved is through a Web page in which Health personnel can generate a Webex session; once this session has been generated, a link is sent via SMS with which relatives and patients can access the video conference without installing any application; This is accomplished using the Webex SDK for HTML5. The user only has to click 2 times to enter the session.
+
+<img src="architecture.png" alt="architecture">
+
+<img src="widget.png" alt="widget">
+
+
+## Instructions
+
+You will need next things to be able to use this Code:
 <br>-A Webex with admin access to the control Hub
 <br>-Enough licenses to cover the medical acounts created
 <br>-A Twilio account 
 <br>-A webex Teams bot
 <br>-A Webex Guest Issuer 
-
-<img src="https://github.com/Momoyactly/PSdCloud/blob/master/architecture.png" alt="architecture">
-![architecture](https://github.com/Momoyactly/PSdCloud/blob/master/architecture.png)
-
-<img src="widget.png" alt="widget">
-![widget](widget.png)
-
-
-## Instructions
 
 This code is been developed in Pyhton Using th Flask Framework; with a mix of JS for the Frontend.
 

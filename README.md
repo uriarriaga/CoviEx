@@ -9,7 +9,7 @@ For this you will need the next things:
 <br>-A Webex Guest Issuer 
 
 <img src="architecture.jpg" alt="architecture">
-![architecture](architecture.png)
+![architecture](https://github.com/Momoyactly/PSdCloud/blob/master/architecture.png)
 
 <img src="widget.jpg" alt="widget">
 ![widget](widget.png)

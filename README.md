@@ -1,4 +1,4 @@
-# Televisista Webex in HTML5 via SMS (NO APP) 
+# Telehealth Webex in HTML5 via SMS (NO APP) 
 This repository is a template that can be used as a base to replicate the teleHealth service. 
 
 The objective of this document is to technically detail the Tele Consultation Application that is based on the Webex video conferencing engine and that is being used at INER
@@ -86,7 +86,7 @@ You will need next things to be able to use this Code:
 
 This code is been developed in Pyhton Using th Flask Framework; with a mix of JS for the Frontend.
 
-It is originally deployed in a Ubuntu VM with Python 3.7. the libraries and the version are represented in the reqs.txt file.
+It is originally deployed in a Ubuntu VM with Python 3.7. the libraries and the version are represented in the requirements.txt file.
 
 Within the file BashRunMe.sh are all the commands needed to set ready an Fresh Ubuntu VM; been an .sh file you can run it directly.
 

@@ -21,7 +21,7 @@ It is originally deployed in a Ubuntu VM with Python 3.7. the libraries and the 
 
 Within the file BashRunMe.sh are all the commands needed to set ready an Fresh Ubuntu VM; been an .sh file you can run it directly.
 
-All the needed varibles must exist as System Varibles. Either you add them via the CLI or you use the exampleDOTenv to create a .env file so that when run the code this add them automatically.
+All the needed varibles must exist as environment variables . Either you add them via the CLI or you use the exampleDOTenv to create a .env file so that when run the code this add them automatically.
 
 Once the VM is ready with  all the packages installed, python 3.7 and all the libries for python installed yo can just use the command:
 

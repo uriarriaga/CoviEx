@@ -8,6 +8,10 @@ For this you will need the next things:
 <br>-A webex Teams bot
 <br>-A Webex Guest Issuer 
 
+<img src="architecture.jpg" alt="architecture">
+
+<img src="widget.jpg" alt="widget">
+
 
 ## Instructions
 

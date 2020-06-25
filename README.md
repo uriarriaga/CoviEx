@@ -11,7 +11,7 @@ The objective of this document is to technically detail the Tele Consultation Ap
 The way in which these objectives are achieved are:
 <br>1.- Via a Web page the Health personnel can generate a Webex session.
 <br>2.- Then a link is sent via SMS to the relatives and patients. In this link they can access the video conference without installing any application.
-<br>This is accomplished using the Webex SDK for HTML5. The user only has to <b>click 2 times</b> to enter the session. int he image below you can see an screnshoot of the result once the cliente make click on the link.
+<br>This is accomplished using the Webex SDK for HTML5. The user only has to <b>click 2 times</b> to enter the session. In the image below you can see an screenshot of the result once the cliente click on the link.
 
 <img src="widget.png" alt="widget">
 

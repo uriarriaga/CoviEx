@@ -8,10 +8,10 @@ For this you will need the next things:
 <br>-A webex Teams bot
 <br>-A Webex Guest Issuer 
 
-<img src="architecture.jpg" alt="architecture">
+<img src="https://github.com/Momoyactly/PSdCloud/blob/master/architecture.png" alt="architecture">
 ![architecture](https://github.com/Momoyactly/PSdCloud/blob/master/architecture.png)
 
-<img src="widget.jpg" alt="widget">
+<img src="widget.png" alt="widget">
 ![widget](widget.png)
 
 

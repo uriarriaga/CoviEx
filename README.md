@@ -1,18 +1,39 @@
-# Telehealth Webex in HTML5 via SMS (NO APP) 
-This repository is a template that can be used as a base to replicate the teleHealth service. 
+# Teleconsultation Webex Session in HTML5 with patient communication via SMS (No Webex App Required) 
+This repository is a template that can be used as a base to replicate the teleconsultation service. 
 
-The objective of this document is to technically detail the Tele Consultation Application that is based on the Webex video conferencing engine and that is being used at INER
+The objective of this document is to technically detail the Teleconsultation Application that is based on the Webex video conferencing engine and that is being used at several Hospitals in the Region.
+
+This clientless and hardware-less ubiquitous solution is based on Cisco Webex technology, taking advantage of the capabilities and integration (API) of these platforms to enable voice and video interactions, giving hospital medical staff full control over the schedule and enabling the communication channel in a safe and orderly manner.
+ 
+With this application communication is achieved in 4 important directions:
+<ul>
+  <li>Doctor - Doctor: internal communication among the medical staff via text messages, calls, videos and file transfers in a safe and easy way</li>
+  <li>Doctor - Family member: Doctors at the hospital can inform the medical status of patients to family members while at home through voice and video communications</li>
+  <li>Patient - Family member: the patient can talk to his/her relatives by voice or video, allowing them to feel safely close.</li>
+  <li>Discharged patients - Doctors: Doctors can follow-up on those patients already discharged from the hospital</li>
+</ul>
+
+Based on HTML5 video calls, the solution offers the following benefits:
+<ol>
+  <li>From the perspective of medical personnel, the main advantage is that it gives them full control of their schedule, opening a secure communication channel only when necessary, allowing the Physician to focus on caring for his patients</li>
+  <li>From the patient / family perspective, the main advantage is that the video call is made without the need to install any special application or software, taking maximum care of usability and making it so easy that anyone can access the teleconsultation</li>
+  <li>And finally, being a hardware less and clientless solution, it allows rapid deployment and scalability in contingency situations</li>
+</ol>
 <br>The application aims to:
-<br>- Generate <b>accessibility</b> for people who are not native to the digital age
-<br>- <b>Automate</b> and facilitate the generation of communication channels between doctors, patients and relatives
-<br>- Give full <b>control</b> of these communication channels to Health personnel
-<br>- <b>Integrate</b> technologies such as HTML5, Webex, and SMS to achieve the above objectives
+<ul>
+  <li>Generate <b>accessibility</b> for people who are not native to the digital age</li>
+  <li><b>Automate</b> and facilitate the generation of communication channels between doctors, patients and relatives</li>
+  <li>Give full <b>control</b> of these communication channels to Health personnel</li>
+  <li><b>Integrate</b> technologies such as HTML5, Webex, and SMS to achieve the above objectives</li>
+</ul>
 
 The way in which these objectives are achieved are:
-<br>1.- Via a Web page the Health personnel can generate a Webex session.
-<br>2.- Then a link is sent via SMS to the relatives and patients. In this link they can access the video conference without installing any application.
+<ol>
+    <li>Via a Web page the Health personnel can generate a Webex session.</li>
+    <li>Then a link is sent via SMS to the relatives and patients. In this link they can access the video conference without installing any application.</li>
+</ol>
 <br>This is accomplished using the Webex SDK for HTML5. The user only has to <b>click 2 times</b> to enter the session. In the image below you can see an screenshot of the result once the cliente click on the link.
-
+<br>
 <img src="widget.png" alt="widget">
 
 # Architecture
@@ -20,20 +41,24 @@ The way in which these objectives are achieved are:
 ## Webex Meetings
 Webex Meetings Cloud APIs are being leveraged. Which is a multipoint of audio, video and web presentation conferences with different advanced functions. Due to the context of the document we will delve into the APIs more than other advanced functions.
 Since these are used to fulfill the objectives of Automation and control mentioned above; This is achieved through the following functionalities.
-<br>• Generation and agenda service for the Webex Session
-<br>• Generation of Users both in the application and in Webex
-<br>• Assignment of necessary permissions for each user
-<br>• Physician control to start the session through the virtual lobby
+<ul>
+    <li>Generation and sheduling service for the Webex Session</li>
+    <li>Generation of Users both in the application and in Webex</li>
+    <li>Assignment of necessary permissions for each user</li>
+    <li>Physician control to start the session through the virtual lobby</li>
+</ul>
 <br>The detail of APIs called is in the next section.
 
 ## Widget
 The Webex Browser SDK generates the ability to make video calls in a browser that supports HMTL5 and JavaScript; this maintaining the security features for which Webex is known, I have even added new capabilities.
 <br>The SDK is in charge of:
-<br>• Join the session
-<br>• Get access to the microphone and camera of the device used by the user
-<br>• Control the Audio and Video codec with which it is transmitted
-<br>• Deliver Audio and video control to the user
-<br>All of this is accomplished by using the JS functions that are loaded together with the HTML
+<ul>
+    <li>Join the session</li>
+    <li>Get access to the microphone and camera of the device used by the user</li>
+    <li>Control the Audio and Video codec with which it is transmitted</li>
+    <li>Deliver Audio and video control to the user</li>
+</ul>
+All of this is accomplished by using the JS functions that are loaded together with the HTML
 
 ### Unique Token
 
@@ -65,8 +90,10 @@ An integration with an SMS messaging provider was carried out to be able to have
 The Core of the application is a development in Python under the Flask Framework; At the same time, JavaScrip is used to give dynamism to HTML files.
 <br>This development is based on Python 3.7 and is running on a VM with Ubuntu in the AWS EC2 service.
 The Core is in charge of coordinating and communicating the different elements:
-<br>• Webex administration and agenda
-<br>• Lobby waiting for users
+<ul>
+    <li>Webex administration and agenda</li>
+    <li>Lobby waiting for users</li>
+</ul>
 <br>Multimedia traffic at no time travels to the Core of the application.
 
 In the next image you can see a model of the Architecture.
@@ -78,11 +105,14 @@ In the next image you can see a model of the Architecture.
 ## Instructions
 
 You will need next things to be able to use this Code:
-<br>-A Webex with admin access to the control Hub
-<br>-Enough licenses to cover the medical acounts created
-<br>-A Twilio account 
-<br>-A webex Teams bot
-<br>-A Webex Guest Issuer 
+<ul>
+    <li>A Webex with admin access to the control Hub</li>
+    <li>Enough licenses to cover the medical acounts created</li>
+    <li>A Twilio account </li>
+    <li>A webex Teams bot</li>
+    <li>A Webex Guest Issuer </li>
+</ul>
+
 
 This code is been developed in Pyhton Using th Flask Framework; with a mix of JS for the Frontend.
 
@@ -105,13 +135,15 @@ if you run the bashRunMe.sh you should alredy get installed gunicorn; you can us
 gunicorn3 --workers=8 --bind 0.0.0.0:xxx run:app --access-logfile gunicorn.log --error-logfile gunicorn-error.log --capture-output -D
 ```
 Let me explain a little bit datailed this command:
-<br>Workers: it is recommendes that you use between 2-4 workes per Core
-<br>Bind: the IP and port for the service(i reccomend that you use other than default 5000 port in flask)
-<br>run:app make reference to the name of the file (without the .py) and the module to run
-<br>access-logfile: the name of the to store the logs
-<br>error-logfile: the name of the file where the errors logs will be stored
-<br>capture-output: this force all the outputs to be store as error logs
-<br>D: this make the command to run as a Deamon
+<ul>
+    <li>Workers: it is recommendes that you use between 2-4 workes per Core</li>
+    <li>Bind: the IP and port for the service(i reccomend that you use other than default 5000 port in flask)</li>
+    <li>run:app make reference to the name of the file (without the .py) and the module to run</li>
+    <li>access-logfile: the name of the to store the logs</li>
+    <li>error-logfile: the name of the file where the errors logs will be stored</li>
+    <li>capture-output: this force all the outputs to be store as error logs</li>
+    <li>D: this make the command to run as a Deamon</li>
+</ul>
 
 To generate the video call the browser will need to ask for acces to the micfofone an the camera; all the most user browser will need a valited Cert for this.
 
@@ -120,6 +152,9 @@ I recommend to use another service like NGNIX as a proxy and to provide the Cert
 Contact Info:
 
 joarriag@cisco.com
+
+More info about the app:
+<br>https://www.youtube.com/watch?v=iM9ur4-0TpI
 
 [![published](https://static.production.devnetcloud.com/codeexchange/assets/images/devnet-published.svg)](https://developer.cisco.com/codeexchange/github/repo/Momoyactly/PSdCloud)
 

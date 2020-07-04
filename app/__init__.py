@@ -2,12 +2,11 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from sqlalchemy.ext.automap import automap_base
-from flask_cors import CORS
+
 import os
 
 
 app = Flask(__name__)
-CORS(app)
 
 app.config["SECRET_KEY"]= "87f4236d17bbabd54836d1f65e4e0c63"
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ["URL_DB"]

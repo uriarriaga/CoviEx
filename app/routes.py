@@ -84,7 +84,7 @@ def admin():
 
         if formusr.admin.data != 0 or formusr.ad.data != 0 or formusr.cp.data != 0:
 
-            if existeWebex(formusr.email.data) or formusr.admin.data == 1 or formusr.cp.data == 1:
+            if existeWebex(formusr.email.data) or  formusr.admin.data == 1 or formusr.cp.data == 1:
 
                 user_ = User.query.filter_by(
                     username=formusr.username.data).first()
@@ -234,6 +234,10 @@ def capture():
 def appdoctor():
     if current_user.admin:
         return redirect(url_for('admin'))
+
+    if current_user.capturista:
+        return render_template('capture.html')
+
     return render_template('appdoctor.html')
 
 
@@ -243,6 +247,9 @@ def teleconsulta():
     if current_user.admin:
         return redirect(url_for('admin'))
 
+    if current_user.capturista:
+        return render_template('capture.html')
+
     return render_template('appdoctorconstula.html')
 
 
@@ -251,6 +258,10 @@ def teleconsulta():
 def appdoctorvisita():
     if current_user.admin:
         return redirect(url_for('admin'))
+
+
+    if current_user.capturista:
+        return render_template('capture.html')
 
     # if current_user.username != "debug":
         # sendSMS(numero)
@@ -264,6 +275,10 @@ def appdoctorvisita():
 def appdoctorinformemedico():
     if current_user.admin:
         return redirect(url_for('admin'))
+
+    if current_user.capturista:
+        return render_template('capture.html')
+
     formv = smsForm()
     if formv.validate_on_submit():
         numero = "+521"+formv.sms.data

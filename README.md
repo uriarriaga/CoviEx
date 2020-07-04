@@ -72,7 +72,6 @@ Since the objective is that the user can enter easily (NO Logins, NO downloads),
 <br>For this, the concept of “Guest Issuers” is used, which are the credentials with which the JWT that the Widget requires is generated.
 These can be generated easily and quickly in the following Link:
 https://developer.webex.com/docs/guest-issuer
-<br>
 <br>This element could be considered part of the advanced functions but because it is used to fulfill different objectives, Accessibility and security, it was treated independently.
 
 ## Virtual Lobby

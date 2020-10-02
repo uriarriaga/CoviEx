@@ -11,23 +11,112 @@
     <script src="https://code.s4d.io/widget-space/production/bundle.js"></script>
     <link rel="stylesheet" href="https://code.s4d.io/widget-space/production/main.css">    
   </head>
+
+  <style>
+
+
+                                            /*Se agrego esta linea para el checkbox*/
+                                                  .custom-checkbox label, .custom-radio label {
+                                                    position: relative;
+                                                    cursor: pointer;
+                                                    color: #666;
+                                                    font-size: 20px;
+                                                  }
+                                                 .custom-checkbox input[type="checkbox"] ,.custom-radio input[type="radio"] {
+                                                    position: absolute;
+                                                    right: 9000px;
+                                                  }
+                                                   /*Custom checkboxes style*/
+                                                  .custom-checkbox input[type="checkbox"]+.label-text:before {
+                                                    content: "\f0c8";
+                                                    font-family: "Font Awesome 5 Pro";
+                                                    speak: none;
+                                                    font-style: normal;
+                                                    font-weight: normal;
+                                                    font-variant: normal;
+                                                    text-transform: none;
+                                                    line-height: 1;
+                                                    -webkit-font-smoothing: antialiased;
+                                                    width: 1em;
+                                                    display: inline-block;
+                                                    margin-right: 5px;
+                                                  }
+                                                  .custom-checkbox input[type="checkbox"]:checked+.label-text:before {
+                                                    content: "\f14a";
+                                                    color: #2980b9;
+                                                    animation: effect 250ms ease-in;
+                                                  }
+                                                  .custom-checkbox input[type="checkbox"]:disabled+.label-text {
+                                                    color: #aaa;
+                                                  }
+                                                  .custom-checkbox input[type="checkbox"]:disabled+.label-text:before {
+                                                    content: "\f0c8";
+                                                    color: #ccc;
+                                                  }
+
+
+    
+
+                                                    @keyframes effect {
+                                                    0% {
+                                                      transform: scale(0);
+                                                    }
+                                                    25% {
+                                                      transform: scale(1.3);
+                                                    }
+                                                    75% {
+                                                      transform: scale(1.4);
+                                                    }
+                                                    100% {
+                                                      transform: scale(1);
+                                                    }
+                                                  }
+                                         /* Fin del Bloque */
+
+          
+    </style>
   <body>
     
-      <div align="center">
-        <h4>TeleConsulta COVID-19</h4>
-          
-        <p class="sansserif"> Favor de esperar a que ingrese el Doctor al sistema para iniciar la videollamada. </p>
+                                  <div align="center">
+                                    <h4>TeleConsulta COVID-19</h4>
+                                      
+                                    <p class="sansserif"> Favor de esperar a que ingrese el Doctor al sistema para iniciar la videollamada. </p>
 
-        <p class="sansserif"> Se recomienda estar conectado a una red de tipo WiFi antes de iniciar la videollamada, con la finalidad de no consumir su plan de datos celular.</p>
+                                    <p class="sansserif"> Al dar clic en la casilla estás aceptando los Términos y Condiciones uso de la plataforma </p>
+                                        <div class="custom-checkbox">
+                                          <div class="form-check">
+                                                <label>
+                                                        <input type="checkbox" name="check"> <span class="label-text"> Aceptar Términos y Condiciones</span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                            <ul>              
+                                              <li>  <img src="/static/INER.gif" alt="animated" /> </li>
+
+                                                  <li> <a  data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> Términos y Condiciones uso de la plataforma INER </a></li>
+                                            </ul>
+                                                  <div class="collapse" id="collapseExample">
+                                                  <div class="card card-body">
+                                                    <br>
+                                                                                                <p> AVISO DE PRIVACIDAD INTEGRAL </p>
 
 
-         
-        <img src="static/INER.gif" alt="animated" />
-      </div>
+                                                             <p>                                        
+                                                            El Instituto Nacional de Enfermedades Respiratorias Ismael Cosío Villegas es responsable del uso y protección de los datos personales que se obtengan. </p>
+                                                            <p>
+                                                            Los datos personales que de usted obtenemos serán utilizados con fines relacionados a la atención de su salud. Usted podrá ejercer los derechos de acceso, rectificación, cancelación y oposición en el uso de sus datos personales en la Unidad de Transparencia del INER, ubicada en Calzada de Tlalpan 4502, Col. Sección XVI, Delegación Tlalpan. Lo anterior con fundamento en los artículos 3, 26, 27 y 28 de la Ley General de Protección de Datos Personales en Posesión de Sujetos Obligados.</p>
+                                                            <p>
+                                                            Para conocer mayor información sobre los términos y condiciones en que serán tratados sus datos personales puede consultar el aviso de privacidad integral en la página web de este Instituto, www.iner.gob.mx, al correo electrónico  utransparencia@iner.gob.mx, ó bien directamente en la Unidad de Transparencia del INER.</p>
+                                                             <p>
+                                                            He leído y acepto, las condiciones de tratamiento de datos personales, así como el uso de la plataforma. </p>
+
+                                                  </div>
+                                                </div>
+
+
+                                  </div>
      
-
-    <div id="my-webexteams-widget" style="width: 360px; height: 300px;"/>
-
 
 
     	

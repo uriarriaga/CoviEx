@@ -122,6 +122,7 @@ def sendSMS(contacto,text):
     'Content-Type': 'application/x-www-form-urlencoded'
     }
     response = requests.post( url, headers=headers, data = payload).json()
+    print(response)
     url = "https://api.twilio.com"+ response["uri"]
     time.sleep(2)
     response = requests.get( url, headers=headers).json()

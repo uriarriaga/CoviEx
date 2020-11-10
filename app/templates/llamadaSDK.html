@@ -39,27 +39,15 @@
   <link href="https://www.gob.mx/css/chunk-vendors.e37f87fc.css" rel="stylesheet">
   <link href="https://www.gob.mx/css/app.244384b5.css" rel="stylesheet">
   <link href="https://www.gob.mx/favicon.ico" rel="shortcut icon">
-
-
-
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.25.0/moment.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.25.0/locale/es.min.js"></script>
-
-
-
-
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
-
-
   <style>
     h2 {
       color: #4d4d4d;
@@ -69,8 +57,6 @@
       color: #4d4d4d;
     }
   </style>
-
-
   <style>
     button {
       background-color: Transparent;
@@ -79,11 +65,7 @@
       cursor: pointer;
       overflow: hidden;
       outline: none;
-
-
-
     }
-
 
     img {
       width: 60%;
@@ -186,13 +168,10 @@
               <br>
               <br>
               <br>
-              <p  id = "firefox_text" class="sansserif">  </p>
+              <p id="firefox_text" class="sansserif"> </p>
             </div>
 
             <div id="xall" class="w3-panel w3-light-grey w3-border w3-round">
-
-
-
 
               <div id="loader" class="center"></div>
               <div id="cabecera" align="center">
@@ -227,40 +206,23 @@
                 </div>
 
                 <div id="contenedor" style="display: flex">
-
-
-
                   <div class="row">
                     <audio style="width:100%" id="remote-view-audio" autoplay playsinline></audio>
                     <video style="width:100%" id="remote-view-video" autoplay playsinline> Tu navegador no esta
                       actualizado o no es compatible para poder realizar la llamada de video.</video>
                     <img id="audioOnly" align="center" src="static/audioOnly.png" style="visibility: hidden; height: 0px;
                     width: 100px;">
-
                   </div>
-
-
                   <!-- <div style="width:50%">  style="width: 150%; height: 220px; overflow: hidden;"-->
                   <div class="row" id="video-propio">
-
                     <video onresize="updateValue()" style="width: 100%; height: 200px;" id="self-view" muted autoplay
                       playsinline> Tu navegador no esta actualizado o no es compatible para poder realizar la llamada de
                       video.</video>
                   </div>
-
-
-
-                  <!-- </div> -->
                 </div>
-
                 <br>
                 <br>
-
-
                 <div id="colgar" style="display:none" align="center">
-
-
-
                   <table style="width:100%">
                     <tr>
                       <th> <button onclick="mostrar()" id="hangup" title="hangup" type="button"><img
@@ -270,10 +232,7 @@
                       <th> <button id="toogle-video" title="toogle video" value="on" type="button"><img id="videox"
                             src="static/video-on.png" /></button></th>
                     </tr>
-
                   </table>
-
-
                   <div align="center">
                     <h5>
                       <strong>Cisco. Una iniciativa por México </strong>
@@ -290,47 +249,17 @@
                         <a href="https://developer.cisco.com/site/license/cisco-sample-code-license/"
                           target="_blank">https://developer.cisco.com/site/license/cisco-sample-code-license/</a>
                       </li>
-
                     </ul>
                   </div>
-
-
-
-
-
-
-
-
                 </div>
-
-
               </div>
-
-
             </div>
-
-
-
           </div>
-
         </div>
-
-
-
       </div>
     </div> <!-- fin del Div del NAV -->
-
   </div> <!-- fin del Div principal -->
-
-
-
-
-
-
 </body>
-
-
-
 <br>
 <br>
 <br>
@@ -342,11 +271,6 @@
 
 
 <script>
-
-
-
-
-
   var bandera = 0;
 
   function updateValue() {
@@ -399,7 +323,7 @@
 
 
 
-      document.getElementById("firefox_text").innerHTML ="Navegador No Soportado para Llamadas via Web Browser, por favor utilice otro navegador como Chrome o Safari, copie y pegue la siguiente liga:  " + URL_firefox;
+      document.getElementById("firefox_text").innerHTML = "Navegador No Soportado para Llamadas via Web Browser, por favor utilice otro navegador como Chrome o Safari, copie y pegue la siguiente liga:  " + URL_firefox;
       alert(" Navegador No Soportado para Llamadas via Web Browser, por favor utilice otro navegador como Chrome o Safari ");
       document.getElementById("xall").style.display = "none";
       document.getElementById("firefox").style.display = "block";
@@ -467,11 +391,6 @@
 
 
     } else {
-
-
-
-
-      // your code here
       console.log("Your screen is width: " + screen.width + " x screen height:  " + screen.height);
       var srcw = 15;
       var srch = 6;
@@ -485,7 +404,6 @@
 
         srch = 1.5;
       }
-
       document.getElementById("my-webexteams-widget").style.width = " " + (screen.width - (screen.width / srcw)) + "px";
       document.getElementById("my-webexteams-widget").style.height = " " + (screen.height - (screen.height / srch)) + "px";
 

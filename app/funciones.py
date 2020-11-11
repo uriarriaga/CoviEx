@@ -115,11 +115,10 @@ def sendWidgetSMS(contacto,token):
 def sendSMS(contacto,text):
 
     url = "https://api.twilio.com/2010-04-01/Accounts/{}/Messages.json".format(os.environ["smsAccount"])
-    payload = 'To={}&From=+16602274976&Body={}'.format(contacto,text)
+    payload = 'To={}&From={}&Body={}'.format(contacto,os.environ["fromNumber"],text)
     headers = {
     'Authorization': 'Basic '+ os.environ["smsBasicAuth"],
-    'Content-Type': 'application/x-www-form-urlencoded'
-    }
+    'Content-Type': 'application/x-www-form-urlencoded'}
     response = requests.post( url, headers=headers, data = payload).json()
     print(response)
     url = "https://api.twilio.com"+ response["uri"]

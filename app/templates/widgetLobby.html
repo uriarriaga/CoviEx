@@ -7,7 +7,6 @@
 
 <head>
   <meta charset="utf8">
-  <meta http-equiv="refresh" content="30">
   <title>Space Widget Demo</title>
   <script src="https://code.s4d.io/widget-space/production/bundle.js"></script>
   <!-- Se agrego esta linea para el checkbox-->
@@ -147,17 +146,18 @@
         history.replaceState(null, null, "?" + queryParams.toString());
       }
     }
-    function setCheckBox(){
+    function setCheckBox() {
       var queryParams = new URLSearchParams(window.location.search);
-      estado = (queryParams.get("ta") == 'True' );
+      estado = (queryParams.get("ta") == 'True');
       if (estado) {
         document.getElementById("checkbox").checked = true;
       } else {
         document.getElementById("checkbox").checked = false;
       }
-
-    
     }
+    setTimeout(function () {
+      location.reload();
+    }, 30000);
 
   </script>
 

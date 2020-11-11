@@ -57,9 +57,9 @@ def widget():
     if invitado.expirationTime <= datetime.utcnow().timestamp():
         print(invitado.token, invitado.expirationTime)
         return render_template('widgetexpired.html', title='widget')
-    if not hostJoined(invitado.SIP.split("@")[0]) :
-        return render_template('widgetLobby.html', title='widget')
     if terminosAceptados == "False":
+        return render_template('widgetLobby.html', title='widget')
+    if not hostJoined(invitado.SIP.split("@")[0]) :
         return render_template('widgetLobby.html', title='widget')
     JWToken = createJWT(invitado.expirationTime, token)
     return render_template('llamadaSDK.html', title='widget', token=JWToken, SIP=invitado.SIP, redirect=webexURL(invitado.SIP.split("@")[0]))

@@ -51,14 +51,13 @@ def logout():
 def widget():
     token = request.args.get('token')
     terminosAceptados = request.args.get('ta')
-    print(terminosAceptados)
     invitado = db.session.query(GuestUser).filter_by(token=token).first()
     if invitado is None:
         return render_template('widgetexpired.html', title='widget')
     if invitado.expirationTime <= datetime.utcnow().timestamp():
         print(invitado.token, invitado.expirationTime)
         return render_template('widgetexpired.html', title='widget')
-    if terminosAceptados == "False":
+    if terminosAceptados is not "True":
         return render_template('widgetLobby.html', title='widget')
     if not hostJoined(invitado.SIP.split("@")[0]) :
         return render_template('widgetLobby.html', title='widget')

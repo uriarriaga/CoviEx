@@ -51,6 +51,7 @@ def logout():
 def widget():
     token = request.args.get('token')
     terminosAceptados = request.args.get('ta')
+    print(terminosAceptados)
     invitado = db.session.query(GuestUser).filter_by(token=token).first()
     if invitado is None:
         return render_template('widgetexpired.html', title='widget')

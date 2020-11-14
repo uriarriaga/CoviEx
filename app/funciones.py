@@ -132,8 +132,8 @@ def sendSMS(contacto,text):
 
 def generarWebex(listaNumeros=["5580663521"],correo=os.environ["host"],nombre="teleconsulta"):
     fecha=datetime.utcnow().timestamp()
-    sendWebexMsg(datetime.fromtimestamp(int(fecha)-18000))
-    timeForWebex = datetime.utcfromtimestamp(int(fecha)-18000).strftime("%m/%d/20%y %H:%M:00")
+    sendWebexMsg(datetime.fromtimestamp(int(fecha)-21600))
+    timeForWebex = datetime.utcfromtimestamp(int(fecha)-21600).strftime("%m/%d/20%y %H:%M:00")
     actualTimePlusHR = str(datetime.utcnow().timestamp()+3600)
     sipURL = createWebexMeeting(nombre,timeForWebex,correo)  
     if sipURL is None: return  False
